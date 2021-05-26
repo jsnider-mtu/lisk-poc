@@ -119,7 +119,7 @@ class SOCMEDAPIPlugin extends BasePlugin {
       );
       if (payload.length > 0) {
         await saveTransactions(this._db, payload);
-        const decodedBlock = this.codec.decodeBlock(block);
+        // const decodedBlock = this.codec.decodeBlock(block);
         // save NFT transaction history
         // await saveNFTHistory(this._db, decodedBlock, this._nodeInfo.registeredModules, this._channel);
       }
