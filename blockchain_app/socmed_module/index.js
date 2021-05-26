@@ -29,15 +29,15 @@ class SOCMEDModule extends BaseModule {
     required: ["name"],
     properties: {
       name: {
-        type: "string",
+        dataType: "string",
         fieldNumber: 1,
       },
       bio: {
-        type: "string",
+        dataType: "string",
         fieldNumber: 2,
       },
       avatar: {
-        type: "string",
+        dataType: "string",
         fieldNumber: 3,
       },
       posts: {
@@ -62,11 +62,11 @@ class SOCMEDModule extends BaseModule {
         },
       },
       moderator: {
-        type: "boolean",
+        dataType: "boolean",
         fieldNumber: 7,
       },
       banned: {
-        type: "boolean",
+        dataType: "boolean",
         fieldNumber: 8,
       },
     },
