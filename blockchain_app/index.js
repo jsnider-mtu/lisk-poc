@@ -10,8 +10,8 @@ const {
 // 2.Import NFT module and Plugin
 // const { NFTModule } = require('./nft_module');
 // const { NFTAPIPlugin } = require('./nft_api_plugin');
-// const { SOCMEDModule } = require('./socmed_module');
-// const { SOCMEDAPIPlugin } = require('./socmed_api_plugin');
+const { SOCMEDModule } = require('./socmed_module');
+const { SOCMEDAPIPlugin } = require('./socmed_api_plugin');
 
 // 3.Update the genesis block accounts to include socmed module attributes
 genesisBlockDevnet.header.timestamp = 1605699440;
@@ -35,21 +35,21 @@ genesisBlockDevnet.header.asset.accounts = genesisBlockDevnet.header.asset.accou
 // and communityIdentifier to mitigate transaction replay
 const appConfig = utils.objects.mergeDeep({}, configDevnet, {
     label: 'socmed',
-    forging: {
-        waitThreshold: 1,
-    },
+    // forging: {
+    //     waitThreshold: 1,
+    // },
     genesisConfig: {
         communityIdentifier: 'SocialMediaDemo',
-        blockTime: 2,
-        maxPayloadLength: 30 * 1024,
-        minFeePerByte: 0,
-        baseFees: [
-            {
-                "moduleID": 5,
-                "assetID": 0,
-                "baseFee": "0",
-            }
-        ],
+        // blockTime: 2,
+        // maxPayloadLength: 30 * 1024,
+        // minFeePerByte: 0,
+        // baseFees: [
+        //     {
+        //         "moduleID": 5,
+        //         "assetID": 0,
+        //         "baseFee": "0",
+        //     }
+        // ],
         // minRemainingBalance: "0",
     },
     // rpc: {
@@ -67,9 +67,9 @@ const app = Application.defaultApplication(genesisBlockDevnet, appConfig);
 
 // 6.Register custom NFT Module and Plugins
 // app.registerModule(NFTModule);
-// app.registerModule(SOCMEDModule);
+app.registerModule(SOCMEDModule);
 app.registerPlugin(HTTPAPIPlugin);
-// app.registerPlugin(SOCMEDAPIPlugin);
+app.registerPlugin(SOCMEDAPIPlugin);
 // app.registerPlugin(NFTAPIPlugin);
 
 // 7.Run the application
