@@ -10,8 +10,8 @@ const {
 // 2.Import NFT module and Plugin
 // const { NFTModule } = require('./nft_module');
 // const { NFTAPIPlugin } = require('./nft_api_plugin');
-const { SOCMEDModule } = require('./socmed_module');
-const { SOCMEDAPIPlugin } = require('./socmed_api_plugin');
+// const { SOCMEDModule } = require('./socmed_module');
+// const { SOCMEDAPIPlugin } = require('./socmed_api_plugin');
 
 // 3.Update the genesis block accounts to include socmed module attributes
 genesisBlockDevnet.header.timestamp = 1605699440;
@@ -50,7 +50,7 @@ const appConfig = utils.objects.mergeDeep({}, configDevnet, {
                 "baseFee": "0",
             }
         ],
-        minRemainingBalance: "0",
+        // minRemainingBalance: "0",
     },
     // rpc: {
     //     enable: true,
@@ -67,9 +67,9 @@ const app = Application.defaultApplication(genesisBlockDevnet, appConfig);
 
 // 6.Register custom NFT Module and Plugins
 // app.registerModule(NFTModule);
-app.registerModule(SOCMEDModule);
+// app.registerModule(SOCMEDModule);
 app.registerPlugin(HTTPAPIPlugin);
-app.registerPlugin(SOCMEDAPIPlugin);
+// app.registerPlugin(SOCMEDAPIPlugin);
 // app.registerPlugin(NFTAPIPlugin);
 
 // 7.Run the application
