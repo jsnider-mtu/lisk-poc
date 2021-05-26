@@ -43,8 +43,14 @@ const appConfig = utils.objects.mergeDeep({}, configDevnet, {
         blockTime: 2,
         maxPayloadLength: 30 * 1024,
         minFeePerByte: 0,
-        baseFees: [],
-        minRemainingBalance: '0',
+        baseFees: [
+            {
+                "moduleID": 5,
+                "assetID": 0,
+                "baseFee": "0",
+            }
+        ],
+        minRemainingBalance: "0",
     },
     // rpc: {
     //     enable: true,
