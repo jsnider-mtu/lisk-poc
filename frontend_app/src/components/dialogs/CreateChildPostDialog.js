@@ -39,7 +39,7 @@ export default function CreateChildPostDialog(props) {
   const handleSend = async (event) => {
     event.preventDefault();
 
-    const res = await createPost({
+    const res = await createChildPost({
       ...data,
       networkIdentifier: nodeInfo.networkIdentifier,
       minFeePerByte: nodeInfo.minFeePerByte,

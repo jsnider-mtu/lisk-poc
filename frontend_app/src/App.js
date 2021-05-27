@@ -172,8 +172,8 @@ function App() {
 						</Switch>
 					</Container>
 
-					<CreateNFTTokenDialog
-						open={openDialog === 'CreateNFTTokenDialog'}
+					<CreatePostDialog
+						open={openDialog === 'CreatePostDialog'}
 						handleClose={() => {
 							setOpenDialog(null);
 						}}

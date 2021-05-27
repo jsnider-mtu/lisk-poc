@@ -35,12 +35,12 @@ genesisBlockDevnet.header.asset.accounts = genesisBlockDevnet.header.asset.accou
 // and communityIdentifier to mitigate transaction replay
 const appConfig = utils.objects.mergeDeep({}, configDevnet, {
     label: 'socmed',
-    forging: {
-        waitThreshold: 1,
-    },
+    // forging: {
+    //     waitThreshold: 1,
+    // },
     genesisConfig: {
         communityIdentifier: 'SocialMediaDemo',
-        blockTime: 2,
+        // blockTime: 2,
         maxPayloadLength: 30 * 1024,
         minFeePerByte: 0,
         baseFees: [

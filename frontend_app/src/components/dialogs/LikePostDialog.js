@@ -39,7 +39,7 @@ export default function LikePostDialog(props) {
   const handleSend = async (event) => {
     event.preventDefault();
 
-    const res = await createPost({
+    const res = await likePost({
       ...data,
       networkIdentifier: nodeInfo.networkIdentifier,
       minFeePerByte: nodeInfo.minFeePerByte,

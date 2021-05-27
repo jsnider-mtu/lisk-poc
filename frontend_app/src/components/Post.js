@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link as RouterLink } from "react-router-dom";
-import { transactions, cryptography, Buffer } from "@liskhq/lisk-client";
+import { cryptography, Buffer } from "@liskhq/lisk-client";
 
 import LikePostDialog from "./dialogs/LikePostDialog";
 import SharePostDialog from "./dialogs/SharePostDialog";
@@ -83,23 +83,6 @@ export default function Post(props) {
             </dd>
           </li>
         </dl>
-        // <Typography variant="h6">NFT History</Typography>
-        // <Divider />
-        // {props.item.tokenHistory.map((obj) => (
-        //   <dl className={classes.propertyList}>
-        //     <li>
-        //       <dd>
-        //         <Link
-        //           component={RouterLink}
-        //           to={`/accounts/${obj.address}`}
-        //         >
-        //           {obj.address}
-        //         </Link> at {transactions.convertBeddowsToLSK(obj.salePrice)} LSK
-        //       </dd>
-        //     </li>
-        //   </dl>
-        // ))}
-
       </CardContent>
       <CardActions>
         <>
@@ -156,24 +139,6 @@ export default function Post(props) {
             post={props.item}
           />
         </>
-        // <>
-        //   <Button
-        //     size="small"
-        //     color="primary"
-        //     onClick={() => {
-        //       setOpenUpdateMinPrice(true);
-        //     }}
-        //   >
-        //     Update Minimum Price
-        //   </Button>
-        //   <UpdateNFTMinPriceDialog
-        //     open={openUpdateMinPrice}
-        //     handleClose={() => {
-        //       setOpenUpdateMinPrice(false);
-        //     }}
-        //     token={props.item}
-        //   />
-        // </>
       </CardActions>
     </Card>
   );
