@@ -10,7 +10,7 @@ const registeredPostsSchema = {
       fieldNumber: 1,
       items: {
         type: "object",
-        required: ["id", "message", "ownerAddress"],
+        required: ["id", "message", "ownerAddress"],// "username", "timestamp"],
         properties: {
           id: {
             dataType: "bytes",
@@ -57,6 +57,14 @@ const registeredPostsSchema = {
             dataType: "boolean",
             fieldNumber: 9,
           },
+          // username: {
+          //   dataType: "string",
+          //   fieldNumber: 10,
+          // },
+          // timestamp: {
+          //   dataType: "number",
+          //   fieldNumber: 11,
+          // },
         },
       },
     },
@@ -82,10 +90,16 @@ const createPost = ({ message, ownerAddress, nonce }) => {
     throw new Error("Message length must not exceed 512");
   }
 
+  // Get username
+
+  // Get timestamp
+
   return {
     id,
     message,
     ownerAddress,
+    // username,
+    // timestamp,
   };
 };
 
@@ -99,11 +113,17 @@ const createChildPost = ({ message, ownerAddress, nonce, parentPost }) => {
     throw new Error("Message length must not exceed 512");
   }
 
+  // Get username
+
+  // Get timestamp
+
   return {
     id,
     message,
     ownerAddress,
     parentPost,
+    // username,
+    // timestamp,
   };
 };
 
@@ -117,11 +137,17 @@ const createSharePost = ({ message, ownerAddress, nonce, sharedPost }) => {
     throw new Error("Message length must not exceed 512");
   }
 
+  // Get username
+
+  // Get timestamp
+
   return {
     id,
     message,
     ownerAddress,
     sharedPost,
+    // username,
+    // timestamp,
   };
 };
 
