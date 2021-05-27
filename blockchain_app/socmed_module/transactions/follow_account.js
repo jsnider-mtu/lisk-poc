@@ -39,7 +39,7 @@ class FollowAccountAsset extends BaseAsset {
     // Credit followedAccount
     await reducerHandler.invoke("token:credit", {
       address: followedAddress,
-      amount: 1n,
+      amount: 10000000n,
     });
   }
 }

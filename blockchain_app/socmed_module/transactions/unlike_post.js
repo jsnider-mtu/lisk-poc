@@ -44,7 +44,7 @@ class UnlikePostAsset extends BaseAsset {
     // Debit postOwner
     await reducerHandler.invoke("token:debit", {
       address: postOwner.address,
-      amount: 1n,
+      amount: 10000000n,
     });
   }
 }
