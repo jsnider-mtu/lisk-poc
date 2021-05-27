@@ -22,11 +22,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function LikePostDialog(props) {
+  console.log(props);
   const nodeInfo = useContext(NodeInfoContext);
   const classes = useStyles();
   const [data, setData] = useState({
     postId: props.post.id,
-    likerAddress: props.account.address,
     fee: "0.1",
     passphrase: "",
   });

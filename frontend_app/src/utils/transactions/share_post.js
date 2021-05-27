@@ -46,7 +46,7 @@ export const sharePost = async ({
       fee: BigInt(transactions.convertLSKToBeddows(fee)),
       senderPublicKey: publicKey,
       asset: {
-        postId,
+        postId: Buffer.from(postId, 'hex'),
         message,
       },
     },

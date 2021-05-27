@@ -22,7 +22,6 @@ export const likePostSchema = {
 
 export const likePost = async ({
   postId,
-  likerAddress,
   passphrase,
   fee,
   networkIdentifier,
@@ -46,8 +45,8 @@ export const likePost = async ({
       fee: BigInt(transactions.convertLSKToBeddows(fee)),
       senderPublicKey: publicKey,
       asset: {
-        postId,
-        likerAddress,
+        postId: Buffer.from(postId, 'hex'),
+        likerAddress: Buffer.from(address, 'binary'),
       },
     },
     Buffer.from(networkIdentifier, "hex"),

@@ -43,6 +43,7 @@ export default function TransferFundsDialog(props) {
       networkIdentifier: nodeInfo.networkIdentifier,
       minFeePerByte: nodeInfo.minFeePerByte,
     });
+    // console.log(res.tx);
     await api.sendTransactions(res.tx);
     props.handleClose();
   };
