@@ -4,20 +4,25 @@ import { transactions, codec, cryptography } from "@liskhq/lisk-client";
 import { getFullAssetSchema, calcMinTxFee } from "../common";
 import { fetchAccountInfo } from "../../api";
 
-export const createPostSchema = {
-  $id: "lisk/create-post-asset",
+export const likePostSchema = {
+  $id: "lisk/like-post-asset",
   type: "object",
-  required: ["message"],
+  required: ["postId", "likerAddress"],
   properties: {
-    message: {
-      dataType: "string",
+    postId: {
+      dataType: "bytes",
       fieldNumber: 1,
+    },
+    likerAddress: {
+      dataType: "bytes",
+      fieldNumber: 2,
     },
   },
 };
 
-export const createPost = async ({
-  message,
+export const likePost = async ({
+  postId,
+  likerAddress,
   passphrase,
   fee,
   networkIdentifier,
@@ -33,15 +38,16 @@ export const createPost = async ({
   } = await fetchAccountInfo(address);
 
   const { id, ...rest } = transactions.signTransaction(
-    createPostSchema,
+    likePostSchema,
     {
       moduleID: 1024,
-      assetID: 0,
+      assetID: 2,
       nonce: BigInt(nonce),
       fee: BigInt(transactions.convertLSKToBeddows(fee)),
       senderPublicKey: publicKey,
       asset: {
-        message,
+        postId,
+        likerAddress,
       },
     },
     Buffer.from(networkIdentifier, "hex"),
@@ -50,7 +56,7 @@ export const createPost = async ({
 
   return {
     id: id.toString("hex"),
-    tx: codec.codec.toJSON(getFullAssetSchema(createPostSchema), rest),
-    minFee: calcMinTxFee(createPostSchema, minFeePerByte, rest),
+    tx: codec.codec.toJSON(getFullAssetSchema(likePostSchema), rest),
+    minFee: calcMinTxFee(likePostSchema, minFeePerByte, rest),
   };
 };

@@ -4,20 +4,20 @@ import { transactions, codec, cryptography } from "@liskhq/lisk-client";
 import { getFullAssetSchema, calcMinTxFee } from "../common";
 import { fetchAccountInfo } from "../../api";
 
-export const createPostSchema = {
-  $id: "lisk/create-post-asset",
+export const deletePostSchema = {
+  $id: "lisk/delete-post-asset",
   type: "object",
-  required: ["message"],
+  required: ["postId"],
   properties: {
-    message: {
+    postId: {
       dataType: "string",
       fieldNumber: 1,
     },
   },
 };
 
-export const createPost = async ({
-  message,
+export const deletePost = async ({
+  postId,
   passphrase,
   fee,
   networkIdentifier,
@@ -33,15 +33,15 @@ export const createPost = async ({
   } = await fetchAccountInfo(address);
 
   const { id, ...rest } = transactions.signTransaction(
-    createPostSchema,
+    deletePostSchema,
     {
       moduleID: 1024,
-      assetID: 0,
+      assetID: 4,
       nonce: BigInt(nonce),
       fee: BigInt(transactions.convertLSKToBeddows(fee)),
       senderPublicKey: publicKey,
       asset: {
-        message,
+        postId,
       },
     },
     Buffer.from(networkIdentifier, "hex"),
@@ -50,7 +50,7 @@ export const createPost = async ({
 
   return {
     id: id.toString("hex"),
-    tx: codec.codec.toJSON(getFullAssetSchema(createPostSchema), rest),
-    minFee: calcMinTxFee(createPostSchema, minFeePerByte, rest),
+    tx: codec.codec.toJSON(getFullAssetSchema(deletePostSchema), rest),
+    minFee: calcMinTxFee(deletePostSchema, minFeePerByte, rest),
   };
 };

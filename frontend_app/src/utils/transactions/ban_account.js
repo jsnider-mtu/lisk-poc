@@ -4,20 +4,20 @@ import { transactions, codec, cryptography } from "@liskhq/lisk-client";
 import { getFullAssetSchema, calcMinTxFee } from "../common";
 import { fetchAccountInfo } from "../../api";
 
-export const createPostSchema = {
-  $id: "lisk/create-post-asset",
+export const banAccountSchema = {
+  $id: "lisk/ban-account-asset",
   type: "object",
-  required: ["message"],
+  required: ["address"],
   properties: {
     message: {
-      dataType: "string",
+      dataType: "bytes",
       fieldNumber: 1,
     },
   },
 };
 
-export const createPost = async ({
-  message,
+export const banAccount = async ({
+  address,
   passphrase,
   fee,
   networkIdentifier,
@@ -26,22 +26,22 @@ export const createPost = async ({
   const { publicKey } = cryptography.getPrivateAndPublicKeyFromPassphrase(
     passphrase
   );
-  const address = cryptography.getAddressFromPassphrase(passphrase).toString("hex");
+  const addressFromPass = cryptography.getAddressFromPassphrase(passphrase).toString("hex");
 
   const {
     sequence: { nonce },
-  } = await fetchAccountInfo(address);
+  } = await fetchAccountInfo(addressFromPass);
 
   const { id, ...rest } = transactions.signTransaction(
-    createPostSchema,
+    banAccountSchema,
     {
       moduleID: 1024,
-      assetID: 0,
+      assetID: 9,
       nonce: BigInt(nonce),
       fee: BigInt(transactions.convertLSKToBeddows(fee)),
       senderPublicKey: publicKey,
       asset: {
-        message,
+        address,
       },
     },
     Buffer.from(networkIdentifier, "hex"),
@@ -50,7 +50,7 @@ export const createPost = async ({
 
   return {
     id: id.toString("hex"),
-    tx: codec.codec.toJSON(getFullAssetSchema(createPostSchema), rest),
-    minFee: calcMinTxFee(createPostSchema, minFeePerByte, rest),
+    tx: codec.codec.toJSON(getFullAssetSchema(banAccountSchema), rest),
+    minFee: calcMinTxFee(banAccountSchema, minFeePerByte, rest),
   };
 };

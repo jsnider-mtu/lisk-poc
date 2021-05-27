@@ -22,14 +22,14 @@ export const sendTransactions = async (tx) => {
     .then((res) => res.data);
 };
 
-export const fetchAllNFTTokens = async () => {
-  return fetch("http://localhost:8080/api/nft_tokens")
+export const fetchAllPosts = async () => {
+  return fetch("http://localhost:8080/api/posts")
     .then((res) => res.json())
     .then((res) => res.data);
 };
 
-export const fetchNFTToken = async (id) => {
-  return fetch(`http://localhost:8080/api/nft_tokens/${id}`)
+export const fetchPost = async (id) => {
+  return fetch(`http://localhost:8080/api/posts/${id}`)
     .then((res) => res.json())
     .then((res) => res.data);
 };
