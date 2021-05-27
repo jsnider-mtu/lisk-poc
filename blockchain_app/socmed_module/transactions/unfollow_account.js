@@ -40,7 +40,7 @@ class UnfollowAccountAsset extends BaseAsset {
     // Debit followedAccount
     await reducerHandler.invoke("token:debit", {
       address: followedAddress,
-      amount: 10000000n,
+      amount: 100000000n,
     });
   }
 }

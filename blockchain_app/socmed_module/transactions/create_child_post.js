@@ -73,7 +73,7 @@ class CreateChildPostAsset extends BaseAsset {
 
     await reducerHandler.invoke("token:credit", {
       address: allPosts[parentPostIndex].ownerAddress,
-      amount: 10000000n,
+      amount: 100000000n,
     });
   }
 }

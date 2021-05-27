@@ -45,7 +45,7 @@ class LikePostAsset extends BaseAsset {
     // Credit postOwner
     await reducerHandler.invoke("token:credit", {
       address: postOwner.address,
-      amount: 10000000n,
+      amount: 100000000n,
     });
   }
 }
