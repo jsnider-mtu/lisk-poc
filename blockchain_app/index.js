@@ -41,14 +41,14 @@ const appConfig = utils.objects.mergeDeep({}, configDevnet, {
     genesisConfig: {
         communityIdentifier: 'SocialMediaDemo',
         // blockTime: 2,
-        maxPayloadLength: 30 * 1024,
+        // maxPayloadLength: 30 * 1024,
         minFeePerByte: 0,
         baseFees: [
-            // {
-            //     "moduleID": 5,
-            //     "assetID": 0,
-            //     "baseFee": "0",
-            // }
+            {
+                "moduleID": 5,
+                "assetID": 0,
+                "baseFee": "0",
+            }
         ],
         // minRemainingBalance: "0",
     },
