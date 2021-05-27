@@ -14,7 +14,7 @@ import { transactions, cryptography, Buffer } from "@liskhq/lisk-client";
 
 import LikePostDialog from "./dialogs/LikePostDialog";
 import SharePostDialog from "./dialogs/SharePostDialog";
-import ReplyToPostDialog from "./dialogs/ReplyToPostDialog";
+import CreateChildPostDialog from "./dialogs/CreateChildPostDialog";
 
 const useStyles = makeStyles((theme) => ({
   propertyList: {
@@ -148,7 +148,7 @@ export default function Post(props) {
           >
             Reply to Post
           </Button>
-          <ReplyToPostDialog
+          <CreateChildPostDialog
             open={openReply}
             handleClose={() => {
               setOpenReply(false);

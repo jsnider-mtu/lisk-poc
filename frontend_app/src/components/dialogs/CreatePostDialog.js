@@ -9,8 +9,8 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { NodeInfoContext } from "../../context";
-import { createNFTToken } from "../../utils/transactions/create_nft_token";
-// import { createPost } from "../../utils/transactions/create_post";
+// import { createNFTToken } from "../../utils/transactions/create_nft_token";
+import { createPost } from "../../utils/transactions/create_post";
 import * as api from "../../api";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,10 +25,8 @@ export default function CreatePostDialog(props) {
   const nodeInfo = useContext(NodeInfoContext);
   const classes = useStyles();
   const [data, setData] = useState({
-    name: "",
-    initValue: "",
-    commissionMargin: "",
-    fee: "",
+    message: "",
+    fee: "0",
     passphrase: "",
   });
 
@@ -52,34 +50,13 @@ export default function CreatePostDialog(props) {
   return (
     <Fragment>
       <Dialog open={props.open} onBackdropClick={props.handleClose}>
-        <DialogTitle id="alert-dialog-title">{"Create NFT"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Create Post"}</DialogTitle>
         <DialogContent>
           <form className={classes.root} noValidate autoComplete="off">
             <TextField
-              label="Name"
-              value={data.name}
-              name="name"
-              onChange={handleChange}
-              fullWidth
-            />
-            <TextField
-              label="Initial Token value"
-              value={data.initValue}
-              name="initValue"
-              onChange={handleChange}
-              fullWidth
-            />
-            <TextField
-              label="Commission Margin (0 - 100)"
-              value={data.commissionMargin}
-              name="commissionMargin"
-              onChange={handleChange}
-              fullWidth
-            />
-            <TextField
-              label="Fee"
-              value={data.fee}
-              name="fee"
+              label="Message"
+              value={data.message}
+              name="message"
               onChange={handleChange}
               fullWidth
             />
@@ -93,7 +70,7 @@ export default function CreatePostDialog(props) {
           </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleSend}>Create NFT</Button>
+          <Button onClick={handleSend}>Create Post</Button>
         </DialogActions>
       </Dialog>
     </Fragment>

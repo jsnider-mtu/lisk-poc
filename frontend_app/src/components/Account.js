@@ -39,13 +39,13 @@ export default function Account(props) {
     async function fetchData() {
       setNftTokens(
         await Promise.all(
-          props.account.nft.ownNFTs.map((a) => fetchNFTToken(a))
+          props.account.socmed.posts.map((a) => fetchPost(a))
         )
       );
     }
 
     fetchData();
-  }, [props.account.nft.ownNFTs]);
+  }, [props.account.socmed.posts]);
 
   return (
     <Container>
@@ -63,11 +63,11 @@ export default function Account(props) {
           <dd>{props.account.address}</dd>
         </li>
       </dl>
-      <Typography variant="h6">{"NFTs"}</Typography>
+      <Typography variant="h6">{"Posts"}</Typography>
       <Grid container spacing={4}>
         {nftTokens.map((item) => (
           <Grid item md={3}>
-            <NFTToken item={item} key={item.address} minimum={true} />
+            <Post item={item} key={item.id} minimum={true} />
           </Grid>
         ))}
       </Grid>

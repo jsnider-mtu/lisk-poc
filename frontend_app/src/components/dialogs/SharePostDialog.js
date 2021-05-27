@@ -9,7 +9,8 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { NodeInfoContext } from "../../context";
-import { transfer } from "../../utils/transactions/transfer";
+// import { createNFTToken } from "../../utils/transactions/create_nft_token";
+import { sharePost } from "../../utils/transactions/share_post";
 import * as api from "../../api";
 
 const useStyles = makeStyles((theme) => ({
@@ -20,14 +21,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TransferFundsDialog(props) {
+export default function SharePostDialog(props) {
   const nodeInfo = useContext(NodeInfoContext);
   const classes = useStyles();
   const [data, setData] = useState({
-    recipientAddress: "",
-    passphrase: "",
-    amount: "",
+    postId: props.post.id,
+    message: "",
     fee: "0",
+    passphrase: "",
   });
 
   const handleChange = (event) => {
@@ -38,7 +39,7 @@ export default function TransferFundsDialog(props) {
   const handleSend = async (event) => {
     event.preventDefault();
 
-    const res = await transfer({
+    const res = await sharePost({
       ...data,
       networkIdentifier: nodeInfo.networkIdentifier,
       minFeePerByte: nodeInfo.minFeePerByte,
@@ -50,20 +51,20 @@ export default function TransferFundsDialog(props) {
   return (
     <Fragment>
       <Dialog open={props.open} onBackdropClick={props.handleClose}>
-        <DialogTitle id="alert-dialog-title">{"Transfer Funds"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Share Post"}</DialogTitle>
         <DialogContent>
           <form className={classes.root} noValidate autoComplete="off">
             <TextField
-              label="Recipient Address"
-              value={data.recipientAddress}
-              name="recipientAddress"
+              label="Message"
+              value={data.message}
+              name="message"
               onChange={handleChange}
               fullWidth
             />
             <TextField
-              label="Amount"
-              value={data.amount}
-              name="amount"
+              label="Shared Post"
+              value={data.postId}
+              name="postId"
               onChange={handleChange}
               fullWidth
             />
@@ -74,25 +75,12 @@ export default function TransferFundsDialog(props) {
               onChange={handleChange}
               fullWidth
             />
-
-            <Button
-              onClick={() => {
-                setData({
-                  ...data,
-                  passphrase:
-                    "peanut hundred pen hawk invite exclude brain chunk gadget wait wrong ready",
-                });
-              }}
-            >
-              Use Genesis Account
-            </Button>
           </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleSend}>Send Funds</Button>
+          <Button onClick={handleSend}>Share Post</Button>
         </DialogActions>
       </Dialog>
     </Fragment>
   );
 }
-
