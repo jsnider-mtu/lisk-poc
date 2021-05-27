@@ -153,7 +153,7 @@ const createSharePost = ({ message, ownerAddress, nonce, sharedPost }) => {
     sharedPost,
     likes: [],
     shares: [],
-    parentPost: "",
+    parentPost: Buffer.alloc(0),
     replies: [],
     deleted: false,
     // username,

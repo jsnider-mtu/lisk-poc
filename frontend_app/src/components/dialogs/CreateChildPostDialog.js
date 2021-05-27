@@ -26,7 +26,7 @@ export default function CreateChildPostDialog(props) {
   const classes = useStyles();
   const [data, setData] = useState({
     message: "",
-    parentPost: props.post.parentPost,
+    parentPost: props.post.id,
     fee: "0.1",
     passphrase: "",
   });

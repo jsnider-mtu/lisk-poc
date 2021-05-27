@@ -62,11 +62,8 @@ class CreateSharePostAsset extends BaseAsset {
     // and push new post to posts then setAllPosts
     sharedPost.shares.push(transaction.senderAddress);
     posts[sharedPostIndex] = sharedPost;
+    posts.push(post);
     await setAllPosts(stateStore, posts);
-
-    const allPosts = await getAllPosts(stateStore);
-    allPosts.push(post);
-    await setAllPosts(stateStore, allPosts);
 
     // Credit postOwner
     await reducerHandler.invoke("token:credit", {

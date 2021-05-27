@@ -47,7 +47,7 @@ export const createChildPost = async ({
       senderPublicKey: publicKey,
       asset: {
         message,
-        parentPost,
+        parentPost: Buffer.from(parentPost, 'hex'),
       },
     },
     Buffer.from(networkIdentifier, "hex"),

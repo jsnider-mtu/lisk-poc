@@ -40,7 +40,7 @@ class CreateChildPostAsset extends BaseAsset {
 
     const allPosts = await getAllPosts(stateStore);
     const parentPostIndex = allPosts.findIndex((a) =>
-      a.equals(asset.parentPost)
+      a.id.equals(asset.parentPost)
     );
     if (!parentPostIndex) {
       throw new Error("Parent post does not exist.")
@@ -57,6 +57,9 @@ class CreateChildPostAsset extends BaseAsset {
     // 6.update sender account with unique post id
     senderAccount.socmed.posts.push(post.id);
     await stateStore.account.set(senderAddress, senderAccount);
+
+    // 7.credit parentPost account and add post.id to replies array
+    
 
     // 7.debit tokens from sender account to create nft
     // await reducerHandler.invoke("token:debit", {
