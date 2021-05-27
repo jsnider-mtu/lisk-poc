@@ -27,7 +27,7 @@ export default function LikePostDialog(props) {
   const [data, setData] = useState({
     postId: props.post.id,
     likerAddress: props.account.address,
-    fee: "0",
+    fee: "0.1",
     passphrase: "",
   });
 
