@@ -27,7 +27,7 @@ export default function TransferFundsDialog(props) {
     recipientAddress: "",
     passphrase: "",
     amount: "",
-    fee: "0.1",
+    fee: "0",
   });
 
   const handleChange = (event) => {

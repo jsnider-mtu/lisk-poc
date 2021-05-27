@@ -26,7 +26,7 @@ export default function CreatePostDialog(props) {
   const classes = useStyles();
   const [data, setData] = useState({
     message: "",
-    fee: "0.1",
+    fee: "0",
     passphrase: "",
   });
 

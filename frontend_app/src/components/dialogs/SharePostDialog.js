@@ -27,7 +27,7 @@ export default function SharePostDialog(props) {
   const [data, setData] = useState({
     postId: props.post.id,
     message: "",
-    fee: "0.1",
+    fee: "0",
     passphrase: "",
   });
 

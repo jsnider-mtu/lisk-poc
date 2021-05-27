@@ -27,7 +27,7 @@ export default function LikePostDialog(props) {
   const classes = useStyles();
   const [data, setData] = useState({
     postId: props.post.id,
-    fee: "0.1",
+    fee: "0",
     passphrase: "",
   });
 
