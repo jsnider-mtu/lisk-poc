@@ -28,7 +28,7 @@ const registeredPostsSchema = {
             type: "array",
             fieldNumber: 4,
             items: {
-              type: "bytes", // addresses
+              dataType: "bytes", // addresses
             },
           },
           sharedPost: {
@@ -39,7 +39,7 @@ const registeredPostsSchema = {
             type: "array",
             fieldNumber: 6,
             items: {
-              type: "bytes", // postIds
+              dataType: "bytes", // postIds
             },
           },
           parentPost: {
@@ -50,7 +50,7 @@ const registeredPostsSchema = {
             type: "array",
             fieldNumber: 8,
             items: {
-              type: "bytes", // postIds
+              dataType: "bytes", // postIds
             },
           },
           deleted: {
@@ -69,12 +69,6 @@ const registeredPostsSchema = {
       },
     },
   },
-  default: {
-    likes: [],
-    shares: [],
-    replies: [],
-    deleted: false,
-  },
 };
 
 const CHAIN_STATE_POSTS = "socmed:registeredPosts";
@@ -86,9 +80,9 @@ const createPost = ({ message, ownerAddress, nonce }) => {
   const id = cryptography.hash(seed);
 
   // Validate size of message
-  if (message.length > 512) {
-    throw new Error("Message length must not exceed 512");
-  }
+  // if (message.length > 512) {
+  //   throw new Error("Message length must not exceed 512");
+  // }
 
   // Get username
 
@@ -109,9 +103,9 @@ const createChildPost = ({ message, ownerAddress, nonce, parentPost }) => {
   const seed = Buffer.concat([ownerAddress, nonceBuffer]);
   const id = cryptography.hash(seed);
 
-  if (message.length > 512) {
-    throw new Error("Message length must not exceed 512");
-  }
+  // if (message.length > 512) {
+  //   throw new Error("Message length must not exceed 512");
+  // }
 
   // Get username
 
@@ -133,9 +127,9 @@ const createSharePost = ({ message, ownerAddress, nonce, sharedPost }) => {
   const seed = Buffer.concat([ownerAddress, nonceBuffer]);
   const id = cryptography.hash(seed);
 
-  if (message.length > 512) {
-    throw new Error("Message length must not exceed 512");
-  }
+  // if (message.length > 512) {
+  //   throw new Error("Message length must not exceed 512");
+  // }
 
   // Get username
 
