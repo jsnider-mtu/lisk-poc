@@ -28,16 +28,22 @@ class CreateSharePostAsset extends BaseAsset {
 
   async apply({ asset, stateStore, reducerHandler, transaction }) {
     const posts = await getAllPosts(stateStore);
-    const sharedPostIndex = posts.findIndex((t) => t.id.equals(asset.postId));
+    const postIndex = posts.findIndex((t) => t.id.equals(asset.postId));
 
-    if (sharedPostIndex < 0) {
+    if (postIndex < 0) {
       throw new Error("[SHARE] Post ID not found: " + asset.postId);
     }
+
+    var sharedPostIndex = posts.findIndex((a) => a.id.equals(posts[postIndex].sharedPost));
+
+    if (sharedPostIndex < 0) {
+      sharedPostIndex = postIndex;
+    }
+    const sharedPost = posts[sharedPostIndex];
 
     const senderAddress = transaction.senderAddress;
     const senderAccount = await stateStore.account.get(senderAddress);
 
-    const sharedPost = posts[sharedPostIndex];
     const postOwner = await stateStore.account.get(sharedPost.ownerAddress);
 
     // Exit if already shared by this sender
@@ -46,12 +52,17 @@ class CreateSharePostAsset extends BaseAsset {
       throw new Error("Post " + sharedPost.id + " was already shared by " + senderAddress);
     }
 
+    // Exit if sharedPost is owned by sender
+    if (sharedPost.ownerAddress.equals(senderAddress)) {
+      throw new Error("Cannot share your own post");
+    }
+
     // Create share post
     const post = createSharePost({
       message: asset.message,
       ownerAddress: senderAddress,
       nonce: transaction.nonce,
-      sharedPost: asset.postId,
+      sharedPost: sharedPost.id,
     });
 
     // 6.update sender account with unique post id
