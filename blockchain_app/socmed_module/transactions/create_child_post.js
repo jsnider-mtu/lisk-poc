@@ -69,10 +69,12 @@ class CreateChildPostAsset extends BaseAsset {
     allPosts.push(post);
     await setAllPosts(stateStore, allPosts);
 
-    await reducerHandler.invoke("token:credit", {
-      address: allPosts[parentPostIndex].ownerAddress,
-      amount: 100000000n,
-    });
+    if (allPosts[parentPostIndex].ownerAddress !== senderAddress) {
+      await reducerHandler.invoke("token:credit", {
+        address: allPosts[parentPostIndex].ownerAddress,
+        amount: 100000000n,
+      });
+    }
   }
 }
 
