@@ -37,6 +37,11 @@ class LikePostAsset extends BaseAsset {
       throw new Error("Post " + post.id + " was already liked by " + transaction.senderAddress);
     }
 
+    // Exit if owned by this sender
+    if (post.ownerAddress.equals(transaction.senderAddress)) {
+      throw new Error("No liking your own post");
+    }
+
     // Add sender address to likes array on post asset then setAllPosts
     post.likes.push(transaction.senderAddress);
     posts[postIndex] = post;
