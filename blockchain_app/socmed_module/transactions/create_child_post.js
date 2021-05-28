@@ -39,10 +39,8 @@ class CreateChildPostAsset extends BaseAsset {
     const senderAccount = await stateStore.account.get(senderAddress);
 
     const allPosts = await getAllPosts(stateStore);
-    const parentPostIndex = allPosts.findIndex((a) =>
-      a.id.equals(asset.parentPost)
-    );
-    if (!parentPostIndex) {
+    const parentPostIndex = allPosts.findIndex((a) => a.id.equals(asset.parentPost));
+    if (parentPostIndex < 0) {
       throw new Error("Parent post does not exist.")
     }
 
