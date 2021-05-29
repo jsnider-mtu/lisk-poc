@@ -30,6 +30,8 @@ genesisBlockDevnet.header.asset.accounts = genesisBlockDevnet.header.asset.accou
             },
         }),
 );
+const genAccountIndex = genesisBlockDevnet.header.asset.accounts.findIndex((a) => a.address === 'd04699e57c4a3846c988f3c15306796f8eae5c1c');
+genesisBlockDevnet.header.asset.accounts[genAccountIndex].socmed.moderator = true;
 
 // 4.Update application config to include unique label
 // and communityIdentifier to mitigate transaction replay
@@ -40,8 +42,8 @@ const appConfig = utils.objects.mergeDeep({}, configDevnet, {
     // },
     genesisConfig: {
         communityIdentifier: 'SocialMediaDemo',
-        // blockTime: 2,
-        // maxPayloadLength: 30 * 1024,
+        blockTime: 5,
+        maxPayloadLength: 30 * 1024,
         minFeePerByte: 0,
         baseFees: [
             {

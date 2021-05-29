@@ -57,10 +57,26 @@ export default function Account(props) {
           <dd>
             {transactions.convertBeddowsToLSK(props.account.token.balance)}
           </dd>
+          <dt>Username</dt>
+          <dd>{props.account.socmed.name}</dd>
+          <dt>Bio</dt>
+          <dd>{props.account.socmed.bio}</dd>
+          <dt>Avatar URL</dt>
+          <dd>{props.account.socmed.avatar}</dd>
+          <dt>Posts Count</dt>
+          <dd>{props.account.socmed.posts.length}</dd>
+          <dt>Follows Count</dt>
+          <dd>{props.account.socmed.follows.length}</dd>
+          <dt>Following Count</dt>
+          <dd>{props.account.socmed.following.length}</dd>
           <dt>Nonce</dt>
           <dd>{props.account.sequence.nonce}</dd>
           <dt>Binary address</dt>
           <dd>{props.account.address}</dd>
+          <dt>Moderator</dt>
+          <dd>{props.account.socmed.moderator.toString()}</dd>
+          <dt>Banned</dt>
+          <dd>{props.account.socmed.banned.toString()}</dd>
         </li>
       </dl>
       <Typography variant="h6">{"Posts"}</Typography>
