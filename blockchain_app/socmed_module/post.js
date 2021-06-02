@@ -62,7 +62,7 @@ const registeredPostsSchema = {
           //   fieldNumber: 10,
           // },
           timestamp: {
-            dataType: "uint32",
+            dataType: "string",
             fieldNumber: 10,
           },
         },
@@ -87,7 +87,8 @@ const createPost = ({ message, ownerAddress, nonce }) => {
   // Get username
 
   // Get timestamp
-  const timestamp = Date.now();
+  const dateobj = new Date(Date.now());
+  const timestamp = dateobj.toISOString();
 
   return {
     id,
@@ -117,7 +118,8 @@ const createChildPost = ({ message, ownerAddress, nonce, parentPost }) => {
   // Get username
 
   // Get timestamp
-  const timestamp = Date.now();
+  const dateobj = new Date(Date.now());
+  const timestamp = dateobj.toISOString();
 
   return {
     id,
@@ -147,7 +149,8 @@ const createSharePost = ({ message, ownerAddress, nonce, sharedPost }) => {
   // Get username
 
   // Get timestamp
-  const timestamp = Date.now();
+  const dateobj = new Date(Date.now());
+  const timestamp = dateobj.toISOString();
 
   return {
     id,

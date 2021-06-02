@@ -49,6 +49,8 @@ export default function Post(props) {
   // Get username from address
   const base32UIAddress = cryptography.getBase32AddressFromAddress(Buffer.from(props.item.ownerAddress, 'hex'), 'lsk').toString('binary');
   // const base32OrigAddress = cryptography.getBase32AddressFromAddress(Buffer.from(props.item.origOwnerAddress, 'hex'), 'lsk').toString('binary');
+  const dateobj = new Date(props.item.timestamp);
+  const datetime = dateobj.toString();
   return (
     <Card>
       <CardContent>
@@ -82,6 +84,10 @@ export default function Post(props) {
           <li>
             <dt>Deleted</dt>
             <dd>{props.item.deleted.toString()}</dd>
+          </li>
+          <li>
+            <dt>Timestamp</dt>
+            <dd>{datetime}</dd>
           </li>
           <li>
             <dt>Owner</dt>
