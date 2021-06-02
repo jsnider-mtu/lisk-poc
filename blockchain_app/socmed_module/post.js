@@ -61,10 +61,10 @@ const registeredPostsSchema = {
           //   dataType: "string",
           //   fieldNumber: 10,
           // },
-          // timestamp: {
-          //   dataType: "number",
-          //   fieldNumber: 11,
-          // },
+          timestamp: {
+            dataType: "uint32",
+            fieldNumber: 10,
+          },
         },
       },
     },
@@ -87,6 +87,7 @@ const createPost = ({ message, ownerAddress, nonce }) => {
   // Get username
 
   // Get timestamp
+  const timestamp = Date.now();
 
   return {
     id,
@@ -99,7 +100,7 @@ const createPost = ({ message, ownerAddress, nonce }) => {
     replies: [],
     deleted: false,
     // username,
-    // timestamp,
+    timestamp,
   };
 };
 
@@ -116,6 +117,7 @@ const createChildPost = ({ message, ownerAddress, nonce, parentPost }) => {
   // Get username
 
   // Get timestamp
+  const timestamp = Date.now();
 
   return {
     id,
@@ -128,7 +130,7 @@ const createChildPost = ({ message, ownerAddress, nonce, parentPost }) => {
     replies: [],
     deleted: false,
     // username,
-    // timestamp,
+    timestamp,
   };
 };
 
@@ -145,6 +147,7 @@ const createSharePost = ({ message, ownerAddress, nonce, sharedPost }) => {
   // Get username
 
   // Get timestamp
+  const timestamp = Date.now();
 
   return {
     id,
@@ -157,7 +160,7 @@ const createSharePost = ({ message, ownerAddress, nonce, sharedPost }) => {
     replies: [],
     deleted: false,
     // username,
-    // timestamp,
+    timestamp,
   };
 };
 
