@@ -72,6 +72,18 @@ export default function Post(props) {
             <dd>{props.item.replies.length}</dd>
           </li>
           <li>
+            <dt>Shared Post</dt>
+            <dd>{props.item.sharedPost}</dd>
+          </li>
+          <li>
+            <dt>Reply To</dt>
+            <dd>{props.item.parentPost}</dd>
+          </li>
+          <li>
+            <dt>Deleted</dt>
+            <dd>{props.item.deleted.toString()}</dd>
+          </li>
+          <li>
             <dt>Owner</dt>
             <dd>
               <Link
