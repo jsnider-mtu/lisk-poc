@@ -9,7 +9,7 @@ export const banAccountSchema = {
   type: "object",
   required: ["address"],
   properties: {
-    message: {
+    address: {
       dataType: "bytes",
       fieldNumber: 1,
     },
@@ -41,7 +41,7 @@ export const banAccount = async ({
       fee: BigInt(transactions.convertLSKToBeddows(fee)),
       senderPublicKey: publicKey,
       asset: {
-        address,
+        address: Buffer.from(address, 'hex'),
       },
     },
     Buffer.from(networkIdentifier, "hex"),

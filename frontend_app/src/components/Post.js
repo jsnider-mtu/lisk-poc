@@ -15,6 +15,7 @@ import { cryptography, Buffer } from "@liskhq/lisk-client";
 import LikePostDialog from "./dialogs/LikePostDialog";
 import SharePostDialog from "./dialogs/SharePostDialog";
 import CreateChildPostDialog from "./dialogs/CreateChildPostDialog";
+import DeletePostDialog from "./dialogs/DeletePostDialog";
 
 const useStyles = makeStyles((theme) => ({
   propertyList: {
@@ -46,6 +47,7 @@ export default function Post(props) {
   const [openShare, setOpenShare] = useState(false);
   const [openReply, setOpenReply] = useState(false);
   const [openLike, setOpenLike] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
   // Get username from address
   const base32UIAddress = cryptography.getBase32AddressFromAddress(Buffer.from(props.item.ownerAddress, 'hex'), 'lsk').toString('binary');
   // const base32OrigAddress = cryptography.getBase32AddressFromAddress(Buffer.from(props.item.origOwnerAddress, 'hex'), 'lsk').toString('binary');
@@ -153,6 +155,24 @@ export default function Post(props) {
             open={openReply}
             handleClose={() => {
               setOpenReply(false);
+            }}
+            post={props.item}
+          />
+        </>
+        <>
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => {
+              setOpenDelete(true);
+            }}
+          >
+            Delete Post
+          </Button>
+          <DeletePostDialog
+            open={openDelete}
+            handleClose={() => {
+              setOpenDelete(false);
             }}
             post={props.item}
           />

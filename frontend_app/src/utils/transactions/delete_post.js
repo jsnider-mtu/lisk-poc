@@ -10,7 +10,7 @@ export const deletePostSchema = {
   required: ["postId"],
   properties: {
     postId: {
-      dataType: "string",
+      dataType: "bytes",
       fieldNumber: 1,
     },
   },
@@ -41,7 +41,7 @@ export const deletePost = async ({
       fee: BigInt(transactions.convertLSKToBeddows(fee)),
       senderPublicKey: publicKey,
       asset: {
-        postId,
+        postId: Buffer.from(postId, 'hex'),
       },
     },
     Buffer.from(networkIdentifier, "hex"),

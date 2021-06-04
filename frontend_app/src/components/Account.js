@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Container, Typography, Divider, Grid } from "@material-ui/core";
+import { Container, Typography, Divider, Grid, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import {Buffer, cryptography, transactions} from "@liskhq/lisk-client";
+import BanAccountDialog from "./dialogs/BanAccountDialog";
+import DemoteAccountDialog from "./dialogs/DemoteAccountDialog";
+//import FollowAccountDialog from "./dialogs/FollowAccountDialog";
+//import PromoteAccountDialog from "./dialogs/PromoteAccountDialog";
+//import UnbanAccountDialog from "./dialogs/UnbanAccountDialog";
+//import UnfollowAccountDialog from "./dialogs/UnfollowAccountDialog";
 import Post from "./Post";
 import { fetchPost } from "../api";
 
@@ -32,6 +38,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Account(props) {
   const [nftTokens, setNftTokens] = useState([]);
+  const [openBan, setOpenBan] = useState(false);
+  const [openDemote, setOpenDemote] = useState(false);
   const classes = useStyles();
   const base32UIAddress = cryptography.getBase32AddressFromAddress(Buffer.from(props.account.address, 'hex'), 'lsk').toString('binary');
 
@@ -79,6 +87,42 @@ export default function Account(props) {
           <dd>{props.account.socmed.banned.toString()}</dd>
         </li>
       </dl>
+      <>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => {
+            setOpenBan(true);
+          }}
+        >
+          Ban Account
+        </Button>
+        <BanAccountDialog
+          open={openBan}
+          handleClose={() => {
+            setOpenBan(false);
+          }}
+          account={props.account}
+        />
+      </>
+      <>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => {
+            setOpenDemote(true);
+          }}
+        >
+          Demote Account
+        </Button>
+        <DemoteAccountDialog
+          open={openDemote}
+          handleClose={() => {
+            setOpenDemote(false);
+          }}
+          account={props.account}
+        />
+      </>
       <Typography variant="h6">{"Posts"}</Typography>
       <Grid container spacing={4}>
         {nftTokens.map((item) => (
