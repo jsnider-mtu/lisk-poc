@@ -22,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function DeletePostDialog(props) {
-  console.log(props);
   const nodeInfo = useContext(NodeInfoContext);
   const classes = useStyles();
   const [data, setData] = useState({

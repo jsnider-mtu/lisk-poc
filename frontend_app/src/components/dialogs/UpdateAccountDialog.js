@@ -9,8 +9,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { NodeInfoContext } from "../../context";
-// import { createNFTToken } from "../../utils/transactions/create_nft_token";
-import { likePost } from "../../utils/transactions/like_post";
+import { updateAccount } from "../../utils/transactions/update_account";
 import * as api from "../../api";
 
 const useStyles = makeStyles((theme) => ({
@@ -21,11 +20,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function LikePostDialog(props) {
+export default function UnfollowAccountDialog(props) {
   const nodeInfo = useContext(NodeInfoContext);
   const classes = useStyles();
   const [data, setData] = useState({
-    postId: props.post.id,
+    address: props.account.address,
+    name: props.account.socmed.name,
+    bio: props.account.socmed.bio,
+    avatar: props.account.socmed.avatar,
     fee: "0",
     passphrase: "",
   });
@@ -38,7 +40,7 @@ export default function LikePostDialog(props) {
   const handleSend = async (event) => {
     event.preventDefault();
 
-    const res = await likePost({
+    const res = await updateAccount({
       ...data,
       networkIdentifier: nodeInfo.networkIdentifier,
       minFeePerByte: nodeInfo.minFeePerByte,
@@ -50,9 +52,28 @@ export default function LikePostDialog(props) {
   return (
     <Fragment>
       <Dialog open={props.open} onBackdropClick={props.handleClose}>
-        <DialogTitle id="alert-dialog-title">{"Like Post"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Update Account"}</DialogTitle>
         <DialogContent>
           <form className={classes.root} noValidate autoComplete="off">
+            <TextField
+              label="Name"
+              value={data.name}
+              name="name"
+              onChange={handleChange}
+            />
+            <TextField
+              label="Bio"
+              value={data.bio}
+              name="bio"
+              onChange={handleChange}
+              fullWidth
+            />
+            <TextField
+              label="Avatar URL"
+              value={data.avatar}
+              name="avatar"
+              onChange={handleChange}
+            />
             <TextField
               label="Passphrase"
               value={data.passphrase}
@@ -63,7 +84,7 @@ export default function LikePostDialog(props) {
           </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleSend}>Like Post</Button>
+          <Button onClick={handleSend}>Update Account</Button>
         </DialogActions>
       </Dialog>
     </Fragment>

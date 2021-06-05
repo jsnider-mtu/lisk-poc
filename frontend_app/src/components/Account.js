@@ -8,6 +8,7 @@ import FollowAccountDialog from "./dialogs/FollowAccountDialog";
 import PromoteAccountDialog from "./dialogs/PromoteAccountDialog";
 import UnbanAccountDialog from "./dialogs/UnbanAccountDialog";
 import UnfollowAccountDialog from "./dialogs/UnfollowAccountDialog";
+import UpdateAccountDialog from "./dialogs/UpdateAccountDialog";
 import Post from "./Post";
 import { fetchPost } from "../api";
 
@@ -44,6 +45,7 @@ export default function Account(props) {
   const [openPromote, setOpenPromote] = useState(false);
   const [openUnban, setOpenUnban] = useState(false);
   const [openUnfollow, setOpenUnfollow] = useState(false);
+  const [openUpdate, setOpenUpdate] = useState(false);
   const classes = useStyles();
   const base32UIAddress = cryptography.getBase32AddressFromAddress(Buffer.from(props.account.address, 'hex'), 'lsk').toString('binary');
 
@@ -195,6 +197,24 @@ export default function Account(props) {
           open={openPromote}
           handleClose={() => {
             setOpenPromote(false);
+          }}
+          account={props.account}
+        />
+      </>
+      <>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => {
+            setOpenUpdate(true);
+          }}
+        >
+          Update Account
+        </Button>
+        <UpdateAccountDialog
+          open={openUpdate}
+          handleClose={() => {
+            setOpenUpdate(false);
           }}
           account={props.account}
         />
