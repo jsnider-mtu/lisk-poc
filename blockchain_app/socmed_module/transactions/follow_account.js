@@ -22,6 +22,11 @@ class FollowAccountAsset extends BaseAsset {
     const senderAddress = transaction.senderAddress;
     const senderAccount = await stateStore.account.get(senderAddress);
 
+    // Error if trying to follow self
+    if (followedAddress.equals(senderAddress)) {
+      throw new Error("No following yourself");
+    }
+
     // Error if already following this account
     const followIndex = followedAccount.socmed.following.findIndex((l) => l.equals(senderAddress));
     if (followIndex >= 0) {

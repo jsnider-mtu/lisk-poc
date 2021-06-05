@@ -16,7 +16,7 @@ export const promoteAccountSchema = {
   },
 };
 
-export const createPost = async ({
+export const promoteAccount = async ({
   address,
   passphrase,
   fee,
@@ -41,7 +41,7 @@ export const createPost = async ({
       fee: BigInt(transactions.convertLSKToBeddows(fee)),
       senderPublicKey: publicKey,
       asset: {
-        address,
+        address: Buffer.from(address, 'hex'),
       },
     },
     Buffer.from(networkIdentifier, "hex"),

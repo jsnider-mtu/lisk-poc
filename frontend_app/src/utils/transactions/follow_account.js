@@ -16,7 +16,7 @@ export const followAccountSchema = {
   },
 };
 
-export const createPost = async ({
+export const followAccount = async ({
   address,
   passphrase,
   fee,

@@ -5,7 +5,7 @@ import {Buffer, cryptography, transactions} from "@liskhq/lisk-client";
 import BanAccountDialog from "./dialogs/BanAccountDialog";
 import DemoteAccountDialog from "./dialogs/DemoteAccountDialog";
 import FollowAccountDialog from "./dialogs/FollowAccountDialog";
-//import PromoteAccountDialog from "./dialogs/PromoteAccountDialog";
+import PromoteAccountDialog from "./dialogs/PromoteAccountDialog";
 //import UnbanAccountDialog from "./dialogs/UnbanAccountDialog";
 //import UnfollowAccountDialog from "./dialogs/UnfollowAccountDialog";
 import Post from "./Post";
@@ -41,6 +41,7 @@ export default function Account(props) {
   const [openBan, setOpenBan] = useState(false);
   const [openDemote, setOpenDemote] = useState(false);
   const [openFollow, setOpenFollow] = useState(false);
+  const [openPromote, setOpenPromote] = useState(false);
   const classes = useStyles();
   const base32UIAddress = cryptography.getBase32AddressFromAddress(Buffer.from(props.account.address, 'hex'), 'lsk').toString('binary');
 
@@ -138,6 +139,24 @@ export default function Account(props) {
           open={openFollow}
           handleClose={() => {
             setOpenFollow(false);
+          }}
+          account={props.account}
+        />
+      </>
+      <>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => {
+            setOpenPromote(true);
+          }}
+        >
+          Promote Account
+        </Button>
+        <PromoteAccountDialog
+          open={openPromote}
+          handleClose={() => {
+            setOpenPromote(false);
           }}
           account={props.account}
         />
