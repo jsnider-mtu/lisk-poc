@@ -27,7 +27,7 @@ export default function CreateAccountDialog(props) {
   const classes = useStyles();
 
   useEffect(() => {
-    const pw = passphrase.Mnemonic.generateMnemonic();
+    const pw = passphrase.Mnemonic.generateMnemonic(); // How often could this create duplicate accounts?
     const address = cryptography.getBase32AddressFromPassphrase(pw).toString("hex");
     setData({ passphrase: pw, address });
   }, [props.open]);

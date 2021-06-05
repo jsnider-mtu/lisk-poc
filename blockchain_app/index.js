@@ -15,6 +15,16 @@ const { SOCMEDAPIPlugin } = require('./socmed_api_plugin');
 
 // 3.Update the genesis block accounts to include socmed module attributes
 genesisBlockDevnet.header.timestamp = 1605699440;
+genesisBlockDevnet.header.asset.accounts.push({address:'338be071677bc6f04df7e303eb55f45e8b3fd494',token:{balance:"0"},sequence:{nonce:"0"},keys:{mandatoryKeys:[],optionalKeys:[],numberOfSignatures:0},dpos:{delegate:{username:"moderator",pomHeights:[],consecutiveMissedBlocks:0,lastForgedHeight:0,isBanned:false,totalVotesReceived:"0"},sentVotes:[{delegateAddress:"03f6d90b7dbd0497dc3a52d1c27e23bb8c75897f",amount:"0"}],unlocking:[]}});
+genesisBlockDevnet.header.asset.accounts.sort(function(a, b) {
+  if (a.address < b.address) {
+    return -1;
+  }
+  if (a.address > b.address) {
+    return 1;
+  }
+  return 0;
+});
 genesisBlockDevnet.header.asset.accounts = genesisBlockDevnet.header.asset.accounts.map(
     (a) =>
         utils.objects.mergeDeep({}, a, {
@@ -30,7 +40,7 @@ genesisBlockDevnet.header.asset.accounts = genesisBlockDevnet.header.asset.accou
             },
         }),
 );
-const genAccountIndex = genesisBlockDevnet.header.asset.accounts.findIndex((a) => a.address === 'd04699e57c4a3846c988f3c15306796f8eae5c1c');
+const genAccountIndex = genesisBlockDevnet.header.asset.accounts.findIndex((a) => a.address === '338be071677bc6f04df7e303eb55f45e8b3fd494');
 genesisBlockDevnet.header.asset.accounts[genAccountIndex].socmed.moderator = true;
 
 // 4.Update application config to include unique label
