@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import {Buffer, cryptography, transactions} from "@liskhq/lisk-client";
 import BanAccountDialog from "./dialogs/BanAccountDialog";
 import DemoteAccountDialog from "./dialogs/DemoteAccountDialog";
-//import FollowAccountDialog from "./dialogs/FollowAccountDialog";
+import FollowAccountDialog from "./dialogs/FollowAccountDialog";
 //import PromoteAccountDialog from "./dialogs/PromoteAccountDialog";
 //import UnbanAccountDialog from "./dialogs/UnbanAccountDialog";
 //import UnfollowAccountDialog from "./dialogs/UnfollowAccountDialog";
@@ -40,6 +40,7 @@ export default function Account(props) {
   const [nftTokens, setNftTokens] = useState([]);
   const [openBan, setOpenBan] = useState(false);
   const [openDemote, setOpenDemote] = useState(false);
+  const [openFollow, setOpenFollow] = useState(false);
   const classes = useStyles();
   const base32UIAddress = cryptography.getBase32AddressFromAddress(Buffer.from(props.account.address, 'hex'), 'lsk').toString('binary');
 
@@ -119,6 +120,24 @@ export default function Account(props) {
           open={openDemote}
           handleClose={() => {
             setOpenDemote(false);
+          }}
+          account={props.account}
+        />
+      </>
+      <>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => {
+            setOpenFollow(true);
+          }}
+        >
+          Follow Account
+        </Button>
+        <FollowAccountDialog
+          open={openFollow}
+          handleClose={() => {
+            setOpenFollow(false);
           }}
           account={props.account}
         />
