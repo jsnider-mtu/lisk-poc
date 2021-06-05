@@ -6,7 +6,7 @@ import BanAccountDialog from "./dialogs/BanAccountDialog";
 import DemoteAccountDialog from "./dialogs/DemoteAccountDialog";
 import FollowAccountDialog from "./dialogs/FollowAccountDialog";
 import PromoteAccountDialog from "./dialogs/PromoteAccountDialog";
-//import UnbanAccountDialog from "./dialogs/UnbanAccountDialog";
+import UnbanAccountDialog from "./dialogs/UnbanAccountDialog";
 //import UnfollowAccountDialog from "./dialogs/UnfollowAccountDialog";
 import Post from "./Post";
 import { fetchPost } from "../api";
@@ -42,6 +42,7 @@ export default function Account(props) {
   const [openDemote, setOpenDemote] = useState(false);
   const [openFollow, setOpenFollow] = useState(false);
   const [openPromote, setOpenPromote] = useState(false);
+  const [openUnban, setOpenUnban] = useState(false);
   const classes = useStyles();
   const base32UIAddress = cryptography.getBase32AddressFromAddress(Buffer.from(props.account.address, 'hex'), 'lsk').toString('binary');
 
@@ -103,6 +104,24 @@ export default function Account(props) {
           open={openBan}
           handleClose={() => {
             setOpenBan(false);
+          }}
+          account={props.account}
+        />
+      </>
+      <>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => {
+            setOpenUnban(true);
+          }}
+        >
+          Unban Account
+        </Button>
+        <UnbanAccountDialog
+          open={openUnban}
+          handleClose={() => {
+            setOpenUnban(false);
           }}
           account={props.account}
         />
