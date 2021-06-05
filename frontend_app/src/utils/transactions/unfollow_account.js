@@ -41,7 +41,7 @@ export const unfollowAccount = async ({
       fee: BigInt(transactions.convertLSKToBeddows(fee)),
       senderPublicKey: publicKey,
       asset: {
-        address,
+        address: Buffer.from(address, 'hex'),
       },
     },
     Buffer.from(networkIdentifier, "hex"),
