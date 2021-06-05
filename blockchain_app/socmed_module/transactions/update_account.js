@@ -6,7 +6,7 @@ class UpdateAccountAsset extends BaseAsset {
   schema = {
     $id: "lisk/account/update",
     type: "object",
-    required: ["address", "name", "bio", "avatar"],
+    required: ["address"],
     properties: {
       address: {
         dataType: "bytes",
@@ -35,7 +35,7 @@ class UpdateAccountAsset extends BaseAsset {
     const senderAccount = await stateStore.account.get(senderAddress);
 
     // Error if trying to update someone else
-    if (updatedAddress.notEquals(senderAddress)) {
+    if (!updatedAddress.equals(senderAddress)) {
       throw new Error("No updating someone else");
     }
 

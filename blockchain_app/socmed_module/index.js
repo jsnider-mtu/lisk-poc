@@ -1,5 +1,4 @@
 const { BaseModule } = require("lisk-sdk");
-// const { getAllNFTTokensAsJSON } = require("./nft");
 const { getAllPostsAsJSON } = require('./post');
 
 const BanAccount = require('./transactions/ban_account');
@@ -15,10 +14,7 @@ const UnbanAccount = require('./transactions/unban_account');
 const UndeletePost = require('./transactions/undelete_post');
 const UnfollowAccount = require('./transactions/unfollow_account');
 const UnlikePost = require('./transactions/unlike_post');
-// const CreateNFTAsset = require("./transactions/create_nft_asset");
-// const PurchaseNFTAsset = require("./transactions/purchase_nft_asset");
-// const TransferNFTAsset = require("./transactions/transfer_nft_asset");
-// const UpdateNFTMinPriceAsset = require("./transactions/update_nft_minPrice_asset");
+const UpdateAccount = require('./transactions/update_account');
 
 // Extend base module to implement your custom module
 class SOCMEDModule extends BaseModule {
@@ -80,12 +76,10 @@ class SOCMEDModule extends BaseModule {
       banned: false,
     },
   };
-  // transactionAssets = [new CreateNFTAsset(), new PurchaseNFTAsset(), new TransferNFTAsset(), new UpdateNFTMinPriceAsset()];
-  transactionAssets = [new BanAccount(), new CreateChildPost(), new CreatePost(), new DeletePost(), new DemoteAccount(), new FollowAccount(), new LikePost(), new PromoteAccount(), new SharePost(), new UnbanAccount(), new UndeletePost(), new UnfollowAccount(), new UnlikePost()];
+  transactionAssets = [new BanAccount(), new CreateChildPost(), new CreatePost(), new DeletePost(), new DemoteAccount(), new FollowAccount(), new LikePost(), new PromoteAccount(), new SharePost(), new UnbanAccount(), new UndeletePost(), new UnfollowAccount(), new UnlikePost(), new UpdateAccount()];
   actions = {
-    // get all the registered NFT tokens from blockchain
+    // get all the registered posts from blockchain
     getAllPosts: async () => getAllPostsAsJSON(this._dataAccess),
-    // getAllNFTTokens: async () => getAllNFTTokensAsJSON(this._dataAccess),
   };
 }
 
