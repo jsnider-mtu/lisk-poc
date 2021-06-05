@@ -1,12 +1,17 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useContext, useState, useEffect } from "react";
 import {
   Dialog,
   DialogTitle,
   DialogContent,
   TextField,
+  Button,
+  DialogActions,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { passphrase, cryptography } from "@liskhq/lisk-client";
+import { NodeInfoContext } from "../../context";
+import { transfer } from "../../utils/transactions/transfer";
+import * as api from "../../api";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CreateAccountDialog(props) {
+  const nodeInfo = useContext(NodeInfoContext);
   const [data, setData] = useState({ passphrase: "", address: "" });
   const classes = useStyles();
 
@@ -25,6 +31,22 @@ export default function CreateAccountDialog(props) {
     const address = cryptography.getBase32AddressFromPassphrase(pw).toString("hex");
     setData({ passphrase: pw, address });
   }, [props.open]);
+
+  const handleSend = async (event) => {
+    event.preventDefault();
+
+    const res = await transfer({
+      recipientAddress: data.address,
+      passphrase: "peanut hundred pen hawk invite exclude brain chunk gadget wait wrong ready",
+      amount: "1",
+      fee: "0",
+      networkIdentifier: nodeInfo.networkIdentifier,
+      minFeePerByte: nodeInfo.minFeePerByte,
+    });
+    // console.log(res.tx);
+    await api.sendTransactions(res.tx);
+    props.handleClose();
+  };
 
   return (
     <Fragment>
@@ -52,6 +74,9 @@ export default function CreateAccountDialog(props) {
             />
           </form>
         </DialogContent>
+        <DialogActions>
+          <Button onClick={handleSend}>Create Account</Button>
+        </DialogActions>
       </Dialog>
     </Fragment>
   );
