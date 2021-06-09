@@ -50,7 +50,6 @@ export default function Post(props) {
   const [openDelete, setOpenDelete] = useState(false);
   // Get username from address
   const base32UIAddress = cryptography.getBase32AddressFromAddress(Buffer.from(props.item.ownerAddress, 'hex'), 'lsk').toString('binary');
-  // const base32OrigAddress = cryptography.getBase32AddressFromAddress(Buffer.from(props.item.origOwnerAddress, 'hex'), 'lsk').toString('binary');
   const dateobj = new Date(props.item.timestamp);
   const datetime = dateobj.toString();
   return (
@@ -59,14 +58,6 @@ export default function Post(props) {
         <Typography variant="h6">{props.item.message}</Typography>
         <Divider />
         <dl className={classes.propertyList}>
-          <li>
-            <dt>Avatar</dt>
-            <dd>{props.item.avatar}</dd>
-          </li>
-          <li>
-            <dt>Username</dt>
-            <dd>{props.item.username}</dd>
-          </li>
           <li>
             <dt>Likes</dt>
             <dd>{props.item.likes.length}</dd>
@@ -86,10 +77,6 @@ export default function Post(props) {
           <li>
             <dt>Reply To</dt>
             <dd>{props.item.parentPost}</dd>
-          </li>
-          <li>
-            <dt>Deleted</dt>
-            <dd>{props.item.deleted.toString()}</dd>
           </li>
           <li>
             <dt>Timestamp</dt>
