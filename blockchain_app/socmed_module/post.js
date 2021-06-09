@@ -57,13 +57,17 @@ const registeredPostsSchema = {
             dataType: "boolean",
             fieldNumber: 9,
           },
-          // username: {
-          //   dataType: "string",
-          //   fieldNumber: 10,
-          // },
-          timestamp: {
+          username: {
             dataType: "string",
             fieldNumber: 10,
+          },
+          timestamp: {
+            dataType: "string",
+            fieldNumber: 11,
+          },
+          avatar: {
+            dataType: "string",
+            fieldNumber: 12,
           },
         },
       },
@@ -73,18 +77,16 @@ const registeredPostsSchema = {
 
 const CHAIN_STATE_POSTS = "socmed:registeredPosts";
 
-const createPost = ({ message, ownerAddress, nonce }) => {
+const createPost = ({ message, ownerAddress, nonce, username, avatar }) => {
   const nonceBuffer = Buffer.alloc(8);
   nonceBuffer.writeBigInt64LE(nonce);
   const seed = Buffer.concat([ownerAddress, nonceBuffer]);
   const id = cryptography.hash(seed);
 
   // Validate size of message
-  // if (message.length > 512) {
-  //   throw new Error("Message length must not exceed 512");
-  // }
-
-  // Get username
+  if (message.length > 512) {
+    throw new Error("Message length must not exceed 512");
+  }
 
   // Get timestamp
   const dateobj = new Date(Date.now());
@@ -100,22 +102,21 @@ const createPost = ({ message, ownerAddress, nonce }) => {
     parentPost: Buffer.alloc(0),
     replies: [],
     deleted: false,
-    // username,
+    username,
     timestamp,
+    avatar,
   };
 };
 
-const createChildPost = ({ message, ownerAddress, nonce, parentPost }) => {
+const createChildPost = ({ message, ownerAddress, nonce, username, avatar, parentPost }) => {
   const nonceBuffer = Buffer.alloc(8);
   nonceBuffer.writeBigInt64LE(nonce);
   const seed = Buffer.concat([ownerAddress, nonceBuffer]);
   const id = cryptography.hash(seed);
 
-  // if (message.length > 512) {
-  //   throw new Error("Message length must not exceed 512");
-  // }
-
-  // Get username
+  if (message.length > 512) {
+    throw new Error("Message length must not exceed 512");
+  }
 
   // Get timestamp
   const dateobj = new Date(Date.now());
@@ -131,22 +132,21 @@ const createChildPost = ({ message, ownerAddress, nonce, parentPost }) => {
     shares: [],
     replies: [],
     deleted: false,
-    // username,
+    username,
     timestamp,
+    avatar,
   };
 };
 
-const createSharePost = ({ message, ownerAddress, nonce, sharedPost }) => {
+const createSharePost = ({ message, ownerAddress, nonce, username, avatar, sharedPost }) => {
   const nonceBuffer = Buffer.alloc(8);
   nonceBuffer.writeBigInt64LE(nonce);
   const seed = Buffer.concat([ownerAddress, nonceBuffer]);
   const id = cryptography.hash(seed);
 
-  // if (message.length > 512) {
-  //   throw new Error("Message length must not exceed 512");
-  // }
-
-  // Get username
+  if (message.length > 512) {
+    throw new Error("Message length must not exceed 512");
+  }
 
   // Get timestamp
   const dateobj = new Date(Date.now());
@@ -162,8 +162,9 @@ const createSharePost = ({ message, ownerAddress, nonce, sharedPost }) => {
     parentPost: Buffer.alloc(0),
     replies: [],
     deleted: false,
-    // username,
+    username,
     timestamp,
+    avatar,
   };
 };
 

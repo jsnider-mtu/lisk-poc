@@ -60,8 +60,12 @@ export default function Post(props) {
         <Divider />
         <dl className={classes.propertyList}>
           <li>
-            <dt>Post ID</dt>
-            <dd>{props.item.id}</dd>
+            <dt>Avatar</dt>
+            <dd>{props.item.avatar}</dd>
+          </li>
+          <li>
+            <dt>Username</dt>
+            <dd>{props.item.username}</dd>
           </li>
           <li>
             <dt>Likes</dt>
@@ -98,7 +102,7 @@ export default function Post(props) {
                 component={RouterLink}
                 to={`/accounts/${base32UIAddress}`}
               >
-                {base32UIAddress}
+                {props.item.username}
               </Link>
             </dd>
           </li>

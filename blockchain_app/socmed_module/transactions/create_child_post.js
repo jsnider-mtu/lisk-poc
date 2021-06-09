@@ -49,6 +49,8 @@ class CreateChildPostAsset extends BaseAsset {
       message: asset.message,
       ownerAddress: senderAddress,
       nonce: transaction.nonce,
+      username: senderAccount.socmed.name,
+      avatar: senderAccount.socmed.avatar,
       parentPost: asset.parentPost,
     });
 

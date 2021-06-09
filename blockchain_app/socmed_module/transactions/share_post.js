@@ -62,6 +62,8 @@ class CreateSharePostAsset extends BaseAsset {
       message: asset.message,
       ownerAddress: senderAddress,
       nonce: transaction.nonce,
+      username: senderAccount.socmed.name,
+      avatar: senderAccount.socmed.avatar,
       sharedPost: sharedPost.id,
     });
 

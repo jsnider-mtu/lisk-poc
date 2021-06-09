@@ -22,13 +22,13 @@ class CreatePostAsset extends BaseAsset {
       },
     },
   };
-  // validate({ asset }) {
-  //   if (asset.message.length === 0) {
-  //     throw new Error("Empty posts are not allowed.");
-  //   } else if (asset.message.length > 512) {
-  //     throw new Error("Posts must not exceed 512 characters.");
-  //   }
-  // };
+  validate({ asset }) {
+    if (asset.message.length === 0) {
+      throw new Error("Empty posts are not allowed.");
+    } else if (asset.message.length > 512) {
+      throw new Error("Posts must not exceed 512 characters.");
+    }
+  };
   async apply({ asset, stateStore, reducerHandler, transaction }) {
     // 4.verify if sender has enough balance (been banned?)
     const senderAddress = transaction.senderAddress;
@@ -39,6 +39,8 @@ class CreatePostAsset extends BaseAsset {
       message: asset.message,
       ownerAddress: senderAddress,
       nonce: transaction.nonce,
+      username: senderAccount.socmed.name,
+      avatar: senderAccount.socmed.avatar,
     });
 
     // 6.update sender account with unique post id
