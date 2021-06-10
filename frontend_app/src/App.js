@@ -119,10 +119,10 @@ function App() {
                             <Link
                                 color="inherit"
                                 component={RouterLink}
-                                to="/signin"
+                                to="/signup"
                                 className={classes.appBarLink}
                             >
-                                Sign In
+                                Sign Up
                             </Link>
 							<div className={classes.grow} />
 							<Chip label={nodeInfoState.height} />
