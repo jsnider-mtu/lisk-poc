@@ -5,6 +5,7 @@ import {
   DialogContent,
   Button,
   DialogActions,
+  CircularProgress,
 } from "@material-ui/core";
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from "@material-ui/core/styles";
@@ -30,6 +31,7 @@ export default function LoadingAccountDialog(props) {
           <Typography component="h1" variant="h5">
             Creating Account
           </Typography>
+          <CircularProgress />
         </DialogContent>
       </Dialog>
     </Fragment>
