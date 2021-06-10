@@ -10,8 +10,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import { passphrase, cryptography } from "@liskhq/lisk-client";
 import { NodeInfoContext } from "../../context";
-//import { transfer } from "../../utils/transactions/transfer";
-import { createAccount } from "../../utils/transactions/create_account";
+import { transfer } from "../../utils/transactions/transfer";
 import * as api from "../../api";
 
 const useStyles = makeStyles((theme) => ({
@@ -37,10 +36,10 @@ export default function CreateAccountDialog(props) {
   const handleSend = async (event) => {
     event.preventDefault();
 
-    const res = await createAccount({
-      address: data.address,
-      name: data.username,
-      passphrase: data.passphrase,
+    const res = await transfer({
+      recipientAddress: data.address,
+      passphrase: "peanut hundred pen hawk invite exclude brain chunk gadget wait wrong ready",
+      amount: "1",
       fee: "0",
       networkIdentifier: nodeInfo.networkIdentifier,
       minFeePerByte: nodeInfo.minFeePerByte,
@@ -54,7 +53,7 @@ export default function CreateAccountDialog(props) {
     <Fragment>
       <Dialog open={props.open} onBackdropClick={props.handleClose} fullWidth>
         <DialogTitle id="alert-dialog-title">
-          {"Please copy the username, passphrase, and address"}
+          {"Please copy the username, address, and passphrase"}
         </DialogTitle>
         <DialogContent>
           <form noValidate autoComplete="off" className={classes.root}>
