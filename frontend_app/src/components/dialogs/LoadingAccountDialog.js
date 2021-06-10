@@ -27,7 +27,6 @@ export default function LoadingAccountDialog(props) {
   const handleSend = async (event) => {
     await new Promise(r => setTimeout(r, 6000));
 
-    console.log(props);
     const res = await updateAccount({
       address: cryptography.getAddressFromBase32Address(props.address),
       name: props.username,

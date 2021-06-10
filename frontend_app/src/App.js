@@ -158,16 +158,6 @@ function App() {
 								setOpenDialog('TransferFundsDialog');
 							}}
 						/>
-
-						<SpeedDialAction
-							key={'Create Account'}
-							icon={<AddIcon />}
-							tooltipTitle={'Create Account'}
-							onClick={() => {
-								setOpenSpeedDial(false);
-								setOpenDialog('CreateAccountDialog');
-							}}
-						/>
 					</SpeedDial>
 
 					<Container className={classes.contentContainer}>
