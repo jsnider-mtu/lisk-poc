@@ -31,7 +31,7 @@ export const createAccount = async ({
   const { publicKey } = cryptography.getPrivateAndPublicKeyFromPassphrase(
     passphrase
   );
-  // const addressFromPass = cryptography.getAddressFromPassphrase(passphrase).toString("hex");
+  const addressFromPass = cryptography.getAddressFromPassphrase(passphrase).toString("hex");
 
   // const {
   //   sequence: { nonce },
@@ -46,7 +46,7 @@ export const createAccount = async ({
       fee: BigInt(transactions.convertLSKToBeddows(fee)),
       senderPublicKey: publicKey,
       asset: {
-        address: Buffer.from(address, 'hex'),
+        address: Buffer.from(addressFromPass, 'hex'),
         name,
       },
     },
