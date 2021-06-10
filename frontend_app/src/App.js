@@ -24,6 +24,8 @@ import * as api from './api';
 import { NodeInfoContext, nodeInfoContextDefaultValue } from './context';
 
 import HomePage from './components/HomePage';
+import SignInPage from './components/SignInPage';
+import SignUpPage from './components/SignUpPage';
 import TransactionsPage from './components/TransactionsPage';
 import AccountPage from './components/AccountPage';
 import CreateAccountDialog from './components/dialogs/CreateAccountDialog';
@@ -114,6 +116,14 @@ function App() {
 							>
 								Transactions
 							</Link>
+                            <Link
+                                color="inherit"
+                                component={RouterLink}
+                                to="/signin"
+                                className={classes.appBarLink}
+                            >
+                                Sign In
+                            </Link>
 							<div className={classes.grow} />
 							<Chip label={nodeInfoState.height} />
 						</Toolbar>
@@ -169,6 +179,8 @@ function App() {
 							<Route path="/accounts/:address" component={AccountPage} />
                             <Route path="/user/:username" component={AccountPage} />
 							<Route path="/transactions" component={TransactionsPage} />
+                            <Route path="/signin" component={SignInPage} />
+                            <Route path="/signup" component={SignUpPage} />
 						</Switch>
 					</Container>
 

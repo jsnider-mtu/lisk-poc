@@ -10,7 +10,8 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import { passphrase, cryptography } from "@liskhq/lisk-client";
 import { NodeInfoContext } from "../../context";
-import { transfer } from "../../utils/transactions/transfer";
+//import { transfer } from "../../utils/transactions/transfer";
+import { createAccount } from "../../utils/transactions/create_account";
 import * as api from "../../api";
 
 const useStyles = makeStyles((theme) => ({
@@ -23,22 +24,23 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CreateAccountDialog(props) {
   const nodeInfo = useContext(NodeInfoContext);
-  const [data, setData] = useState({ passphrase: "", address: "" });
+  const [data, setData] = useState({ passphrase: "", address: "", username: "" });
   const classes = useStyles();
 
   useEffect(() => {
     const pw = passphrase.Mnemonic.generateMnemonic(); // How often could this create duplicate accounts?
     const address = cryptography.getBase32AddressFromPassphrase(pw).toString("hex");
-    setData({ passphrase: pw, address });
+    const username = props.username;
+    setData({ passphrase: pw, address, username });
   }, [props.open]);
 
   const handleSend = async (event) => {
     event.preventDefault();
 
-    const res = await transfer({
-      recipientAddress: data.address,
-      passphrase: "peanut hundred pen hawk invite exclude brain chunk gadget wait wrong ready",
-      amount: "1",
+    const res = await createAccount({
+      address: data.address,
+      name: data.username,
+      passphrase: data.passphrase,
       fee: "0",
       networkIdentifier: nodeInfo.networkIdentifier,
       minFeePerByte: nodeInfo.minFeePerByte,
@@ -52,10 +54,18 @@ export default function CreateAccountDialog(props) {
     <Fragment>
       <Dialog open={props.open} onBackdropClick={props.handleClose} fullWidth>
         <DialogTitle id="alert-dialog-title">
-          {"Please copy the address and passphrase"}
+          {"Please copy the username, passphrase, and address"}
         </DialogTitle>
         <DialogContent>
           <form noValidate autoComplete="off" className={classes.root}>
+            <TextField
+              label="Username"
+              value={data.username}
+              fullWidth
+              InputProps={{
+                readOnly: true,
+              }}
+            />
             <TextField
               label="Passphrase"
               value={data.passphrase}
