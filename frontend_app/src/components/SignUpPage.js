@@ -113,14 +113,16 @@ export default function SignUpPage() {
       <CreateAccountDialog
         open={openDialog === 'CreateAccountDialog'}
         username={data.username}
-        handleClose={(addy) => {
-          setData({ ...data, ['address']: addy });
+        handleClose={(addy, passp) => {
+          setData({ ...data, ['address']: addy, ['passphrase']: passp });
           setOpenDialog('LoadingAccountDialog');
         }}
       />
       <LoadingAccountDialog
         open={openDialog === 'LoadingAccountDialog'}
         address={data.address}
+        username={data.username}
+        passphrase={data.passphrase}
         handleClose={(addy2) => { 
           window.location.href = `/accounts/${addy2}`;
         }}
