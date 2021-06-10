@@ -112,8 +112,9 @@ export default function SignUpPage() {
       <CreateAccountDialog
         open={openDialog === 'CreateAccountDialog'}
         username={data.username}
-        handleClose={() => {
+        handleClose={(addy) => {
           setOpenDialog(null);
+          window.location.href = `/accounts/${addy}`;
         }}
       />
     </Container>

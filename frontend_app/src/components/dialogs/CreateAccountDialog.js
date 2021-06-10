@@ -46,7 +46,7 @@ export default function CreateAccountDialog(props) {
     });
     // console.log(res.tx);
     await api.sendTransactions(res.tx);
-    props.handleClose();
+    props.handleClose(data.address);
   };
 
   return (
