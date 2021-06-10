@@ -15,6 +15,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 import CreateAccountDialog from './dialogs/CreateAccountDialog';
+import LoadingAccountDialog from './dialogs/LoadingAccountDialog';
 
 function Copyright() {
   return (
@@ -52,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUpPage() {
   const classes = useStyles();
   const [openDialog, setOpenDialog] = useState(null);
-  const [data, setData] = useState({ username: "" });
+  const [data, setData] = useState({ username: "", address: "" });
 
   const handleChange = (event) => {
     event.persist();
@@ -113,8 +114,15 @@ export default function SignUpPage() {
         open={openDialog === 'CreateAccountDialog'}
         username={data.username}
         handleClose={(addy) => {
-          setOpenDialog(null);
-          window.location.href = `/accounts/${addy}`;
+          setData({ ...data, ['address']: addy });
+          setOpenDialog('LoadingAccountDialog');
+        }}
+      />
+      <LoadingAccountDialog
+        open={openDialog === 'LoadingAccountDialog'}
+        address={data.address}
+        handleClose={(addy2) => { 
+          window.location.href = `/accounts/${addy2}`;
         }}
       />
     </Container>
