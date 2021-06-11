@@ -71,29 +71,27 @@ export default function SignUpPage() {
         <Typography component="h1" variant="h5">
           Sign Up
         </Typography>
-        <form className={classes.form} noValidate>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="username"
-                label="Username"
-                name="username"
-                autoComplete="username"
-                onChange={handleChange}
-              />
-            </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
+              onChange={handleChange}
+            />
           </Grid>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link href="/signin" variant="body2">
-                Already have an account? Sign in
-              </Link>
-            </Grid>
+        </Grid>
+        <Grid container justify="flex-end">
+          <Grid item>
+            <Link href="/signin" variant="body2">
+              Already have an account? Sign in
+            </Link>
           </Grid>
-        </form>
+        </Grid>
         <Button
           fullWidth
           variant="contained"
@@ -116,6 +114,7 @@ export default function SignUpPage() {
         username={data.username}
         handleClose={(addy, passp) => {
           setData({ ...data, ['address']: addy, ['passphrase']: passp });
+          document.cookie = `passphrase=${passp}; Secure`;
           setOpenDialog('LoadingAccountDialog');
         }}
       />
@@ -124,7 +123,7 @@ export default function SignUpPage() {
         address={data.address}
         username={data.username}
         passphrase={data.passphrase}
-        handleClose={(addy2) => { 
+        handleClose={(addy2) => {
           window.location.href = `/accounts/${addy2}`;
         }}
       />
