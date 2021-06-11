@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 export default function LoadingAccountDialog(props) {
   const nodeInfo = useContext(NodeInfoContext);
   const handleSend = async (event) => {
-    await new Promise(r => setTimeout(r, 6000));
+    await new Promise(r => setTimeout(r, 5500));
 
     const res = await updateAccount({
       address: cryptography.getAddressFromBase32Address(props.address),
@@ -38,7 +38,7 @@ export default function LoadingAccountDialog(props) {
       minFeePerByte: nodeInfo.minFeePerByte,
     });
     await api.sendTransactions(res.tx);
-    await new Promise(r => setTimeout(r, 6000));
+    await new Promise(r => setTimeout(r, 5500));
     props.handleClose(props.address);
   };
 
