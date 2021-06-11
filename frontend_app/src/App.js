@@ -103,7 +103,7 @@ function App() {
 							<Link
 								color="inherit"
 								component={RouterLink}
-								to="/"
+								to="/home"
 								className={classes.appBarLink}
 							>
 								Home
@@ -163,9 +163,10 @@ function App() {
 					<Container className={classes.contentContainer}>
 						<Switch>
 							<Route path="/" exact>
-								<HomePage />
+								<SignInPage />
 							</Route>
 
+                            <Route path="/home" component={HomePage} />
 							<Route path="/accounts/:address" component={AccountPage} />
                             <Route path="/user/:username" component={AccountPage} />
 							<Route path="/transactions" component={TransactionsPage} />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { cryptography } from '@liskhq/lisk-client';
+import * as api from "../api";
 
 function Copyright() {
   return (
@@ -24,6 +26,21 @@ function Copyright() {
       {'.'}
     </Typography>
   );
+}
+
+function LoginError(open) {
+  if (open === true) {
+    return (
+      <Typography variant="h6" color="textPrimary" align="center">
+        {'Username and passphrase do not match'}
+      </Typography>
+    );
+  } else {
+    return (
+      <>
+      </>
+    );
+  }
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -48,6 +65,35 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignInPage() {
   const classes = useStyles();
+  const [data, setData] = useState({ username: "", passphrase: "" });
+  const [openLoginError, setOpenLoginError] = useState(false);
+
+  useEffect(() => {
+    if (document.cookie.split('; ').find(row => row.startsWith('passphrase=')).split('=')[1].split(' ').length === 12) {
+      window.location.href = '/home';
+    }
+  }, []);
+
+  const handleChange = (event) => {
+    event.persist();
+    setData({ ...data, [event.target.name]: event.target.value });
+  }
+
+  const handleSend = async (event) => {
+    event.preventDefault();
+    if (data.username !== "") {
+      const addressFromPass = cryptography.getAddressFromPassphrase(data.passphrase).toString("hex");
+      const res = await api.fetchAccountInfo(addressFromPass);
+      if (!res) {
+        setOpenLoginError(true);
+      } else if (data.username === res.socmed.name) {
+        document.cookie = `passphrase=${data.passphrase}; Secure`;
+        window.location.href = '/home';
+      } else {
+        setOpenLoginError(true);
+      }
+    }
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -59,51 +105,49 @@ export default function SignInPage() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="username"
-            label="Username"
-            name="username"
-            autoComplete="username"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="passphrase"
-            label="Passphrase"
-            type="passphrase"
-            id="passphrase"
-            autoComplete="current-passphrase"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="/signup" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
+        <LoginError
+          open={openLoginError}
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="username"
+          label="Username"
+          name="username"
+          autoComplete="username"
+          autoFocus
+          onChange={handleChange}
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          name="passphrase"
+          label="Passphrase"
+          type="passphrase"
+          id="passphrase"
+          autoComplete="current-passphrase"
+          onChange={handleChange}
+        />
+        <Button
+          fullWidth
+          variant="contained"
+          color="primary"
+          className={classes.submit}
+          onClick={handleSend}
+        >
+          Sign In
+        </Button>
+        <Grid container>
+          <Grid item>
+            <Link href="/signup" variant="body2">
+              {"Don't have an account? Sign Up"}
+            </Link>
           </Grid>
-        </form>
+        </Grid>
       </div>
       <Box mt={8}>
         <Copyright />
