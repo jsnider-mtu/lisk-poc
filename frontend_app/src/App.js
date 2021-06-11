@@ -116,14 +116,6 @@ function App() {
 							>
 								Transactions
 							</Link>
-                            <Link
-                                color="inherit"
-                                component={RouterLink}
-                                to="/signup"
-                                className={classes.appBarLink}
-                            >
-                                Sign Up
-                            </Link>
 							<div className={classes.grow} />
 							<Chip label={nodeInfoState.height} />
 						</Toolbar>

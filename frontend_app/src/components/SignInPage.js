@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { cryptography } from '@liskhq/lisk-client';
+import LoginErrorDialog from "./dialogs/LoginErrorDialog";
 import * as api from "../api";
 
 function Copyright() {
@@ -105,9 +106,6 @@ export default function SignInPage() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <LoginError
-          open={openLoginError}
-        />
         <TextField
           variant="outlined"
           margin="normal"
@@ -152,6 +150,12 @@ export default function SignInPage() {
       <Box mt={8}>
         <Copyright />
       </Box>
+      <LoginErrorDialog
+        open={openLoginError}
+        handleClose={() => {
+          setOpenLoginError(false);
+        }}
+      />
     </Container>
   );
 }
