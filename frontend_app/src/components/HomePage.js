@@ -4,11 +4,11 @@ import { Grid } from "@material-ui/core";
 import { fetchAllPosts } from "../api";
 
 function HomePage() {
-  const [NFTAccounts, setNFTAccounts] = useState([]);
+  const [Posts, setPosts] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
-      setNFTAccounts(await fetchAllPosts());
+      setPosts(await fetchAllPosts());
     }
     fetchData();
   }, []);
@@ -16,7 +16,7 @@ function HomePage() {
   return (
     <Fragment>
       <Grid container spacing={4}>
-        {NFTAccounts.map((item) => (
+        {Posts.map((item) => (
           <Grid item md={4}>
             <Post item={item} key={item.id} />
           </Grid>
