@@ -78,12 +78,16 @@ class SOCMEDModule extends BaseModule {
     },
   };
   beforeTransactionApply = async ({ transaction, stateStore, reducerHandler }) => {
+    console.log("started beforeTransactionApply");
     const sender = await stateStore.account.getOrDefault(transaction.senderAddress);
+    console.log("got default");
     await stateStore.account.set(transaction.senderAddress, sender);
+    console.log("Set account in stateStore");
     await reducerHandler.invoke("token:credit", {
       address: transaction.senderAddress,
       amount: BigInt(100000000),
     });
+    console.log("ended beforeTransactionApply");
   }
   transactionAssets = [new BanAccount(), new CreateChildPost(), new CreatePost(), new DeletePost(), new DemoteAccount(), new FollowAccount(), new LikePost(), new PromoteAccount(), new SharePost(), new UnbanAccount(), new UndeletePost(), new UnfollowAccount(), new UnlikePost(), new UpdateAccount(), new CreateAccount()];
   actions = {

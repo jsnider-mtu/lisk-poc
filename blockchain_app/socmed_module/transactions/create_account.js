@@ -25,7 +25,9 @@ class CreateAccountAsset extends BaseAsset {
 
     const senderAddress = transaction.senderAddress;
     const senderAccount = await stateStore.account.getOrDefault(senderAddress);
+    console.log("Is this it?");
     await stateStore.account.set(senderAddress, senderAccount);
+    console.log("Maybe not");
 
     // Error if trying to update someone else
     if (!updatedAddress.equals(senderAddress)) {
