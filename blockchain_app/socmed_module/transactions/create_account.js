@@ -1,12 +1,12 @@
 const { BaseAsset } = require("lisk-sdk");
 
-class UpdateAccountAsset extends BaseAsset {
-  name = "updateAccount";
-  id = 13;
+class CreateAccountAsset extends BaseAsset {
+  name = "createAccount";
+  id = 14;
   schema = {
-    $id: "lisk/account/update",
+    $id: "lisk/account/create",
     type: "object",
-    required: ["address"],
+    required: ["address", "name"],
     properties: {
       address: {
         dataType: "bytes",
@@ -15,14 +15,6 @@ class UpdateAccountAsset extends BaseAsset {
       name: {
         dataType: "string",
         fieldNumber: 2,
-      },
-      bio: {
-        dataType: "string",
-        fieldNumber: 3,
-      },
-      avatar: {
-        dataType: "string",
-        fieldNumber: 4,
       },
     },
   };
@@ -42,10 +34,8 @@ class UpdateAccountAsset extends BaseAsset {
 
     // Set updatedAccount properties
     updatedAccount.socmed.name = asset.name;
-    updatedAccount.socmed.bio = asset.bio;
-    updatedAccount.socmed.avatar = asset.avatar;
     await stateStore.account.set(updatedAddress, updatedAccount);
   }
 }
 
-module.exports = UpdateAccountAsset;
+module.exports = CreateAccountAsset;

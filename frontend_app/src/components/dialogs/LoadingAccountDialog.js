@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from "@material-ui/core/styles";
 import { cryptography } from "@liskhq/lisk-client";
 import { NodeInfoContext } from "../../context";
-import { updateAccount } from "../../utils/transactions/update_account";
+import { createAccount } from "../../utils/transactions/create_account";
 import * as api from "../../api";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,13 +25,9 @@ const useStyles = makeStyles((theme) => ({
 export default function LoadingAccountDialog(props) {
   const nodeInfo = useContext(NodeInfoContext);
   const handleSend = async (event) => {
-    await new Promise(r => setTimeout(r, 5500));
-
-    const res = await updateAccount({
+    const res = await createAccount({
       address: cryptography.getAddressFromBase32Address(props.address),
       name: props.username,
-      bio: "",
-      avatar: "",
       fee: "0",
       passphrase: props.passphrase,
       networkIdentifier: nodeInfo.networkIdentifier,
