@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Account(props) {
-  const [nftTokens, setNftTokens] = useState([]);
+  const [posts, setPosts] = useState([]);
   const [openBan, setOpenBan] = useState(false);
   const [openDemote, setOpenDemote] = useState(false);
   const [openFollow, setOpenFollow] = useState(false);
@@ -51,11 +51,19 @@ export default function Account(props) {
 
   useEffect(() => {
     async function fetchData() {
-      setNftTokens(
-        await Promise.all(
-          props.account.socmed.posts.map((a) => fetchPost(a))
-        )
-      );
+      const acctPosts = await Promise.all(
+        props.account.socmed.posts.map((a) => fetchPost(a))
+      )
+      acctPosts.sort(function(a, b) {
+        if (a.timestamp < b.timestamp) {
+          return 1;
+        }
+        if (a.timestamp > b.timestamp) {
+          return -1;
+        }
+        return 0;
+      });
+      setPosts(acctPosts);
     }
 
     fetchData();
@@ -220,13 +228,13 @@ export default function Account(props) {
         />
       </>
       <Typography variant="h6">{"Posts"}</Typography>
-      <Grid container spacing={4}>
-        {nftTokens.map((item) => (
-          <Grid item md={3}>
+      {posts.map((item) => (
+      <Grid container spacing={4} justify="center">
+          <Grid item md={4}>
             <Post item={item} key={item.id} minimum={true} />
           </Grid>
-        ))}
       </Grid>
+      ))}
     </Container>
   );
 }
