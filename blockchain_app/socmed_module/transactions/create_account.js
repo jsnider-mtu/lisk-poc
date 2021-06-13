@@ -21,13 +21,10 @@ class CreateAccountAsset extends BaseAsset {
 
   async apply({ asset, stateStore, reducerHandler, transaction }) {
     const updatedAddress = asset.address;
-    const updatedAccount = await stateStore.account.getOrDefault(updatedAddress);
+    const updatedAccount = await stateStore.account.get(updatedAddress);
 
     const senderAddress = transaction.senderAddress;
-    const senderAccount = await stateStore.account.getOrDefault(senderAddress);
-    console.log("Is this it?");
-    await stateStore.account.set(senderAddress, senderAccount);
-    console.log("Maybe not");
+    const senderAccount = await stateStore.account.get(senderAddress);
 
     // Error if trying to update someone else
     if (!updatedAddress.equals(senderAddress)) {
