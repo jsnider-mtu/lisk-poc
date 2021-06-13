@@ -7,8 +7,6 @@ import {
   Avatar,
   Typography,
   Link,
-  Divider,
-  Button,
   IconButton,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -59,15 +57,20 @@ export default function Post(props) {
   const datetime = dateobj.toLocaleString();
   return (
     <Card className={classes.root}>
-      <CardHeader
-        avatar={
-          <Avatar aria-label="avatar" className={classes.avatar}>
-            {props.item.username[0]}
-          </Avatar>
-        }
-        title={props.item.username}
-        subheader={datetime}
-      />
+      <Link
+        component={RouterLink}
+        to={`/accounts/${base32UIAddress}`}
+      >
+        <CardHeader
+          avatar={
+            <Avatar aria-label="avatar" className={classes.avatar}>
+              {props.item.username[0]}
+            </Avatar>
+          }
+          title={props.item.username}
+          subheader={datetime}
+        />
+      </Link>
       <CardContent>
         <Typography variant="body2" color="textPrimary" component="p">
           {props.item.message}
