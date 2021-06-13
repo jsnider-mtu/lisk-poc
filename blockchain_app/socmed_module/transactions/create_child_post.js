@@ -61,17 +61,11 @@ class CreateChildPostAsset extends BaseAsset {
     // 7.credit parentPost account and add post.id to replies array
     allPosts[parentPostIndex].replies.push(post.id);
 
-    // 7.debit tokens from sender account to create nft
-    // await reducerHandler.invoke("token:debit", {
-    //   address: senderAddress,
-    //   amount: asset.initValue,
-    // });
-
     // 8.save posts
     allPosts.push(post);
     await setAllPosts(stateStore, allPosts);
 
-    if (allPosts[parentPostIndex].ownerAddress !== senderAddress) {
+    if (!allPosts[parentPostIndex].ownerAddress.equals(senderAddress)) {
       await reducerHandler.invoke("token:credit", {
         address: allPosts[parentPostIndex].ownerAddress,
         amount: 100000000n,
