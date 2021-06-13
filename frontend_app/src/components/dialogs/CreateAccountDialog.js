@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -9,9 +9,6 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { passphrase, cryptography } from "@liskhq/lisk-client";
-import { NodeInfoContext } from "../../context";
-import { transfer } from "../../utils/transactions/transfer";
-import * as api from "../../api";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CreateAccountDialog(props) {
-  const nodeInfo = useContext(NodeInfoContext);
   const [data, setData] = useState({ passphrase: "", address: "", username: "" });
   const classes = useStyles();
 

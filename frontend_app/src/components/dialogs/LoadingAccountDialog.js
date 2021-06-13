@@ -1,26 +1,14 @@
-import React, { Fragment, useContext, useState } from "react";
+import React, { Fragment, useContext } from "react";
 import {
   Dialog,
-  DialogTitle,
   DialogContent,
-  Button,
-  DialogActions,
   CircularProgress,
 } from "@material-ui/core";
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from "@material-ui/core/styles";
 import { cryptography } from "@liskhq/lisk-client";
 import { NodeInfoContext } from "../../context";
 import { createAccount } from "../../utils/transactions/create_account";
 import * as api from "../../api";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-    },
-  },
-}));
 
 export default function LoadingAccountDialog(props) {
   const nodeInfo = useContext(NodeInfoContext);

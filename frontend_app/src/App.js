@@ -17,7 +17,6 @@ import {
 import { SpeedDial, SpeedDialIcon, SpeedDialAction } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
-import AddIcon from '@material-ui/icons/Add';
 import LocalAtmIcon from '@material-ui/icons/LocalAtm';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import * as api from './api';

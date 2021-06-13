@@ -29,21 +29,6 @@ function Copyright() {
   );
 }
 
-function LoginError(open) {
-  if (open === true) {
-    return (
-      <Typography variant="h6" color="textPrimary" align="center">
-        {'Username and passphrase do not match'}
-      </Typography>
-    );
-  } else {
-    return (
-      <>
-      </>
-    );
-  }
-}
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),

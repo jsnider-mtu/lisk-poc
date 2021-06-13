@@ -2,7 +2,6 @@
 
 import { transactions, codec, cryptography } from "@liskhq/lisk-client";
 import { getFullAssetSchema, calcMinTxFee } from "../common";
-import { fetchAccountInfo } from "../../api";
 
 export const createAccountSchema = {
   $id: "lisk/create-account-asset",
@@ -31,7 +30,6 @@ export const createAccount = async ({
   const { publicKey } = cryptography.getPrivateAndPublicKeyFromPassphrase(
     passphrase
   );
-  const addressFromPass = cryptography.getAddressFromPassphrase(passphrase).toString("hex");
 
   const { id, ...rest } = transactions.signTransaction(
     createAccountSchema,
