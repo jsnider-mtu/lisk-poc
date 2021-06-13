@@ -8,7 +8,17 @@ function HomePage() {
 
   useEffect(() => {
     async function fetchData() {
-      setPosts(await fetchAllPosts());
+      const allPosts = await fetchAllPosts();
+      allPosts.sort(function(a, b) {
+        if (a.timestamp < b.timestamp) {
+          return 1;
+        }
+        if (a.timestamp > b.timestamp) {
+          return -1;
+        }
+        return 0;
+      });
+      setPosts(allPosts);
     }
     fetchData();
   }, []);
