@@ -9,7 +9,6 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { NodeInfoContext } from "../../context";
-// import { createNFTToken } from "../../utils/transactions/create_nft_token";
 import { createPost } from "../../utils/transactions/create_post";
 import * as api from "../../api";
 
@@ -24,10 +23,11 @@ const useStyles = makeStyles((theme) => ({
 export default function CreatePostDialog(props) {
   const nodeInfo = useContext(NodeInfoContext);
   const classes = useStyles();
+  const passp = document.cookie.split('; ').find(r => r.startsWith('passphrase')).split('=')[1];
   const [data, setData] = useState({
     message: "",
     fee: "0",
-    passphrase: "",
+    passphrase: passp,
   });
 
   const handleChange = (event) => {
@@ -57,13 +57,6 @@ export default function CreatePostDialog(props) {
               label="Message"
               value={data.message}
               name="message"
-              onChange={handleChange}
-              fullWidth
-            />
-            <TextField
-              label="Passphrase"
-              value={data.passphrase}
-              name="passphrase"
               onChange={handleChange}
               fullWidth
             />

@@ -23,9 +23,10 @@ const useStyles = makeStyles((theme) => ({
 export default function TransferFundsDialog(props) {
   const nodeInfo = useContext(NodeInfoContext);
   const classes = useStyles();
+  const passp = document.cookie.split('; ').find(r => r.startsWith('passphrase')).split('=')[1];
   const [data, setData] = useState({
     recipientAddress: "",
-    passphrase: "",
+    passphrase: passp,
     amount: "",
     fee: "0",
   });
@@ -68,25 +69,6 @@ export default function TransferFundsDialog(props) {
               onChange={handleChange}
               fullWidth
             />
-            <TextField
-              label="Passphrase"
-              value={data.passphrase}
-              name="passphrase"
-              onChange={handleChange}
-              fullWidth
-            />
-
-            <Button
-              onClick={() => {
-                setData({
-                  ...data,
-                  passphrase:
-                    "peanut hundred pen hawk invite exclude brain chunk gadget wait wrong ready",
-                });
-              }}
-            >
-              Use Genesis Account
-            </Button>
           </form>
         </DialogContent>
         <DialogActions>

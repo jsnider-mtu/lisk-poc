@@ -1,42 +1,25 @@
-import React, { Fragment, useContext, useState } from "react";
+import React, { Fragment, useContext } from "react";
 import {
+  CircularProgress,
   Dialog,
   DialogTitle,
   DialogContent,
-  TextField,
-  Button,
-  DialogActions,
+  Grid,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import { NodeInfoContext } from "../../context";
 import { promoteAccount } from "../../utils/transactions/promote_account";
 import * as api from "../../api";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-    },
-  },
-}));
-
 export default function PromoteAccountDialog(props) {
   const nodeInfo = useContext(NodeInfoContext);
-  const classes = useStyles();
-  const [data, setData] = useState({
+  const passp = document.cookie.split('; ').find(r => r.startsWith('passphrase')).split('=')[1];
+  const data = {
     address: props.account.address,
     fee: "0",
-    passphrase: "",
-  });
-
-  const handleChange = (event) => {
-    event.persist();
-    setData({ ...data, [event.target.name]: event.target.value });
+    passphrase: passp,
   };
 
   const handleSend = async (event) => {
-    event.preventDefault();
-
     const res = await promoteAccount({
       ...data,
       networkIdentifier: nodeInfo.networkIdentifier,
@@ -48,22 +31,15 @@ export default function PromoteAccountDialog(props) {
 
   return (
     <Fragment>
-      <Dialog open={props.open} onBackdropClick={props.handleClose}>
-        <DialogTitle id="alert-dialog-title">{"Promote Account"}</DialogTitle>
+      <Dialog open={props.open} onEntering={handleSend}>
+        <DialogTitle id="alert-dialog-title">{"Promoting Account"}</DialogTitle>
         <DialogContent>
-          <form className={classes.root} noValidate autoComplete="off">
-            <TextField
-              label="Passphrase"
-              value={data.passphrase}
-              name="passphrase"
-              onChange={handleChange}
-              fullWidth
-            />
-          </form>
+          <Grid container justify="center">
+            <Grid item>
+              <CircularProgress />
+            </Grid>
+          </Grid>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleSend}>Promote Account</Button>
-        </DialogActions>
       </Dialog>
     </Fragment>
   );

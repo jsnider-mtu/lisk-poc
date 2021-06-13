@@ -9,7 +9,6 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { NodeInfoContext } from "../../context";
-// import { createNFTToken } from "../../utils/transactions/create_nft_token";
 import { createChildPost } from "../../utils/transactions/create_child_post";
 import * as api from "../../api";
 
@@ -24,11 +23,12 @@ const useStyles = makeStyles((theme) => ({
 export default function CreateChildPostDialog(props) {
   const nodeInfo = useContext(NodeInfoContext);
   const classes = useStyles();
+  const passp = document.cookie.split('; ').find(r => r.startsWith('passphrase')).split('=')[1];
   const [data, setData] = useState({
     message: "",
     parentPost: props.post.id,
     fee: "0",
-    passphrase: "",
+    passphrase: passp,
   });
 
   const handleChange = (event) => {
@@ -58,20 +58,6 @@ export default function CreateChildPostDialog(props) {
               label="Message"
               value={data.message}
               name="message"
-              onChange={handleChange}
-              fullWidth
-            />
-            <TextField
-              label="Parent Post"
-              value={data.parentPost}
-              name="parentPost"
-              onChange={handleChange}
-              fullWidth
-            />
-            <TextField
-              label="Passphrase"
-              value={data.passphrase}
-              name="passphrase"
               onChange={handleChange}
               fullWidth
             />

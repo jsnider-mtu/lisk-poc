@@ -23,13 +23,14 @@ const useStyles = makeStyles((theme) => ({
 export default function UnfollowAccountDialog(props) {
   const nodeInfo = useContext(NodeInfoContext);
   const classes = useStyles();
+  const passp = document.cookie.split('; ').find(r => r.startsWith('passphrase')).split('=')[1];
   const [data, setData] = useState({
     address: props.account.address,
     name: props.account.socmed.name,
     bio: props.account.socmed.bio,
     avatar: props.account.socmed.avatar,
     fee: "0",
-    passphrase: "",
+    passphrase: passp,
   });
 
   const handleChange = (event) => {
@@ -60,6 +61,9 @@ export default function UnfollowAccountDialog(props) {
               value={data.name}
               name="name"
               onChange={handleChange}
+              InputProps={{
+                readOnly: true,
+              }}
             />
             <TextField
               label="Bio"
@@ -73,13 +77,6 @@ export default function UnfollowAccountDialog(props) {
               value={data.avatar}
               name="avatar"
               onChange={handleChange}
-            />
-            <TextField
-              label="Passphrase"
-              value={data.passphrase}
-              name="passphrase"
-              onChange={handleChange}
-              fullWidth
             />
           </form>
         </DialogContent>

@@ -24,11 +24,12 @@ const useStyles = makeStyles((theme) => ({
 export default function SharePostDialog(props) {
   const nodeInfo = useContext(NodeInfoContext);
   const classes = useStyles();
+  const passp = document.cookie.split('; ').find(r => r.startsWith('passphrase')).split('=')[1];
   const [data, setData] = useState({
     postId: props.post.id,
     message: "",
     fee: "0",
-    passphrase: "",
+    passphrase: passp,
   });
 
   const handleChange = (event) => {
@@ -58,20 +59,6 @@ export default function SharePostDialog(props) {
               label="Message"
               value={data.message}
               name="message"
-              onChange={handleChange}
-              fullWidth
-            />
-            <TextField
-              label="Shared Post"
-              value={data.postId}
-              name="postId"
-              onChange={handleChange}
-              fullWidth
-            />
-            <TextField
-              label="Passphrase"
-              value={data.passphrase}
-              name="passphrase"
               onChange={handleChange}
               fullWidth
             />
