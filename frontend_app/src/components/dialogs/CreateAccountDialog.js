@@ -36,16 +36,6 @@ export default function CreateAccountDialog(props) {
   const handleSend = async (event) => {
     event.preventDefault();
 
-    const res = await transfer({
-      recipientAddress: data.address,
-      passphrase: "peanut hundred pen hawk invite exclude brain chunk gadget wait wrong ready",
-      amount: "1",
-      fee: "0",
-      networkIdentifier: nodeInfo.networkIdentifier,
-      minFeePerByte: nodeInfo.minFeePerByte,
-    });
-    // console.log(res.tx);
-    await api.sendTransactions(res.tx);
     props.handleClose(data.address, data.passphrase);
   };
 

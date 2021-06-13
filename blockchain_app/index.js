@@ -1,4 +1,4 @@
-// 1.Import lisk sdk to create the blockchain application
+const {DPoSModule, KeysModule, SequenceModule, TokenModule} = require('lisk-framework');
 const {
     Application,
     configDevnet,
@@ -7,9 +7,6 @@ const {
     utils,
 } = require('lisk-sdk');
 
-// 2.Import NFT module and Plugin
-// const { NFTModule } = require('./nft_module');
-// const { NFTAPIPlugin } = require('./nft_api_plugin');
 const { SOCMEDModule } = require('./socmed_module');
 const { SOCMEDAPIPlugin } = require('./socmed_api_plugin');
 
@@ -75,14 +72,16 @@ const appConfig = utils.objects.mergeDeep({}, configDevnet, {
 });
 
 // 5.Initialize the application with genesis block and application config
-const app = Application.defaultApplication(genesisBlockDevnet, appConfig);
+const app = new Application(genesisBlockDevnet, appConfig);
 
-// 6.Register custom NFT Module and Plugins
-// app.registerModule(NFTModule);
-app.registerModule(SOCMEDModule);
+app._registerModule(SOCMEDModule, false);
+app._registerModule(TokenModule, false);
+app._registerModule(SequenceModule, false);
+app._registerModule(KeysModule, false);
+app._registerModule(DPoSModule, false);
+
 app.registerPlugin(HTTPAPIPlugin);
 app.registerPlugin(SOCMEDAPIPlugin);
-// app.registerPlugin(NFTAPIPlugin);
 
 // 7.Run the application
 app

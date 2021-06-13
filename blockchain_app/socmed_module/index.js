@@ -15,6 +15,7 @@ const UndeletePost = require('./transactions/undelete_post');
 const UnfollowAccount = require('./transactions/unfollow_account');
 const UnlikePost = require('./transactions/unlike_post');
 const UpdateAccount = require('./transactions/update_account');
+const CreateAccount = require('./transactions/create_account');
 
 // Extend base module to implement your custom module
 class SOCMEDModule extends BaseModule {
@@ -76,7 +77,24 @@ class SOCMEDModule extends BaseModule {
       banned: false,
     },
   };
-  transactionAssets = [new BanAccount(), new CreateChildPost(), new CreatePost(), new DeletePost(), new DemoteAccount(), new FollowAccount(), new LikePost(), new PromoteAccount(), new SharePost(), new UnbanAccount(), new UndeletePost(), new UnfollowAccount(), new UnlikePost(), new UpdateAccount()];
+  beforeTransactionApply = async ({ transaction, stateStore, reducerHandler }) => {
+    if (transaction.moduleID === 1024 && transaction.assetID === 14) {
+      console.log("started beforeTransactionApply");
+      const sender = await stateStore.account.getOrDefault(transaction.senderAddress);
+      console.log("got default");
+      await stateStore.account.set(transaction.senderAddress, sender);
+      console.log("Set account in stateStore");
+      console.log(sender);
+      if (!sender.hasOwnProperty('token')) {
+        await reducerHandler.invoke("token:credit", {
+          address: transaction.senderAddress,
+          amount: BigInt(100000000),
+        });
+      }
+      console.log("ended beforeTransactionApply");
+    }
+  }
+  transactionAssets = [new BanAccount(), new CreateChildPost(), new CreatePost(), new DeletePost(), new DemoteAccount(), new FollowAccount(), new LikePost(), new PromoteAccount(), new SharePost(), new UnbanAccount(), new UndeletePost(), new UnfollowAccount(), new UnlikePost(), new UpdateAccount(), new CreateAccount()];
   actions = {
     // get all the registered posts from blockchain
     getAllPosts: async () => getAllPostsAsJSON(this._dataAccess),
