@@ -37,9 +37,12 @@ genesisBlockDevnet.header.asset.accounts = genesisBlockDevnet.header.asset.accou
             },
         }),
 );
-const genAccountIndex = genesisBlockDevnet.header.asset.accounts.findIndex((a) => a.address === '6577b5898d1448857a2928f4bce4d3d866378113');
-genesisBlockDevnet.header.asset.accounts[genAccountIndex].socmed.moderator = true;
-genesisBlockDevnet.header.asset.accounts[genAccountIndex].socmed.name = 'afsa';
+const modAccountIndex = genesisBlockDevnet.header.asset.accounts.findIndex((a) => a.address === '6577b5898d1448857a2928f4bce4d3d866378113');
+genesisBlockDevnet.header.asset.accounts[modAccountIndex].socmed.moderator = true;
+genesisBlockDevnet.header.asset.accounts[modAccountIndex].socmed.name = 'afsa';
+
+const genAccountIndex = genesisBlockDevnet.header.asset.accounts.findIndex((a) => a.address === 'd04699e57c4a3846c988f3c15306796f8eae5c1c');
+genesisBlockDevnet.header.asset.accounts[genAccountIndex].token.balance = 0;
 
 // 4.Update application config to include unique label
 // and communityIdentifier to mitigate transaction replay
