@@ -159,7 +159,6 @@ function App() {
 
                             <Route path="/home" component={HomePage} />
 							<Route path="/accounts/:address" component={AccountPage} />
-                            <Route path="/user/:username" component={AccountPage} />
 							<Route path="/transactions" component={TransactionsPage} />
                             <Route path="/signin" component={SignInPage} />
                             <Route path="/signup" component={SignUpPage} />
