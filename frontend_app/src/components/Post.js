@@ -53,8 +53,25 @@ export default function Post(props) {
   const [openLike, setOpenLike] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const base32UIAddress = cryptography.getBase32AddressFromAddress(Buffer.from(props.item.ownerAddress, 'hex'), 'lsk').toString('binary');
+  const curUserAddress = cryptography.getAddressFromPassphrase(document.cookie.split('; ').find(r => r.startsWith('passphrase=')).split('=')[1]).toString('hex');
   const dateobj = new Date(props.item.timestamp);
   const datetime = dateobj.toLocaleString();
+  let deletebutton;
+
+  if (curUserAddress === props.item.ownerAddress) {
+    deletebutton = 
+        <IconButton
+          aria-label="delete"
+          onClick={() => {
+            setOpenDelete(true);
+          }}
+        >
+          <DeleteIcon />
+        </IconButton>;
+  } else {
+    deletebutton = <></>;
+  }
+
   return (
     <Card className={classes.root}>
       <Link
@@ -125,14 +142,7 @@ export default function Post(props) {
           }}
           post={props.item}
         />
-        <IconButton
-          aria-label="delete"
-          onClick={() => {
-            setOpenDelete(true);
-          }}
-        >
-          <DeleteIcon />
-        </IconButton>
+        {deletebutton}
         <DeletePostDialog
           open={openDelete}
           handleClose={() => {
