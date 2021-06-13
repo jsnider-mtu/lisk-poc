@@ -3,11 +3,19 @@ import {
   Card,
   CardContent,
   CardActions,
+  CardHeader,
+  Avatar,
   Typography,
   Link,
   Divider,
   Button,
+  IconButton,
 } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import ShareIcon from "@material-ui/icons/Share";
+import ReplyIcon from "@material-ui/icons/Reply";
+import { red } from '@material-ui/core/colors';
 import { makeStyles } from "@material-ui/core/styles";
 import { Link as RouterLink } from "react-router-dom";
 import { cryptography, Buffer } from "@liskhq/lisk-client";
@@ -18,27 +26,25 @@ import CreateChildPostDialog from "./dialogs/CreateChildPostDialog";
 import DeletePostDialog from "./dialogs/DeletePostDialog";
 
 const useStyles = makeStyles((theme) => ({
-  propertyList: {
-    listStyle: "none",
-
-    "& li": {
-      margin: theme.spacing(2, 0),
-      borderBottomColor: theme.palette.divider,
-      borderBottomStyle: "solid",
-      borderBottomWidth: 1,
-
-      "& dt": {
-        display: "block",
-        width: "100%",
-        fontWeight: "bold",
-        margin: theme.spacing(1, 0),
-      },
-      "& dd": {
-        display: "block",
-        width: "100%",
-        margin: theme.spacing(1, 0),
-      },
-    },
+  root: {
+    maxWidth: 345,
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)',
+  },
+  avatar: {
+    backgroundColor: red[500],
   },
 }));
 
@@ -48,126 +54,89 @@ export default function Post(props) {
   const [openReply, setOpenReply] = useState(false);
   const [openLike, setOpenLike] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
-  // Get username from address
   const base32UIAddress = cryptography.getBase32AddressFromAddress(Buffer.from(props.item.ownerAddress, 'hex'), 'lsk').toString('binary');
   const dateobj = new Date(props.item.timestamp);
-  const datetime = dateobj.toString();
+  const datetime = dateobj.toLocaleString();
   return (
-    <Card>
+    <Card className={classes.root}>
+      <CardHeader
+        avatar={
+          <Avatar aria-label="avatar" className={classes.avatar}>
+            {props.item.username[0]}
+          </Avatar>
+        }
+        title={props.item.username}
+        subheader={datetime}
+      />
       <CardContent>
-        <Typography variant="h6">{props.item.message}</Typography>
-        <Divider />
-        <dl className={classes.propertyList}>
-          <li>
-            <dt>Likes</dt>
-            <dd>{props.item.likes.length}</dd>
-          </li>
-          <li>
-            <dt>Shares</dt>
-            <dd>{props.item.shares.length}</dd>
-          </li>
-          <li>
-            <dt>Replies</dt>
-            <dd>{props.item.replies.length}</dd>
-          </li>
-          <li>
-            <dt>Shared Post</dt>
-            <dd>{props.item.sharedPost}</dd>
-          </li>
-          <li>
-            <dt>Reply To</dt>
-            <dd>{props.item.parentPost}</dd>
-          </li>
-          <li>
-            <dt>Timestamp</dt>
-            <dd>{datetime}</dd>
-          </li>
-          <li>
-            <dt>Owner</dt>
-            <dd>
-              <Link
-                component={RouterLink}
-                to={`/accounts/${base32UIAddress}`}
-              >
-                {props.item.username}
-              </Link>
-            </dd>
-          </li>
-        </dl>
+        <Typography variant="body2" color="textPrimary" component="p">
+          {props.item.message}
+        </Typography>
       </CardContent>
-      <CardActions>
-        <>
-          <Button
-            size="small"
-            color="primary"
-            onClick={() => {
-              setOpenLike(true);
-            }}
-          >
-            Like Post
-          </Button>
-          <LikePostDialog
-            open={openLike}
-            handleClose={() => {
-              setOpenLike(false);
-            }}
-            post={props.item}
-            />
-        </>
-        <>
-          <Button
-            size="small"
-            color="primary"
-            onClick={() => {
-              setOpenShare(true);
-            }}
-          >
-            Share Post
-          </Button>
-          <SharePostDialog
-            open={openShare}
-            handleClose={() => {
-              setOpenShare(false);
-            }}
-            post={props.item}
-           />
-        </>
-        <>
-          <Button
-            size="small"
-            color="primary"
-            onClick={() => {
-              setOpenReply(true);
-            }}
-          >
-            Reply to Post
-          </Button>
-          <CreateChildPostDialog
-            open={openReply}
-            handleClose={() => {
-              setOpenReply(false);
-            }}
-            post={props.item}
-          />
-        </>
-        <>
-          <Button
-            size="small"
-            color="primary"
-            onClick={() => {
-              setOpenDelete(true);
-            }}
-          >
-            Delete Post
-          </Button>
-          <DeletePostDialog
-            open={openDelete}
-            handleClose={() => {
-              setOpenDelete(false);
-            }}
-            post={props.item}
-          />
-        </>
+      <CardActions disableSpacing>
+        <IconButton
+          aria-label="like"
+          onClick={() => {
+            setOpenLike(true);
+          }}
+        >
+          <FavoriteIcon />
+        </IconButton>
+        {props.item.likes.length}
+        <LikePostDialog
+          open={openLike}
+          handleClose={() => {
+            setOpenLike(false);
+          }}
+          post={props.item}
+        />
+        <IconButton
+          aria-label="share"
+          onClick={() => {
+            setOpenShare(true);
+          }}
+        >
+          <ShareIcon />
+        </IconButton>
+        {props.item.shares.length}
+        <SharePostDialog
+          open={openShare}
+          handleClose={() => {
+            setOpenShare(false);
+          }}
+          post={props.item}
+        />
+        <IconButton
+          aria-label="reply"
+          onClick={() => {
+            setOpenReply(true);
+          }}
+        >
+          <ReplyIcon />
+        </IconButton>
+        {props.item.replies.length}
+        <CreateChildPostDialog
+          open={openReply}
+          handleClose={() => {
+            setOpenReply(false);
+          }}
+          post={props.item}
+        />
+        <IconButton
+          aria-label="delete"
+          onClick={() => {
+            setOpenDelete(true);
+          }}
+        >
+          <DeleteIcon />
+        </IconButton>
+        <DeletePostDialog
+          open={openDelete}
+          handleClose={() => {
+            setOpenDelete(false);
+          }}
+          post={props.item}
+        />
       </CardActions>
     </Card>
   );
