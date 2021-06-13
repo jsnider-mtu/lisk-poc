@@ -15,13 +15,13 @@ function HomePage() {
 
   return (
     <Fragment>
-      <Grid container spacing={4}>
-        {Posts.map((item) => (
+      {Posts.map((item) => (
+      <Grid container spacing={4} justify="center">
           <Grid item md={4}>
             <Post item={item} key={item.id} />
           </Grid>
-        ))}
       </Grid>
+      ))}
     </Fragment>
   );
 }
