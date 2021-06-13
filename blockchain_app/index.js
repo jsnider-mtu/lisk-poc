@@ -12,7 +12,7 @@ const { SOCMEDAPIPlugin } = require('./socmed_api_plugin');
 
 // 3.Update the genesis block accounts to include socmed module attributes
 genesisBlockDevnet.header.timestamp = 1605699440;
-genesisBlockDevnet.header.asset.accounts.push({address:'338be071677bc6f04df7e303eb55f45e8b3fd494',token:{balance:"0"},sequence:{nonce:"0"},keys:{mandatoryKeys:[],optionalKeys:[],numberOfSignatures:0},dpos:{delegate:{username:"moderator",pomHeights:[],consecutiveMissedBlocks:0,lastForgedHeight:0,isBanned:false,totalVotesReceived:"0"},sentVotes:[{delegateAddress:"03f6d90b7dbd0497dc3a52d1c27e23bb8c75897f",amount:"0"}],unlocking:[]}});
+genesisBlockDevnet.header.asset.accounts.push({address:'6577b5898d1448857a2928f4bce4d3d866378113',token:{balance:"0"},sequence:{nonce:"0"},keys:{mandatoryKeys:[],optionalKeys:[],numberOfSignatures:0},dpos:{delegate:{username:"moderator",pomHeights:[],consecutiveMissedBlocks:0,lastForgedHeight:0,isBanned:false,totalVotesReceived:"0"},sentVotes:[{delegateAddress:"03f6d90b7dbd0497dc3a52d1c27e23bb8c75897f",amount:"0"}],unlocking:[]}});
 genesisBlockDevnet.header.asset.accounts.sort(function(a, b) {
   if (a.address < b.address) {
     return -1;
@@ -37,8 +37,9 @@ genesisBlockDevnet.header.asset.accounts = genesisBlockDevnet.header.asset.accou
             },
         }),
 );
-const genAccountIndex = genesisBlockDevnet.header.asset.accounts.findIndex((a) => a.address === '338be071677bc6f04df7e303eb55f45e8b3fd494');
+const genAccountIndex = genesisBlockDevnet.header.asset.accounts.findIndex((a) => a.address === '6577b5898d1448857a2928f4bce4d3d866378113');
 genesisBlockDevnet.header.asset.accounts[genAccountIndex].socmed.moderator = true;
+genesisBlockDevnet.header.asset.accounts[genAccountIndex].socmed.name = 'afsa';
 
 // 4.Update application config to include unique label
 // and communityIdentifier to mitigate transaction replay
