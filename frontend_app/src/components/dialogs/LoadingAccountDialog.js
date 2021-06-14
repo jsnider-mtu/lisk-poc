@@ -15,8 +15,10 @@ import * as api from "../../api";
 export default function LoadingAccountDialog(props) {
   const nodeInfo = useContext(NodeInfoContext);
   const handleSend = async (event) => {
+    const addy = cryptography.getAddressFromBase32Address(props.address)
+    const addys = addy.toString('hex')
     const res = await createAccount({
-      address: cryptography.getAddressFromBase32Address(props.address),
+      address: addy,
       name: props.username,
       fee: "0",
       passphrase: props.passphrase,
@@ -26,6 +28,12 @@ export default function LoadingAccountDialog(props) {
     await api.sendTransactions(res.tx);
     // Need to replace with a check for account from API
     await new Promise(r => setTimeout(r, 5500));
+    let res2 = await api.fetchAccountInfo(addys);
+    while (!res2.hasOwnProperty('socmed')) {
+      console.log("Waiting 5 more seconds for account info");
+      await new Promise(r => setTimeout(r, 5000));
+      res2 = await api.fetchAccountInfo(addys);
+    }
     props.handleClose();
   };
 
