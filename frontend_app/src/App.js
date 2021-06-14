@@ -10,7 +10,6 @@ import {
     Toolbar,
     Typography,
     Link,
-    IconButton,
     Container,
     Chip,
     Grid,
@@ -18,7 +17,6 @@ import {
 } from '@material-ui/core';
 import { SpeedDial, SpeedDialIcon, SpeedDialAction } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
 import LocalAtmIcon from '@material-ui/icons/LocalAtm';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import { cryptography } from "@liskhq/lisk-client";
@@ -116,10 +114,6 @@ function App() {
                 <Router>
                     <AppBar position="static">
                         <Toolbar>
-                            <IconButton edge="start" color="inherit" aria-label="menu">
-                                <MenuIcon />
-                            </IconButton>
-                            <Typography variant="h6">Social Media App</Typography>
 
                             <Link
                                 color="inherit"
@@ -127,7 +121,7 @@ function App() {
                                 to="/home"
                                 className={classes.appBarLink}
                             >
-                                Home
+                                <Typography variant="h6">Social Media App</Typography>
                             </Link>
                             <Link
                                 color="inherit"

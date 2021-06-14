@@ -1,10 +1,7 @@
 import React, { Fragment, useContext } from "react";
 import {
+  Backdrop,
   CircularProgress,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  Grid,
 } from "@material-ui/core";
 import { NodeInfoContext } from "../../context";
 import { banAccount } from "../../utils/transactions/ban_account";
@@ -31,14 +28,9 @@ export default function BanAccountDialog(props) {
 
   return (
     <Fragment>
-      <Dialog open={props.open} onEntering={handleSend}>
-        <DialogTitle id="alert-dialog-title">{"Banning Account"}</DialogTitle>
-        <DialogContent>
-          <Grid container justify="center">
-            <CircularProgress />
-          </Grid>
-        </DialogContent>
-      </Dialog>
+      <Backdrop open={props.open} onEntering={handleSend}>
+        <CircularProgress />
+      </Backdrop>
     </Fragment>
   );
 }
