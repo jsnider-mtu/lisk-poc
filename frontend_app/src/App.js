@@ -13,6 +13,8 @@ import {
     IconButton,
     Container,
     Chip,
+    Grid,
+    Divider,
 } from '@material-ui/core';
 import { SpeedDial, SpeedDialIcon, SpeedDialAction } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
@@ -172,19 +174,33 @@ function App() {
                         />
                     </SpeedDial>
 
-                    <Container className={classes.contentContainer}>
-                        <Switch>
-                            <Route path="/" exact>
-                                <SignInPage />
-                            </Route>
-
-                            <Route path="/home" component={HomePage} />
-                            <Route path="/accounts/:address" component={AccountPage} />
-                            <Route path="/transactions" component={TransactionsPage} />
-                            <Route path="/signin" component={SignInPage} />
-                            <Route path="/signup" component={SignUpPage} />
-                        </Switch>
-                    </Container>
+                    <Grid container
+                        direction="row"
+                        justify="space-evenly"
+                        alignItems="flex-start"
+                    >
+                        <Grid item xs>
+                        </Grid>
+                        <Divider orientation="vertical" flexItem />
+                        <Grid item xs={6}>
+                            <Container className={classes.contentContainer}>
+                                <Switch>
+                                    <Route path="/" exact>
+                                        <SignInPage />
+                                    </Route>
+        
+                                    <Route path="/home" component={HomePage} />
+                                    <Route path="/accounts/:address" component={AccountPage} />
+                                    <Route path="/transactions" component={TransactionsPage} />
+                                    <Route path="/signin" component={SignInPage} />
+                                    <Route path="/signup" component={SignUpPage} />
+                                </Switch>
+                            </Container>
+                        </Grid>
+                        <Divider orientation="vertical" flexItem />
+                        <Grid item xs>
+                        </Grid>
+                    </Grid>
 
                     <CreatePostDialog
                         open={openDialog === 'CreatePostDialog'}

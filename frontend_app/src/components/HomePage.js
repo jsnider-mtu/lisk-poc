@@ -29,8 +29,8 @@ function HomePage() {
   return (
     <Fragment>
       {Posts.map((item) => (
-      <Grid container spacing={4} justify="center">
-          <Grid item md={4}>
+      <Grid container spacing={1} justify="center">
+          <Grid item md={8}>
             <Post item={item} key={item.id} />
           </Grid>
       </Grid>
