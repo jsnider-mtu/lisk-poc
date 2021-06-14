@@ -123,8 +123,8 @@ export default function SignUpPage() {
         address={data.address}
         username={data.username}
         passphrase={data.passphrase}
-        handleClose={(addy2) => {
-          window.location.href = `/accounts/${addy2}`;
+        handleClose={() => {
+          window.location.href = `/home`;
         }}
       />
     </Container>

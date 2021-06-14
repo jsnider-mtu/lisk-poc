@@ -63,7 +63,7 @@ const appConfig = utils.objects.mergeDeep({}, configDevnet, {
                 "baseFee": "0",
             }
         ],
-        // minRemainingBalance: "0",
+        minRemainingBalance: "0",
     },
     // rpc: {
     //     enable: true,

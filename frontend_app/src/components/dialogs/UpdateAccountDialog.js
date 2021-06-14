@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 export default function UnfollowAccountDialog(props) {
   const nodeInfo = useContext(NodeInfoContext);
   const classes = useStyles();
-  const passp = document.cookie.split('; ').find(r => r.startsWith('passphrase')).split('=')[1];
+  const passp = document.cookie.split('; ').find(r => r.startsWith('passphrase=')).split('=')[1];
   const [data, setData] = useState({
     address: props.account.address,
     name: props.account.socmed.name,

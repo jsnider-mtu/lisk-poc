@@ -9,7 +9,6 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { NodeInfoContext } from "../../context";
-// import { createNFTToken } from "../../utils/transactions/create_nft_token";
 import { sharePost } from "../../utils/transactions/share_post";
 import * as api from "../../api";
 
@@ -24,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SharePostDialog(props) {
   const nodeInfo = useContext(NodeInfoContext);
   const classes = useStyles();
-  const passp = document.cookie.split('; ').find(r => r.startsWith('passphrase')).split('=')[1];
+  const passp = document.cookie.split('; ').find(r => r.startsWith('passphrase=')).split('=')[1];
   const [data, setData] = useState({
     postId: props.post.id,
     message: "",

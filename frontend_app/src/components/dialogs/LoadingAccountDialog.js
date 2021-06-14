@@ -26,7 +26,7 @@ export default function LoadingAccountDialog(props) {
     await api.sendTransactions(res.tx);
     // Need to replace with a check for account from API
     await new Promise(r => setTimeout(r, 5500));
-    props.handleClose(props.address);
+    props.handleClose();
   };
 
   return (
