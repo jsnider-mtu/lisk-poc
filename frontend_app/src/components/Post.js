@@ -56,6 +56,7 @@ export default function Post(props) {
   const curUserAddress = cryptography.getAddressFromPassphrase(document.cookie.split('; ').find(r => r.startsWith('passphrase=')).split('=')[1]).toString('hex');
   const dateobj = new Date(props.item.timestamp);
   const datetime = dateobj.toLocaleString();
+
   let deletebutton;
 
   if (curUserAddress === props.item.ownerAddress) {
@@ -71,6 +72,8 @@ export default function Post(props) {
   } else {
     deletebutton = <></>;
   }
+
+  let curLikeCount = props.item.likes.length;
 
   return (
     <Card className={classes.root}>
@@ -102,7 +105,7 @@ export default function Post(props) {
         >
           <FavoriteIcon />
         </IconButton>
-        {props.item.likes.length}
+        {curLikeCount}
         <LikePostDialog
           open={openLike}
           handleClose={() => {
