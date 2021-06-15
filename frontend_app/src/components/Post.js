@@ -18,6 +18,7 @@ import { red } from '@material-ui/core/colors';
 import { makeStyles } from "@material-ui/core/styles";
 import { Link as RouterLink } from "react-router-dom";
 import { cryptography, Buffer } from "@liskhq/lisk-client";
+import * as api from "../api";
 
 import LikePostDialog from "./dialogs/LikePostDialog";
 import UnlikePostDialog from "./dialogs/UnlikePostDialog";
@@ -66,8 +67,14 @@ export default function Post(props) {
   const [liked, setLiked] = useState(props.item.likes.includes(curUserAddress));
   const [newLike, setNewLike] = useState(false);
   const [newUnlike, setNewUnlike] = useState(false);
+  const [parPost, setParPost] = useState("");
 
   useEffect(() => {
+    async function fetchData() {
+      const parpost = await api.fetchPost(props.item.parentPost);
+      setParPost(parpost.message);
+    }
+    fetchData();
     setLikes(likes => likes + (newLike ? 1 : 0));
     setLikes(likes => likes + (newUnlike ? -1 : 0));
   }, [newLike, newUnlike]);
@@ -118,6 +125,17 @@ export default function Post(props) {
       </IconButton>;
   }
 
+  let parentpost;
+
+  if (props.item.parentPost.length === 0) {
+    parentpost = <></>;
+  } else {
+    parentpost =
+    <Typography variant="body2" color="textSecondary">
+      > {parPost}
+    </Typography>;
+  }
+
   return (
     <Card className={classes.root}>
       <Link
@@ -135,6 +153,7 @@ export default function Post(props) {
         />
       </Link>
       <CardContent>
+        {parentpost}
         <Typography className={classes.message} variant="body2" color="textPrimary" component="p">
           {props.item.message}
         </Typography>
