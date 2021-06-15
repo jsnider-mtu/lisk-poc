@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import ShareIcon from "@material-ui/icons/Share";
 import ReplyIcon from "@material-ui/icons/Reply";
 import { red } from '@material-ui/core/colors';
@@ -51,11 +52,21 @@ export default function Post(props) {
   const [openShare, setOpenShare] = useState(false);
   const [openReply, setOpenReply] = useState(false);
   const [openLike, setOpenLike] = useState(false);
+  const [openUnlike, setOpenUnlike] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const base32UIAddress = cryptography.getBase32AddressFromAddress(Buffer.from(props.item.ownerAddress, 'hex'), 'lsk').toString('binary');
   const curUserAddress = cryptography.getAddressFromPassphrase(document.cookie.split('; ').find(r => r.startsWith('passphrase=')).split('=')[1]).toString('hex');
   const dateobj = new Date(props.item.timestamp);
   const datetime = dateobj.toLocaleString();
+  const [likes, setLikes] = useState(props.item.likes.length);
+  const [liked, setLiked] = useState(props.item.likes.includes(curUserAddress));
+  const [newLike, setNewLike] = useState(false);
+  const [newUnlike, setNewUnlike] = useState(false);
+
+  useEffect(() => {
+    setLikes(likes => likes + (newLike ? 1 : 0));
+    setLikes(likes => likes + (newUnlike ? -1 : 0));
+  }, [newLike, newUnlike]);
 
   let deletebutton;
 
@@ -73,7 +84,35 @@ export default function Post(props) {
     deletebutton = <></>;
   }
 
-  let curLikeCount = props.item.likes.length;
+  let likebutton;
+
+  if (!liked) {
+    likebutton =
+      <IconButton
+        aria-label="like"
+        onClick={() => {
+          setOpenLike(true);
+          setNewUnlike(false);
+          setNewLike(true);
+          setLiked(true);
+        }}
+      >
+        <FavoriteBorderIcon />
+      </IconButton>;
+  } else {
+    likebutton =
+      <IconButton
+        aria-label="unlike"
+        onClick={() => {
+          setOpenUnlike(true);
+          setNewLike(false);
+          setNewUnlike(true);
+          setLiked(false);
+        }}
+      >
+        <FavoriteIcon />
+      </IconButton>;
+  }
 
   return (
     <Card className={classes.root}>
@@ -97,15 +136,8 @@ export default function Post(props) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton
-          aria-label="like"
-          onClick={() => {
-            setOpenLike(true);
-          }}
-        >
-          <FavoriteIcon />
-        </IconButton>
-        {curLikeCount}
+        {likebutton}
+        {likes}
         <LikePostDialog
           open={openLike}
           handleClose={() => {
