@@ -41,7 +41,7 @@ export const unlikePost = async ({
       fee: BigInt(transactions.convertLSKToBeddows(fee)),
       senderPublicKey: publicKey,
       asset: {
-        postId,
+        postId: Buffer.from(postId, 'hex'),
       },
     },
     Buffer.from(networkIdentifier, "hex"),

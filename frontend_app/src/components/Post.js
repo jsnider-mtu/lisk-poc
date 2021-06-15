@@ -20,6 +20,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { cryptography, Buffer } from "@liskhq/lisk-client";
 
 import LikePostDialog from "./dialogs/LikePostDialog";
+import UnlikePostDialog from "./dialogs/UnlikePostDialog";
 import SharePostDialog from "./dialogs/SharePostDialog";
 import CreateChildPostDialog from "./dialogs/CreateChildPostDialog";
 import DeletePostDialog from "./dialogs/DeletePostDialog";
@@ -27,6 +28,9 @@ import DeletePostDialog from "./dialogs/DeletePostDialog";
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
+  },
+  message: {
+    'white-space': 'pre-wrap',
   },
   media: {
     height: 0,
@@ -131,17 +135,24 @@ export default function Post(props) {
         />
       </Link>
       <CardContent>
-        <Typography variant="body2" color="textPrimary" component="p">
+        <Typography className={classes.message} variant="body2" color="textPrimary" component="p">
           {props.item.message}
         </Typography>
       </CardContent>
-      <CardActions disableSpacing>
+      <CardActions>
         {likebutton}
         {likes}
         <LikePostDialog
           open={openLike}
           handleClose={() => {
             setOpenLike(false);
+          }}
+          post={props.item}
+        />
+        <UnlikePostDialog
+          open={openUnlike}
+          handleClose={() => {
+            setOpenUnlike(false);
           }}
           post={props.item}
         />
