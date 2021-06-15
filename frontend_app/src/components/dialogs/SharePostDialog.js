@@ -60,6 +60,9 @@ export default function SharePostDialog(props) {
               name="message"
               onChange={handleChange}
               fullWidth
+              multiline
+              rows={6}
+              variant="outlined"
             />
           </form>
         </DialogContent>
