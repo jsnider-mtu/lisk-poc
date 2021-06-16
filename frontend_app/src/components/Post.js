@@ -51,6 +51,8 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     backgroundColor: blue[500],
+    width: theme.spacing(5),
+    height: theme.spacing(5),
   },
   parentAvatar: {
     backgroundColor: blue[500],
@@ -80,7 +82,6 @@ export default function Post(props) {
 
   useEffect(() => {
     let curUser = {};
-    let curUserMod = false;
     async function fetchData() {
       if (props.item.parentPost.length !== 0) {
         const parpost = await api.fetchPost(props.item.parentPost);
@@ -91,8 +92,7 @@ export default function Post(props) {
         setShaPost(shapost);
       }
       curUser = await api.fetchAccountInfo(curUserAddress);
-      curUserMod = curUser.socmed.moderator;
-      setMod(curUserMod);
+      setMod(curUser.socmed.moderator);
     }
     fetchData();
     setLikes(likes => likes + (newLike ? 1 : 0));
