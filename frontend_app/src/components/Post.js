@@ -12,9 +12,10 @@ import {
 import DeleteIcon from "@material-ui/icons/Delete";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import ShareIcon from "@material-ui/icons/Share";
 import ReplyIcon from "@material-ui/icons/Reply";
-import { red } from '@material-ui/core/colors';
+import { blue } from '@material-ui/core/colors';
 import { makeStyles } from "@material-ui/core/styles";
 import { Link as RouterLink } from "react-router-dom";
 import { cryptography, Buffer } from "@liskhq/lisk-client";
@@ -48,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     transform: 'rotate(180deg)',
   },
   avatar: {
-    backgroundColor: red[500],
+    backgroundColor: blue[500],
   },
 }));
 
@@ -68,7 +69,7 @@ export default function Post(props) {
   const [newLike, setNewLike] = useState(false);
   const [newUnlike, setNewUnlike] = useState(false);
   const [parPost, setParPost] = useState("");
-  const [shaPost, setShaPost] = useState("");
+  const [shaPost, setShaPost] = useState({});
 
   useEffect(() => {
     async function fetchData() {
@@ -78,7 +79,7 @@ export default function Post(props) {
       }
       if (props.item.sharedPost.length !== 0) {
         const shapost = await api.fetchPost(props.item.sharedPost);
-        setShaPost(shapost.message);
+        setShaPost(shapost);
       }
     }
     fetchData();
@@ -148,8 +149,35 @@ export default function Post(props) {
   if (props.item.sharedPost.length === 0) {
     sharedpost = <></>;
   } else {
+    let base32ShaAddress = "";
+    if (shaPost.hasOwnProperty('ownerAddress')) {
+      const base32ShaAddress = cryptography.getBase32AddressFromAddress(Buffer.from(shaPost.ownerAddress, 'hex'), 'lsk').toString('binary');
+    }
     sharedpost =
-      <></>;
+      <Link
+        component={RouterLink}
+        to={`/accounts/${base32ShaAddress}`}
+      >
+        <Card className={classes.root}>
+          <CardHeader
+            avatar={
+              <Avatar aria-label="avatar" className={classes.avatar}>
+                <AssignmentIndIcon />
+              </Avatar>
+            }
+            title={shaPost.username}
+            subheader={new Date(shaPost.timestamp).toLocaleString()}
+          />
+          <CardContent>
+            <Typography variant="body1" color="textSecondary" component="p">
+              {shaPost.id}
+            </Typography>
+            <Typography className={classes.message} variant="body1" color="textPrimary" component="p">
+              {shaPost.message}
+            </Typography>
+          </CardContent>
+        </Card>
+      </Link>;
   }
 
   return (
@@ -161,7 +189,7 @@ export default function Post(props) {
         <CardHeader
           avatar={
             <Avatar aria-label="avatar" className={classes.avatar}>
-              {props.item.username[0]}
+              <AssignmentIndIcon />
             </Avatar>
           }
           title={props.item.username}
@@ -170,7 +198,10 @@ export default function Post(props) {
       </Link>
       <CardContent>
         {parentpost}
-        <Typography className={classes.message} variant="body" color="textPrimary" component="p">
+        <Typography variant="body1" color="textSecondary" component="p">
+          {props.item.id}
+        </Typography>
+        <Typography className={classes.message} variant="body1" color="textPrimary" component="p">
           {props.item.message}
         </Typography>
         {sharedpost}
@@ -206,7 +237,7 @@ export default function Post(props) {
           handleClose={() => {
             setOpenShare(false);
           }}
-          post={props.item}
+          post={props.item.sharedPost.length > 0 ? shaPost : props.item}
         />
         <IconButton
           aria-label="reply"
