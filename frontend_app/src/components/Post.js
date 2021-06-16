@@ -68,7 +68,7 @@ export default function Post(props) {
   const [liked, setLiked] = useState(props.item.likes.includes(curUserAddress));
   const [newLike, setNewLike] = useState(false);
   const [newUnlike, setNewUnlike] = useState(false);
-  const [parPost, setParPost] = useState("");
+  const [parPost, setParPost] = useState({});
   const [shaPost, setShaPost] = useState({});
   const [mod, setMod] = useState(false);
 
@@ -78,7 +78,7 @@ export default function Post(props) {
     async function fetchData() {
       if (props.item.parentPost.length !== 0) {
         const parpost = await api.fetchPost(props.item.parentPost);
-        setParPost(parpost.message);
+        setParPost(parpost);
       }
       if (props.item.sharedPost.length !== 0) {
         const shapost = await api.fetchPost(props.item.sharedPost);
@@ -144,10 +144,51 @@ export default function Post(props) {
   if (props.item.parentPost.length === 0) {
     parentpost = <></>;
   } else {
-    parentpost =
-      <Typography variant="body2" color="textSecondary" gutterBottom>
-        > {parPost}
-      </Typography>;
+    let base32ParAddress = "";
+    if (parPost.hasOwnProperty('ownerAddress')) {
+      const base32ParAddress = cryptography.getBase32AddressFromAddress(Buffer.from(parPost.ownerAddress, 'hex'), 'lsk').toString('binary');
+    }
+    if (parPost.deleted) {
+      parentpost =
+        <Card className={classes.root}>
+          <CardHeader
+            avatar={
+              <Avatar aria-label="avatar" className={classes.avatar}>
+                <AssignmentIndIcon />
+              </Avatar>
+            }
+            title={'Post deleted'}
+          />
+          <CardContent>
+            <Typography variant="body2" color="textSecondary" gutterBottom>
+              > {'Post deleted'}
+            </Typography>
+          </CardContent>
+        </Card>;
+    } else {
+      parentpost =
+        <Link
+          component={RouterLink}
+          to={`/accounts/${base32ParAddress}`}
+        >
+          <Card className={classes.root}>
+            <CardHeader
+              avatar={
+                <Avatar aria-label="avatar" className={classes.avatar}>
+                  <AssignmentIndIcon />
+                </Avatar>
+              }
+              title={parPost.username}
+              subheader={new Date(parPost.timestamp).toLocaleString()}
+            />
+            <CardContent>
+              <Typography variant="body2" color="textSecondary" gutterBottom>
+                > {parPost.message}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Link>;
+    }
   }
 
   let sharedpost;
