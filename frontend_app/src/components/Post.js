@@ -8,6 +8,7 @@ import {
   Typography,
   Link,
   IconButton,
+  Grid,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -50,6 +51,11 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     backgroundColor: blue[500],
+  },
+  parentAvatar: {
+    backgroundColor: blue[500],
+    width: theme.spacing(3),
+    height: theme.spacing(3),
   },
 }));
 
@@ -153,7 +159,7 @@ export default function Post(props) {
         <Card className={classes.root}>
           <CardHeader
             avatar={
-              <Avatar aria-label="avatar" className={classes.avatar}>
+              <Avatar aria-label="avatar" className={classes.parentAvatar}>
                 <AssignmentIndIcon />
               </Avatar>
             }
@@ -171,22 +177,30 @@ export default function Post(props) {
           component={RouterLink}
           to={`/accounts/${base32ParAddress}`}
         >
-          <Card className={classes.root}>
-            <CardHeader
-              avatar={
-                <Avatar aria-label="avatar" className={classes.avatar}>
-                  <AssignmentIndIcon />
-                </Avatar>
-              }
-              title={parPost.username}
-              subheader={new Date(parPost.timestamp).toLocaleString()}
-            />
-            <CardContent>
+          <Grid container>
+            <Grid item xs={1} />
+            <Grid item xs={2}>
+              <Avatar aria-label="avatar" className={classes.parentAvatar}>
+                <AssignmentIndIcon />
+              </Avatar>
+            </Grid>
+            <Grid item xs={9}>
+              <Typography variant="body1" color="textPrimary">
+                {parPost.username}
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                {new Date(parPost.timestamp).toLocaleString()}
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item xs={1} />
+            <Grid item xs={10}>
               <Typography variant="body2" color="textSecondary" gutterBottom>
                 > {parPost.message}
               </Typography>
-            </CardContent>
-          </Card>
+            </Grid>
+          </Grid>
         </Link>;
     }
   }
