@@ -169,9 +169,6 @@ export default function Post(props) {
             subheader={new Date(shaPost.timestamp).toLocaleString()}
           />
           <CardContent>
-            <Typography variant="body1" color="textSecondary" component="p">
-              {shaPost.id}
-            </Typography>
             <Typography className={classes.message} variant="body1" color="textPrimary" component="p">
               {shaPost.message}
             </Typography>
@@ -198,9 +195,6 @@ export default function Post(props) {
       </Link>
       <CardContent>
         {parentpost}
-        <Typography variant="body1" color="textSecondary" component="p">
-          {props.item.id}
-        </Typography>
         <Typography className={classes.message} variant="body1" color="textPrimary" component="p">
           {props.item.message}
         </Typography>
@@ -237,7 +231,7 @@ export default function Post(props) {
           handleClose={() => {
             setOpenShare(false);
           }}
-          post={props.item.sharedPost.length > 0 ? shaPost : props.item}
+          post={props.item.sharedPost.length > 0 ? {id: props.item.sharedPost} : props.item}
         />
         <IconButton
           aria-label="reply"
