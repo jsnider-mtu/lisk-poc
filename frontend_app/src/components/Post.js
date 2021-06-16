@@ -151,32 +151,9 @@ export default function Post(props) {
     parentpost = <></>;
   } else {
     let base32ParAddress = "";
-    if (parPost.hasOwnProperty('ownerAddress')) {
-      const base32ParAddress = cryptography.getBase32AddressFromAddress(Buffer.from(parPost.ownerAddress, 'hex'), 'lsk').toString('binary');
-    }
     if (parPost.deleted) {
       parentpost =
-        <Card className={classes.root}>
-          <CardHeader
-            avatar={
-              <Avatar aria-label="avatar" className={classes.parentAvatar}>
-                <AssignmentIndIcon />
-              </Avatar>
-            }
-            title={'Post deleted'}
-          />
-          <CardContent>
-            <Typography variant="body2" color="textSecondary" gutterBottom>
-              > {'Post deleted'}
-            </Typography>
-          </CardContent>
-        </Card>;
-    } else {
-      parentpost =
-        <Link
-          component={RouterLink}
-          to={`/accounts/${base32ParAddress}`}
-        >
+        <div>
           <Grid container>
             <Grid item xs={1} />
             <Grid item xs={2}>
@@ -185,23 +162,59 @@ export default function Post(props) {
               </Avatar>
             </Grid>
             <Grid item xs={9}>
-              <Typography variant="body1" color="textPrimary">
-                {parPost.username}
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
-                {new Date(parPost.timestamp).toLocaleString()}
+              <Typography variant="caption" color="textPrimary">
+                {'Post deleted'}
               </Typography>
             </Grid>
           </Grid>
           <Grid container>
             <Grid item xs={1} />
             <Grid item xs={10}>
-              <Typography variant="body2" color="textSecondary" gutterBottom>
-                > {parPost.message}
+              <Typography variant="caption" color="textSecondary" gutterBottom>
+                > {'Post deleted'}
               </Typography>
             </Grid>
           </Grid>
-        </Link>;
+        </div>;
+    } else {
+      if (parPost.hasOwnProperty('ownerAddress')) {
+        const base32ParAddress = cryptography.getBase32AddressFromAddress(Buffer.from(parPost.ownerAddress, 'hex'), 'lsk').toString('binary');
+        parentpost =
+          <Link
+            component={RouterLink}
+            to={`/accounts/${base32ParAddress}`}
+          >
+            <Grid container>
+              <Grid item xs={1} />
+              <Grid item xs={2}>
+                <Avatar aria-label="avatar" className={classes.parentAvatar}>
+                  <AssignmentIndIcon />
+                </Avatar>
+              </Grid>
+              <Grid item xs={9}>
+                <Typography variant="body1" color="textPrimary">
+                  {parPost.username}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  {new Date(parPost.timestamp).toLocaleString()}
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid container>
+              <Grid item xs={1} />
+              <Grid item xs={10}>
+                <Typography variant="caption" color="textSecondary" gutterBottom>
+                  > {parPost.message}
+                </Typography>
+              </Grid>
+            </Grid>
+          </Link>;
+      } else {
+        parentpost =
+          <Typography variant="body2" color="textSecondary" gutterBottom>
+            {"Something went way wrong"}
+          </Typography>;
+      }
     }
   }
 
