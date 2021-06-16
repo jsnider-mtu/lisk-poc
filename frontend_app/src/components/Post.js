@@ -68,12 +68,17 @@ export default function Post(props) {
   const [newLike, setNewLike] = useState(false);
   const [newUnlike, setNewUnlike] = useState(false);
   const [parPost, setParPost] = useState("");
+  const [shaPost, setShaPost] = useState("");
 
   useEffect(() => {
     async function fetchData() {
       if (props.item.parentPost.length !== 0) {
         const parpost = await api.fetchPost(props.item.parentPost);
         setParPost(parpost.message);
+      }
+      if (props.item.sharedPost.length !== 0) {
+        const shapost = await api.fetchPost(props.item.sharedPost);
+        setShaPost(shapost.message);
       }
     }
     fetchData();
@@ -133,9 +138,18 @@ export default function Post(props) {
     parentpost = <></>;
   } else {
     parentpost =
-    <Typography variant="body2" color="textSecondary" gutterBottom>
-      > {parPost}
-    </Typography>;
+      <Typography variant="body2" color="textSecondary" gutterBottom>
+        > {parPost}
+      </Typography>;
+  }
+
+  let sharedpost;
+
+  if (props.item.sharedPost.length === 0) {
+    sharedpost = <></>;
+  } else {
+    sharedpost =
+      <></>;
   }
 
   return (
@@ -159,6 +173,7 @@ export default function Post(props) {
         <Typography className={classes.message} variant="body" color="textPrimary" component="p">
           {props.item.message}
         </Typography>
+        {sharedpost}
       </CardContent>
       <CardActions>
         {likebutton}

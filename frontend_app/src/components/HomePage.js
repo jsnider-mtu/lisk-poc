@@ -8,7 +8,15 @@ function HomePage() {
 
   useEffect(() => {
     async function fetchData() {
-      const allPosts = await fetchAllPosts();
+      let allPosts = await fetchAllPosts();
+      var i = 0;
+      while (i < allPosts.length) {
+        if (allPosts[i].deleted === true) {
+          allPosts.splice(i, 1);
+        } else {
+          ++i;
+        }
+      }
       allPosts.sort(function(a, b) {
         if (a.timestamp < b.timestamp) {
           return 1;

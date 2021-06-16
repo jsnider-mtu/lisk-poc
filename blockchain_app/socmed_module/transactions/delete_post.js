@@ -31,7 +31,7 @@ class DeletePostAsset extends BaseAsset {
     const postOwner = await stateStore.account.get(post.ownerAddress);
 
     // Exit if not allowed to be deleted by this sender
-    if (senderAddress !== postOwner.address && senderAccount.socmed.moderator !== true) {
+    if (!senderAddress.equals(postOwner.address) && senderAccount.socmed.moderator !== true) {
       throw new Error("Post " + post.id + " cannot be deleted by " + senderAddress);
     }
 
