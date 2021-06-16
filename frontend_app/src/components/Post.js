@@ -70,8 +70,11 @@ export default function Post(props) {
   const [newUnlike, setNewUnlike] = useState(false);
   const [parPost, setParPost] = useState("");
   const [shaPost, setShaPost] = useState({});
+  const [mod, setMod] = useState(false);
 
   useEffect(() => {
+    let curUser = {};
+    let curUserMod = false;
     async function fetchData() {
       if (props.item.parentPost.length !== 0) {
         const parpost = await api.fetchPost(props.item.parentPost);
@@ -81,6 +84,9 @@ export default function Post(props) {
         const shapost = await api.fetchPost(props.item.sharedPost);
         setShaPost(shapost);
       }
+      curUser = await api.fetchAccountInfo(curUserAddress);
+      curUserMod = curUser.socmed.moderator;
+      setMod(curUserMod);
     }
     fetchData();
     setLikes(likes => likes + (newLike ? 1 : 0));
@@ -89,7 +95,7 @@ export default function Post(props) {
 
   let deletebutton;
 
-  if (curUserAddress === props.item.ownerAddress) {
+  if (curUserAddress === props.item.ownerAddress || mod) {
     deletebutton = 
         <IconButton
           aria-label="delete"
@@ -153,11 +159,8 @@ export default function Post(props) {
     if (shaPost.hasOwnProperty('ownerAddress')) {
       const base32ShaAddress = cryptography.getBase32AddressFromAddress(Buffer.from(shaPost.ownerAddress, 'hex'), 'lsk').toString('binary');
     }
-    sharedpost =
-      <Link
-        component={RouterLink}
-        to={`/accounts/${base32ShaAddress}`}
-      >
+    if (shaPost.deleted) {
+      sharedpost =
         <Card className={classes.root}>
           <CardHeader
             avatar={
@@ -165,16 +168,38 @@ export default function Post(props) {
                 <AssignmentIndIcon />
               </Avatar>
             }
-            title={shaPost.username}
-            subheader={new Date(shaPost.timestamp).toLocaleString()}
+            title={'Post deleted'}
           />
           <CardContent>
-            <Typography className={classes.message} variant="body1" color="textPrimary" component="p">
-              {shaPost.message}
+            <Typography className={classes.message} variant="body1" color="textSecondary" component="p">
+              {'Post deleted'}
             </Typography>
           </CardContent>
-        </Card>
-      </Link>;
+        </Card>;
+    } else {
+      sharedpost =
+        <Link
+          component={RouterLink}
+          to={`/accounts/${base32ShaAddress}`}
+        >
+          <Card className={classes.root}>
+            <CardHeader
+              avatar={
+                <Avatar aria-label="avatar" className={classes.avatar}>
+                  <AssignmentIndIcon />
+                </Avatar>
+              }
+              title={shaPost.username}
+              subheader={new Date(shaPost.timestamp).toLocaleString()}
+            />
+            <CardContent>
+              <Typography className={classes.message} variant="body1" color="textPrimary" component="p">
+                {shaPost.message}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Link>;
+    }
   }
 
   return (
