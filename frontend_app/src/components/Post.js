@@ -71,8 +71,10 @@ export default function Post(props) {
 
   useEffect(() => {
     async function fetchData() {
-      const parpost = await api.fetchPost(props.item.parentPost);
-      setParPost(parpost.message);
+      if (props.item.parentPost.length !== 0) {
+        const parpost = await api.fetchPost(props.item.parentPost);
+        setParPost(parpost.message);
+      }
     }
     fetchData();
     setLikes(likes => likes + (newLike ? 1 : 0));
@@ -131,7 +133,7 @@ export default function Post(props) {
     parentpost = <></>;
   } else {
     parentpost =
-    <Typography variant="body2" color="textSecondary">
+    <Typography variant="body2" color="textSecondary" gutterBottom>
       > {parPost}
     </Typography>;
   }
@@ -154,7 +156,7 @@ export default function Post(props) {
       </Link>
       <CardContent>
         {parentpost}
-        <Typography className={classes.message} variant="body2" color="textPrimary" component="p">
+        <Typography className={classes.message} variant="body" color="textPrimary" component="p">
           {props.item.message}
         </Typography>
       </CardContent>
