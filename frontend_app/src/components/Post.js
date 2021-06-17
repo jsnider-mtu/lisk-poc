@@ -59,6 +59,9 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(3),
     height: theme.spacing(3),
   },
+  hashtag: {
+    color: blue[500],
+  },
 }));
 
 export default function Post(props) {
@@ -311,6 +314,20 @@ export default function Post(props) {
           </Typography>
         </Link>
         {sharedpost}
+        <Grid container spacing={1}>
+          {props.item.hashtags.map((hasht) => (
+          <Grid item xs>
+            <Link
+              component={RouterLink}
+              to={`/hashtag/${hasht}`}
+            >
+              <Typography variant="caption" className={classes.hashtag}>
+                {hasht}
+              </Typography>
+            </Link>
+          </Grid>
+          ))}
+        </Grid>
       </CardContent>
       <CardActions>
         {likebutton}
