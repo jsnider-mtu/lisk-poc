@@ -56,8 +56,8 @@ const useStyles = makeStyles((theme) => ({
   },
   parentAvatar: {
     backgroundColor: blue[500],
-    width: theme.spacing(3),
-    height: theme.spacing(3),
+    width: theme.spacing(4),
+    height: theme.spacing(4),
   },
   hashtag: {
     color: blue[500],
@@ -202,23 +202,24 @@ export default function Post(props) {
       if (parPost.hasOwnProperty('ownerAddress')) {
         const base32ParAddress = cryptography.getBase32AddressFromAddress(Buffer.from(parPost.ownerAddress, 'hex'), 'lsk').toString('binary');
         parentpost =
-          <div>
+          <div style={{flexGrow: 1}}>
             <Link
               component={RouterLink}
               to={`/accounts/${base32ParAddress}`}
             >
-              <Grid container>
+              <Grid container spacing={5}>
                 <Grid item xs={1} />
-                <Grid item xs={2}>
+                <Grid item xs={1}>
                   <Avatar aria-label="avatar" className={classes.parentAvatar}>
                     <AssignmentIndIcon />
                   </Avatar>
                 </Grid>
                 <Grid item xs={9}>
-                  <Typography variant="body1" color="textPrimary">
+                  <Typography variant="caption" color="textPrimary">
                     {parPost.username}
                   </Typography>
-                  <Typography variant="body2" color="textSecondary">
+                  <br />
+                  <Typography variant="caption" color="textSecondary">
                     {new Date(parPost.timestamp).toLocaleString()}
                   </Typography>
                 </Grid>
@@ -229,7 +230,7 @@ export default function Post(props) {
               to={`/post/${parPost.id}`}
             >
               <Grid container>
-                <Grid item xs={1} />
+                <Grid item xs={2} />
                 <Grid item xs={10}>
                   <Typography variant="caption" color="textSecondary" gutterBottom>
                     > {parPost.message}
