@@ -315,13 +315,13 @@ export default function Post(props) {
         </Link>
         {sharedpost}
         <Grid container spacing={1}>
-          {props.item.hashtags.map((hasht) => (
-          <Grid item xs>
+          {props.item.hashtags.map((hasht, hindex) => (
+          <Grid item xs key={hindex}>
             <Link
               component={RouterLink}
               to={`/hashtag/${hasht}`}
             >
-              <Typography variant="caption" className={classes.hashtag}>
+              <Typography key={hindex} variant="caption" className={classes.hashtag}>
                 {hasht}
               </Typography>
             </Link>
