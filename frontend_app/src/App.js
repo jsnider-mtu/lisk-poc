@@ -24,6 +24,7 @@ import * as api from './api';
 import { NodeInfoContext, nodeInfoContextDefaultValue } from './context';
 
 import HomePage from './components/HomePage';
+import AllPage from './components/AllPage';
 import SignInPage from './components/SignInPage';
 import SignUpPage from './components/SignUpPage';
 import TransactionsPage from './components/TransactionsPage';
@@ -200,6 +201,7 @@ function App() {
                                         </Route>
             
                                         <Route path="/home" component={HomePage} />
+                                        <Route path="/all" component={AllPage} />
                                         <Route path="/accounts/:address" component={AccountPage} />
                                         <Route path="/post/:postId" component={PostPage} />
                                         <Route path="/hashtag/:hashtag" component={HashtagPage} />
