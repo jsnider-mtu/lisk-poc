@@ -100,14 +100,12 @@ const createPost = ({ message, ownerAddress, nonce, username, avatar }) => {
   var i = 0;
   while (i < words.length) {
     if (words[i].startsWith('#')) {
-      console.log(words[i].slice(1));
       hashtags.push(words[i].slice(1));
+      ++i;
     } else {
       ++i;
     }
   }
-
-  console.log(hashtags);
 
   // Get timestamp
   const dateobj = new Date(Date.now());
@@ -146,6 +144,7 @@ const createChildPost = ({ message, ownerAddress, nonce, username, avatar, paren
   while (i < words.length) {
     if (words[i].startsWith('#')) {
       hashtags.push(words[i].slice(1));
+      ++i;
     } else {
       ++i;
     }
@@ -188,6 +187,7 @@ const createSharePost = ({ message, ownerAddress, nonce, username, avatar, share
   while (i < words.length) {
     if (words[i].startsWith('#')) {
       hashtags.push(words[i].slice(1));
+      ++i;
     } else {
       ++i;
     }
