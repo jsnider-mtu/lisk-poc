@@ -165,41 +165,47 @@ export default function Account(props) {
         />
       </div>;
   } else {
-    updatebutton =
-      <div>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => {
-            setOpenFollow(true);
-          }}
-        >
-          Follow Account
-        </Button>
-        <FollowAccountDialog
-          open={openFollow}
-          handleClose={() => {
-            setOpenFollow(false);
-          }}
-          account={props.account}
-        />
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => {
-            setOpenUnfollow(true);
-          }}
-        >
-          Unfollow Account
-        </Button>
-        <UnfollowAccountDialog
-          open={openUnfollow}
-          handleClose={() => {
-            setOpenUnfollow(false);
-          }}
-          account={props.account}
-        />
-      </div>;
+    if (!props.account.socmed.following.includes(curUserAddress)) {
+      updatebutton =
+        <div>
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => {
+              setOpenFollow(true);
+            }}
+          >
+            Follow Account
+          </Button>
+          <FollowAccountDialog
+            open={openFollow}
+            handleClose={() => {
+              setOpenFollow(false);
+            }}
+            account={props.account}
+          />
+        </div>;
+    } else {
+      updatebutton =
+        <div>
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => {
+              setOpenUnfollow(true);
+            }}
+          >
+            Unfollow Account
+          </Button>
+          <UnfollowAccountDialog
+            open={openUnfollow}
+            handleClose={() => {
+              setOpenUnfollow(false);
+            }}
+            account={props.account}
+          />
+        </div>;
+    }
   }
 
   return (
