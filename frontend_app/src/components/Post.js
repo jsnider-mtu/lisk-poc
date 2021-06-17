@@ -313,6 +313,16 @@ export default function Post(props) {
     }
   }
 
+  const HASHTAG_FORMATTER = string => {
+    return string.split(/((?:^|\s)(?:#[a-z\d-]+))/gi).filter(Boolean).map((v,i)=>{
+      if(v.includes('#')){
+        return <Link key={i} component={RouterLink} to={`/hashtag/${v.replace(/^\s+|\s+$/g, '').slice(1)}`}>{v}</Link>;
+      } else {
+        return v;
+      }
+    })
+  };
+
   return (
     <Card variant="outlined" className={classes.root}>
       <Link
@@ -331,30 +341,10 @@ export default function Post(props) {
       </Link>
       <CardContent>
         {parentpost}
-        <Link
-          component={RouterLink}
-          to={`/post/${props.item.id}`}
-        >
-          <Typography className={classes.message} variant="body1" color="textPrimary" component="p">
-            {props.item.message}
-          </Typography>
-        </Link>
+        <Typography className={classes.message} variant="body1" color="textPrimary" component="p">
+          {HASHTAG_FORMATTER(props.item.message)}
+        </Typography>
         {sharedpost}
-        <Grid container spacing={1}>
-          {props.item.hashtags.map((hasht, hindex) => (
-          <Grid item xs key={hindex}>
-            <br />
-            <Link
-              component={RouterLink}
-              to={`/hashtag/${hasht}`}
-            >
-              <Typography key={hindex} variant="caption" className={classes.hashtag}>
-                {hasht}
-              </Typography>
-            </Link>
-          </Grid>
-          ))}
-        </Grid>
       </CardContent>
       <CardActions>
         {likebutton}
