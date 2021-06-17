@@ -39,11 +39,14 @@ function HomePage() {
     <Fragment>
       <CssBaseline />
       {Posts.map((item) => (
-      <Grid key={item.id} container spacing={1} justify="center">
-          <Grid key={item.id} item md={8}>
-            <Post item={item} key={item.id} />
-          </Grid>
-      </Grid>
+      <div>
+        <Grid key={item.id} container spacing={1} justify="center">
+            <Grid key={item.id} item md={8}>
+              <Post item={item} key={item.id} />
+            </Grid>
+        </Grid>
+        <br />
+      </div>
       ))}
     </Fragment>
   );

@@ -241,7 +241,7 @@ export default function Post(props) {
     }
     if (shaPost.deleted) {
       sharedpost =
-        <Card className={classes.root}>
+        <Card variant="outlined" className={classes.root}>
           <CardHeader
             avatar={
               <Avatar aria-label="avatar" className={classes.avatar}>
@@ -258,7 +258,7 @@ export default function Post(props) {
         </Card>;
     } else {
       sharedpost =
-        <Card className={classes.root}>
+        <Card variant="outlined" className={classes.root}>
           <Link
             component={RouterLink}
             to={`/accounts/${base32ShaAddress}`}
@@ -288,7 +288,7 @@ export default function Post(props) {
   }
 
   return (
-    <Card className={classes.root}>
+    <Card variant="outlined" className={classes.root}>
       <Link
         component={RouterLink}
         to={`/accounts/${base32UIAddress}`}

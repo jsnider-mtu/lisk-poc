@@ -55,12 +55,16 @@ function PostPage() {
             <Post item={post} />
           </Grid>
         </Grid>
+        <br />
         {replies.map((item) => (
-        <Grid container spacing={1} justify="center" key={item.id}>
-          <Grid item md={8} key={item.id}>
-            <Post item={item} key={item.id} minimum={true} />
+        <div>
+          <Grid container spacing={1} justify="center" key={item.id}>
+            <Grid item md={8} key={item.id}>
+              <Post item={item} key={item.id} minimum={true} />
+            </Grid>
           </Grid>
-        </Grid>
+          <br />
+        </div>
         ))}
       </div>
     );
