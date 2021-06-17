@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
+import CssBaseline from '@material-ui/core/CssBaseline';
 import Post from "./Post";
 import { Grid } from "@material-ui/core";
 import { fetchAllPosts } from "../api";
@@ -36,6 +37,7 @@ function HomePage() {
 
   return (
     <Fragment>
+      <CssBaseline />
       {Posts.map((item) => (
       <Grid key={item.id} container spacing={1} justify="center">
           <Grid key={item.id} item md={8}>

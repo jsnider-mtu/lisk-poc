@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
+import CssBaseline from '@material-ui/core/CssBaseline';
 import { useParams } from "react-router-dom";
 import { Typography, CircularProgress, Grid } from "@material-ui/core";
 import * as api from "../api";
@@ -48,18 +49,19 @@ function HashtagPage() {
   }, [hashtagPosts]);
 
   if (!loaded) {
-    return <Fragment><CircularProgress /></Fragment>;
+    return <Fragment><CssBaseline /><CircularProgress /></Fragment>;
   } else {
     if (hashtagPosts.length > 0) {
       return (
         <div>
+          <CssBaseline />
           {hashtagPosts.map((item) => (
           <Grid container spacing={1} justify="center" key={item.id}>
             <Grid item md={8} key={item.id}>
               <Post item={item} key={item.id} minimum={true} />
             </Grid>
           </Grid>
-        ))};
+        ))}
         </div>
       );
     } else {

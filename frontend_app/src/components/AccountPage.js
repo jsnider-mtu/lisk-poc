@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
+import CssBaseline from '@material-ui/core/CssBaseline';
 import { useParams } from "react-router-dom";
 import { fetchAccountInfo } from "../api";
 import Account from "./Account";
@@ -20,7 +21,7 @@ function AccountPage() {
     fetchData();
   }, [address]);
 
-  return loaded ? <Account account={account} /> : <Fragment></Fragment>;
+  return loaded ? <Account account={account} /> : <Fragment><CssBaseline /></Fragment>;
 }
 
 export default AccountPage;

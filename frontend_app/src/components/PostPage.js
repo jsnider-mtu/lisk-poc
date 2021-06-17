@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
+import CssBaseline from '@material-ui/core/CssBaseline';
 import { useParams } from "react-router-dom";
 import { CircularProgress, Grid } from "@material-ui/core";
 import { fetchPost } from "../api";
@@ -44,10 +45,11 @@ function PostPage() {
   }, [post]);
 
   if (!loaded) {
-    return <Fragment><CircularProgress /></Fragment>;
+    return <Fragment><CssBaseline /><CircularProgress /></Fragment>;
   } else {
     return (
       <div>
+        <CssBaseline />
         <Grid container spacing={1} justify="center">
           <Grid item md={8}>
             <Post item={post} />
@@ -59,7 +61,7 @@ function PostPage() {
             <Post item={item} key={item.id} minimum={true} />
           </Grid>
         </Grid>
-        ))};
+        ))}
       </div>
     );
   }

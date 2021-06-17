@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import CssBaseline from '@material-ui/core/CssBaseline';
 import { Avatar, Container, Typography, Divider, Grid, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
@@ -221,6 +222,7 @@ export default function Account(props) {
 
   return (
     <Container>
+      <CssBaseline />
       <Grid container>
         <Grid item xs>
           <Avatar aria-label="avatar" className={classes.avatar}>

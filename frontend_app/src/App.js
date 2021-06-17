@@ -16,7 +16,7 @@ import {
     Divider,
 } from '@material-ui/core';
 import { SpeedDial, SpeedDialIcon, SpeedDialAction } from '@material-ui/lab';
-import { makeStyles } from '@material-ui/core/styles';
+import { createMuiTheme, MuiThemeProvider, makeStyles } from '@material-ui/core/styles';
 import LocalAtmIcon from '@material-ui/icons/LocalAtm';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import { cryptography } from "@liskhq/lisk-client";
@@ -59,6 +59,15 @@ function App() {
     );
     const [openSpeedDial, setOpenSpeedDial] = useState(false);
     const [openDialog, setOpenDialog] = useState(null);
+
+    const theme = createMuiTheme({
+        palette: {
+            secondary: {
+                main: "#0069ff",
+            },
+            type: "dark",
+        },
+    });
 
     const updateHeight = async () => {
         const info = await api.fetchNodeInfo();
@@ -111,118 +120,120 @@ function App() {
     }
 
     return (
-        <Fragment>
-            <NodeInfoContext.Provider value={nodeInfoState}>
-                <Router>
-                    <AppBar position="static">
-                        <Toolbar>
-
-                            <Link
-                                color="inherit"
-                                component={RouterLink}
-                                to="/home"
-                                className={classes.appBarLink}
-                            >
-                                <Typography variant="h6">Social Media App</Typography>
-                            </Link>
-                            <Link
-                                color="inherit"
-                                component={RouterLink}
-                                to="/transactions"
-                                className={classes.appBarLink}
-                            >
-                                Transactions
-                            </Link>
-                            {myAcct}
-                            <div className={classes.grow} />
-                            <Chip label={nodeInfoState.height} />
-                        </Toolbar>
-                    </AppBar>
-
-                    <SpeedDial
-                        ariaLabel="SpeedDial example"
-                        color="secondary"
-                        className={classes.speedDial}
-                        icon={<SpeedDialIcon />}
-                        onClose={handleSpeedDialClose}
-                        onOpen={handleSpeedDialOpen}
-                        open={openSpeedDial}
-                        direction={'up'}
-                    >
-                        <SpeedDialAction
-                            key={'Create Post'}
-                            icon={<AddPhotoAlternateIcon />}
-                            tooltipTitle={'Create Post'}
-                            onClick={() => {
-                                setOpenSpeedDial(false);
-                                setOpenDialog('CreatePostDialog');
+        <MuiThemeProvider theme={theme}>
+            <Fragment>
+                <NodeInfoContext.Provider value={nodeInfoState}>
+                    <Router>
+                        <AppBar position="static">
+                            <Toolbar>
+    
+                                <Link
+                                    color="inherit"
+                                    component={RouterLink}
+                                    to="/home"
+                                    className={classes.appBarLink}
+                                >
+                                    <Typography variant="h6">Social Media App</Typography>
+                                </Link>
+                                <Link
+                                    color="inherit"
+                                    component={RouterLink}
+                                    to="/transactions"
+                                    className={classes.appBarLink}
+                                >
+                                    Transactions
+                                </Link>
+                                {myAcct}
+                                <div className={classes.grow} />
+                                <Chip label={nodeInfoState.height} />
+                            </Toolbar>
+                        </AppBar>
+    
+                        <SpeedDial
+                            ariaLabel="SpeedDial example"
+                            color="secondary"
+                            className={classes.speedDial}
+                            icon={<SpeedDialIcon />}
+                            onClose={handleSpeedDialClose}
+                            onOpen={handleSpeedDialOpen}
+                            open={openSpeedDial}
+                            direction={'up'}
+                        >
+                            <SpeedDialAction
+                                key={'Create Post'}
+                                icon={<AddPhotoAlternateIcon />}
+                                tooltipTitle={'Create Post'}
+                                onClick={() => {
+                                    setOpenSpeedDial(false);
+                                    setOpenDialog('CreatePostDialog');
+                                }}
+                            />
+    
+                            <SpeedDialAction
+                                key={'Transfer'}
+                                icon={<LocalAtmIcon />}
+                                tooltipTitle={'Transfer Funds'}
+                                onClick={() => {
+                                    setOpenSpeedDial(false);
+                                    setOpenDialog('TransferFundsDialog');
+                                }}
+                            />
+                        </SpeedDial>
+    
+                        <Grid container
+                            direction="row"
+                            justify="space-evenly"
+                            alignItems="flex-start"
+                        >
+                            <Grid item xs>
+                            </Grid>
+                            <Divider orientation="vertical" flexItem />
+                            <Grid item xs={6}>
+                                <Container className={classes.contentContainer}>
+                                    <Switch>
+                                        <Route path="/" exact>
+                                            <SignInPage />
+                                        </Route>
+            
+                                        <Route path="/home" component={HomePage} />
+                                        <Route path="/accounts/:address" component={AccountPage} />
+                                        <Route path="/post/:postId" component={PostPage} />
+                                        <Route path="/hashtag/:hashtag" component={HashtagPage} />
+                                        <Route path="/transactions" component={TransactionsPage} />
+                                        <Route path="/signin" component={SignInPage} />
+                                        <Route path="/signup" component={SignUpPage} />
+                                    </Switch>
+                                </Container>
+                            </Grid>
+                            <Divider orientation="vertical" flexItem />
+                            <Grid item xs>
+                            </Grid>
+                        </Grid>
+    
+                        <CreatePostDialog
+                            open={openDialog === 'CreatePostDialog'}
+                            handleClose={() => {
+                                setOpenDialog(null);
                             }}
                         />
-
-                        <SpeedDialAction
-                            key={'Transfer'}
-                            icon={<LocalAtmIcon />}
-                            tooltipTitle={'Transfer Funds'}
-                            onClick={() => {
-                                setOpenSpeedDial(false);
-                                setOpenDialog('TransferFundsDialog');
+    
+                        <CreateAccountDialog
+                            open={openDialog === 'CreateAccountDialog'}
+                            handleClose={() => {
+                                setOpenDialog(null);
                             }}
                         />
-                    </SpeedDial>
-
-                    <Grid container
-                        direction="row"
-                        justify="space-evenly"
-                        alignItems="flex-start"
-                    >
-                        <Grid item xs>
-                        </Grid>
-                        <Divider orientation="vertical" flexItem />
-                        <Grid item xs={6}>
-                            <Container className={classes.contentContainer}>
-                                <Switch>
-                                    <Route path="/" exact>
-                                        <SignInPage />
-                                    </Route>
-        
-                                    <Route path="/home" component={HomePage} />
-                                    <Route path="/accounts/:address" component={AccountPage} />
-                                    <Route path="/post/:postId" component={PostPage} />
-                                    <Route path="/hashtag/:hashtag" component={HashtagPage} />
-                                    <Route path="/transactions" component={TransactionsPage} />
-                                    <Route path="/signin" component={SignInPage} />
-                                    <Route path="/signup" component={SignUpPage} />
-                                </Switch>
-                            </Container>
-                        </Grid>
-                        <Divider orientation="vertical" flexItem />
-                        <Grid item xs>
-                        </Grid>
-                    </Grid>
-
-                    <CreatePostDialog
-                        open={openDialog === 'CreatePostDialog'}
-                        handleClose={() => {
-                            setOpenDialog(null);
-                        }}
-                    />
-
-                    <CreateAccountDialog
-                        open={openDialog === 'CreateAccountDialog'}
-                        handleClose={() => {
-                            setOpenDialog(null);
-                        }}
-                    />
-
-                    <TransferFundsDialog
-                        open={openDialog === 'TransferFundsDialog'}
-                        handleClose={() => {
-                            setOpenDialog(null);
-                        }}
-                    />
-                </Router>
-            </NodeInfoContext.Provider>
-        </Fragment>
+    
+                        <TransferFundsDialog
+                            open={openDialog === 'TransferFundsDialog'}
+                            handleClose={() => {
+                                setOpenDialog(null);
+                            }}
+                        />
+                    </Router>
+                </NodeInfoContext.Provider>
+            </Fragment>
+        </MuiThemeProvider>
     );
 }
 
