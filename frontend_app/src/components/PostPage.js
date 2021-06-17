@@ -42,7 +42,7 @@ function PostPage() {
     }
 
     fetchData();
-  }, [post]);
+  }, [post, postId]);
 
   if (!loaded) {
     return <Fragment><CssBaseline /><CircularProgress /></Fragment>;
@@ -52,7 +52,7 @@ function PostPage() {
         <CssBaseline />
         <Grid container spacing={1} justify="center">
           <Grid item md={8}>
-            <Post item={post} />
+            <Post item={post} minimum={false} />
           </Grid>
         </Grid>
         <br />

@@ -56,11 +56,14 @@ function HashtagPage() {
         <div>
           <CssBaseline />
           {hashtagPosts.map((item) => (
-          <Grid container spacing={1} justify="center" key={item.id}>
-            <Grid item md={8} key={item.id}>
-              <Post item={item} key={item.id} minimum={true} />
+          <div>
+            <Grid container spacing={1} justify="center" key={item.id}>
+              <Grid item md={8} key={item.id}>
+                <Post item={item} key={item.id} minimum={false} />
+              </Grid>
             </Grid>
-          </Grid>
+            <br />
+          </div>
         ))}
         </div>
       );

@@ -42,7 +42,7 @@ function HomePage() {
       <div>
         <Grid key={item.id} container spacing={1} justify="center">
             <Grid key={item.id} item md={8}>
-              <Post item={item} key={item.id} />
+              <Post item={item} key={item.id} minimum={false} />
             </Grid>
         </Grid>
         <br />

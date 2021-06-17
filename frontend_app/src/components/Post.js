@@ -150,11 +150,28 @@ export default function Post(props) {
   }
 
   let parentpost;
+  let base32ParAddress = "";
 
-  if (props.item.parentPost.length === 0) {
-    parentpost = <></>;
+  if (props.item.parentPost.length === 0 || props.minimum) {
+    if (props.item.parentPost.length === 0) {
+      parentpost = <></>;
+    } else {
+      if (parPost.hasOwnProperty('ownerAddress')) {
+        const base32ParAddress = cryptography.getBase32AddressFromAddress(Buffer.from(parPost.ownerAddress, 'hex'), 'lsk').toString('binary');
+        parentpost =
+          <div>
+            <Typography variant="body1" color="textSecondary" gutterBottom>
+              {'Replying to '}
+              <Link component={RouterLink} to={`/accounts/${base32ParAddress}`}>
+                {'@' + parPost.username}
+              </Link>
+            </Typography>
+          </div>;
+      } else {
+        parentpost = <></>;
+      }
+    }
   } else {
-    let base32ParAddress = "";
     if (parPost.deleted) {
       parentpost =
         <div>

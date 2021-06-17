@@ -253,7 +253,7 @@ export default function Account(props) {
       <div>
         <Grid container spacing={1} justify="center" key={item.id}>
             <Grid item md={8} key={item.id}>
-              <Post item={item} key={item.id} minimum={true} />
+              <Post item={item} key={item.id} minimum={false} />
             </Grid>
         </Grid>
         <br />
