@@ -100,6 +100,7 @@ const createPost = ({ message, ownerAddress, nonce, username, avatar }) => {
   var i = 0;
   while (i < words.length) {
     if (words[i].startsWith('#')) {
+      console.log(words[i].slice(1));
       hashtags.push(words[i].slice(1));
     } else {
       ++i;
