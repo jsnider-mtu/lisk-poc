@@ -69,6 +69,13 @@ const registeredPostsSchema = {
             dataType: "string",
             fieldNumber: 12,
           },
+          hashtags: {
+            type: "array",
+            fieldNumber: 13,
+            items: {
+              dataType: "string",
+            },
+          },
         },
       },
     },
@@ -88,6 +95,19 @@ const createPost = ({ message, ownerAddress, nonce, username, avatar }) => {
     throw new Error("Message length must not exceed 512");
   }
 
+  const words = message.split(' ');
+  let hashtags = [];
+  var i = 0;
+  while (i < words.length) {
+    if (words[i].startsWith('#')) {
+      hashtags.push(words[i].slice(1));
+    } else {
+      ++i;
+    }
+  }
+
+  console.log(hashtags);
+
   // Get timestamp
   const dateobj = new Date(Date.now());
   const timestamp = dateobj.toISOString();
@@ -105,6 +125,7 @@ const createPost = ({ message, ownerAddress, nonce, username, avatar }) => {
     username,
     timestamp,
     avatar,
+    hashtags,
   };
 };
 
@@ -116,6 +137,17 @@ const createChildPost = ({ message, ownerAddress, nonce, username, avatar, paren
 
   if (message.length > 512) {
     throw new Error("Message length must not exceed 512");
+  }
+
+  const words = message.split(' ');
+  let hashtags = [];
+  var i = 0;
+  while (i < words.length) {
+    if (words[i].startsWith('#')) {
+      hashtags.push(words[i].slice(1));
+    } else {
+      ++i;
+    }
   }
 
   // Get timestamp
@@ -135,6 +167,7 @@ const createChildPost = ({ message, ownerAddress, nonce, username, avatar, paren
     username,
     timestamp,
     avatar,
+    hashtags,
   };
 };
 
@@ -146,6 +179,17 @@ const createSharePost = ({ message, ownerAddress, nonce, username, avatar, share
 
   if (message.length > 512) {
     throw new Error("Message length must not exceed 512");
+  }
+
+  const words = message.split(' ');
+  let hashtags = [];
+  var i = 0;
+  while (i < words.length) {
+    if (words[i].startsWith('#')) {
+      hashtags.push(words[i].slice(1));
+    } else {
+      ++i;
+    }
   }
 
   // Get timestamp
@@ -165,6 +209,7 @@ const createSharePost = ({ message, ownerAddress, nonce, username, avatar, share
     username,
     timestamp,
     avatar,
+    hashtags,
   };
 };
 
