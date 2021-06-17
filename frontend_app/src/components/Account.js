@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Typography, Divider, Grid, Button } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import {Buffer, cryptography, transactions} from "@liskhq/lisk-client";
+//import { makeStyles } from "@material-ui/core/styles";
+import { cryptography } from "@liskhq/lisk-client";
 import BanAccountDialog from "./dialogs/BanAccountDialog";
 import DemoteAccountDialog from "./dialogs/DemoteAccountDialog";
 import FollowAccountDialog from "./dialogs/FollowAccountDialog";
@@ -25,8 +25,9 @@ export default function Account(props) {
   const [openUnfollow, setOpenUnfollow] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
   //const classes = useStyles();
-  const base32UIAddress = cryptography.getBase32AddressFromAddress(Buffer.from(props.account.address, 'hex'), 'lsk').toString('binary');
-  const curUserAddress = cryptography.getAddressFromPassphrase(document.cookie.split('; ').find(r => r.startsWith('passphrase=')).split('=')[1]).toString('hex');
+  //const base32UIAddress = cryptography.getBase32AddressFromAddress(Buffer.from(props.account.address, 'hex'), 'lsk').toString('binary');
+  const passp = document.cookie.split('; ').pop();
+  const curUserAddress = cryptography.getAddressFromPassphrase(passp.split('=')[1]).toString('hex');
   const [mod, setMod] = useState(false);
 
   useEffect(() => {
@@ -60,10 +61,10 @@ export default function Account(props) {
     fetchData();
   }, [props.account.socmed.posts]);
 
-  let buttons;
+  let modbuttons;
 
   if (mod) {
-    buttons =
+    modbuttons =
       <div>
         <Button
           size="small"
@@ -117,6 +118,52 @@ export default function Account(props) {
           size="small"
           color="primary"
           onClick={() => {
+            setOpenPromote(true);
+          }}
+        >
+          Promote Account
+        </Button>
+        <PromoteAccountDialog
+          open={openPromote}
+          handleClose={() => {
+            setOpenPromote(false);
+          }}
+          account={props.account}
+        />
+      </div>;
+  } else {
+    modbuttons = <></>;
+  }
+
+  let updatebutton;
+
+  if (props.account.address === curUserAddress) {
+    updatebutton =
+      <div>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => {
+            setOpenUpdate(true);
+          }}
+        >
+          Update Account
+        </Button>
+        <UpdateAccountDialog
+          open={openUpdate}
+          handleClose={() => {
+            setOpenUpdate(false);
+          }}
+          account={props.account}
+        />
+      </div>;
+  } else {
+    updatebutton =
+      <div>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => {
             setOpenFollow(true);
           }}
         >
@@ -145,46 +192,14 @@ export default function Account(props) {
           }}
           account={props.account}
         />
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => {
-            setOpenPromote(true);
-          }}
-        >
-          Promote Account
-        </Button>
-        <PromoteAccountDialog
-          open={openPromote}
-          handleClose={() => {
-            setOpenPromote(false);
-          }}
-          account={props.account}
-        />
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => {
-            setOpenUpdate(true);
-          }}
-        >
-          Update Account
-        </Button>
-        <UpdateAccountDialog
-          open={openUpdate}
-          handleClose={() => {
-            setOpenUpdate(false);
-          }}
-          account={props.account}
-        />
       </div>;
-  } else {
-    buttons = <></>;
   }
 
   return (
     <Container>
-      <Typography variant="h5">{base32UIAddress}</Typography>
+      <Typography variant="h5">{props.account.socmed.name}</Typography>
+      {modbuttons}
+      {updatebutton}
       <Divider />
       <Typography variant="h6">{"Posts"}</Typography>
       {posts.map((item) => (

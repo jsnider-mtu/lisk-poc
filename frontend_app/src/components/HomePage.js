@@ -28,7 +28,7 @@ function HomePage() {
       });
       setPosts(allPosts);
     }
-    if (document.cookie.split('; ').find(r => r.startsWith('passphrase=')).split('=')[1].split(' ').length !== 12) {
+    if (document.cookie.split('; ').pop().split('=')[1].split(' ').length !== 12) {
       window.location.href="/signin";
     }
     fetchData();

@@ -9,7 +9,7 @@ import * as api from "../../api";
 
 export default function UnbanAccountDialog(props) {
   const nodeInfo = useContext(NodeInfoContext);
-  const passp = document.cookie.split('; ').find(r => r.startsWith('passphrase=')).split('=')[1];
+  const passp = document.cookie.split('; ').pop().split('=')[1];
   const data = {
     address: props.account.address,
     fee: "0",

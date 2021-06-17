@@ -114,7 +114,9 @@ export default function SignUpPage() {
         username={data.username}
         handleClose={(addy, passp) => {
           setData({ ...data, ['address']: addy, ['passphrase']: passp });
-          document.cookie = `passphrase=${passp}; Secure`;
+          if (passp.split(' ').length === 12) {
+            document.cookie = `passphrase=${passp}; Secure`;
+          }
           setOpenDialog('LoadingAccountDialog');
         }}
       />

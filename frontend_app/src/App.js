@@ -92,8 +92,8 @@ function App() {
 
     let myAcct;
 
-    if (document.cookie.split('; ').find(r => r.startsWith('passphrase=')).split('=')[1].split(' ').length === 12) {
-        const base32UIAddress = cryptography.getBase32AddressFromPassphrase(document.cookie.split('; ').find(r => r.startsWith('passphrase=')).split('=')[1]).toString('hex');
+    if (document.cookie.split('; ').pop().split('=')[1].split(' ').length === 12) {
+        const base32UIAddress = cryptography.getBase32AddressFromPassphrase(document.cookie.split('; ').pop().split('=')[1]).toString('hex');
         const addyPath = `/accounts/${base32UIAddress}`
         myAcct =
             <Link

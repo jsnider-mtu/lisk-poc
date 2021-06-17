@@ -9,7 +9,7 @@ import * as api from "../../api";
 
 export default function UnlikePostDialog(props) {
   const nodeInfo = useContext(NodeInfoContext);
-  const passp = document.cookie.split('; ').find(r => r.startsWith('passphrase=')).split('=')[1];
+  const passp = document.cookie.split('; ').pop().split('=')[1];
   const data = {
     postId: props.post.id,
     fee: "0",

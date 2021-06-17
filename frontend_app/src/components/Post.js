@@ -69,7 +69,8 @@ export default function Post(props) {
   const [openUnlike, setOpenUnlike] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const base32UIAddress = cryptography.getBase32AddressFromAddress(Buffer.from(props.item.ownerAddress, 'hex'), 'lsk').toString('binary');
-  const curUserAddress = cryptography.getAddressFromPassphrase(document.cookie.split('; ').find(r => r.startsWith('passphrase=')).split('=')[1]).toString('hex');
+  const passp = document.cookie.split('; ').pop();
+  const curUserAddress = cryptography.getAddressFromPassphrase(passp.split('=')[1]).toString('hex');
   const dateobj = new Date(props.item.timestamp);
   const datetime = dateobj.toLocaleString();
   const [likes, setLikes] = useState(props.item.likes.length);
