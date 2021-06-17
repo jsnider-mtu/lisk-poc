@@ -255,11 +255,11 @@ export default function Post(props) {
         </Card>;
     } else {
       sharedpost =
-        <Link
-          component={RouterLink}
-          to={`/accounts/${base32ShaAddress}`}
-        >
-          <Card className={classes.root}>
+        <Card className={classes.root}>
+          <Link
+            component={RouterLink}
+            to={`/accounts/${base32ShaAddress}`}
+          >
             <CardHeader
               avatar={
                 <Avatar aria-label="avatar" className={classes.avatar}>
@@ -269,13 +269,18 @@ export default function Post(props) {
               title={shaPost.username}
               subheader={new Date(shaPost.timestamp).toLocaleString()}
             />
+          </Link>
+          <Link
+            component={RouterLink}
+            to={`/post/${shaPost.id}`}
+          >
             <CardContent>
               <Typography className={classes.message} variant="body1" color="textPrimary" component="p">
                 {shaPost.message}
               </Typography>
             </CardContent>
-          </Card>
-        </Link>;
+          </Link>
+        </Card>;
     }
   }
 
@@ -297,9 +302,14 @@ export default function Post(props) {
       </Link>
       <CardContent>
         {parentpost}
-        <Typography className={classes.message} variant="body1" color="textPrimary" component="p">
-          {props.item.message}
-        </Typography>
+        <Link
+          component={RouterLink}
+          to={`/post/${props.item.id}`}
+        >
+          <Typography className={classes.message} variant="body1" color="textPrimary" component="p">
+            {props.item.message}
+          </Typography>
+        </Link>
         {sharedpost}
       </CardContent>
       <CardActions>

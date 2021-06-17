@@ -36,8 +36,8 @@ function PostPage() {
           return 0;
         });
         setReplies(replyArr);
+        setLoaded(true);
       }
-      setLoaded(true);
     }
 
     fetchData();
