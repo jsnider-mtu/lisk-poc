@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Container, Typography, Divider, Grid, Button } from "@material-ui/core";
-//import { makeStyles } from "@material-ui/core/styles";
+import { Avatar, Container, Typography, Divider, Grid, Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
+import { blue } from "@material-ui/core/colors";
 import { cryptography } from "@liskhq/lisk-client";
 import BanAccountDialog from "./dialogs/BanAccountDialog";
 import DemoteAccountDialog from "./dialogs/DemoteAccountDialog";
@@ -12,8 +14,13 @@ import UpdateAccountDialog from "./dialogs/UpdateAccountDialog";
 import Post from "./Post";
 import * as api from "../api";
 
-//const useStyles = makeStyles((theme) => ({
-//}));
+const useStyles = makeStyles((theme) => ({
+  avatar: {
+    backgroundColor: blue[500],
+    width: theme.spacing(7),
+    height: theme.spacing(7),
+  },
+}));
 
 export default function Account(props) {
   const [posts, setPosts] = useState([]);
@@ -24,7 +31,7 @@ export default function Account(props) {
   const [openUnban, setOpenUnban] = useState(false);
   const [openUnfollow, setOpenUnfollow] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
-  //const classes = useStyles();
+  const classes = useStyles();
   //const base32UIAddress = cryptography.getBase32AddressFromAddress(Buffer.from(props.account.address, 'hex'), 'lsk').toString('binary');
   const passp = document.cookie.split('; ').pop();
   const curUserAddress = cryptography.getAddressFromPassphrase(passp.split('=')[1]).toString('hex');
@@ -197,7 +204,19 @@ export default function Account(props) {
 
   return (
     <Container>
-      <Typography variant="h5">{props.account.socmed.name}</Typography>
+      <Grid container>
+        <Grid item xs>
+          <Avatar aria-label="avatar" className={classes.avatar}>
+            <AssignmentIndIcon />
+          </Avatar>
+        </Grid>
+        <Grid item xs={10}>
+          <Typography variant="h5">{props.account.socmed.name}</Typography>
+          <Typography variant="body2" color="textSecondary" gutterBottom>
+            {props.account.socmed.bio}
+          </Typography>
+        </Grid>
+      </Grid>
       {modbuttons}
       {updatebutton}
       <Divider />
