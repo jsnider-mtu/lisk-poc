@@ -68,6 +68,17 @@ export default function Account(props) {
     fetchData();
   }, [props.account.socmed.posts]);
 
+  let acctdetails;
+
+  if (mod) {
+    acctdetails =
+      <Typography variant="body2" color="textPrimary">
+        {'Banned: ' + props.account.socmed.banned.toString() + '  Moderator: ' + props.account.socmed.moderator.toString()}
+      </Typography>
+  } else {
+    acctdetails = <></>;
+  }
+
   let modbuttons;
 
   if (mod) {
@@ -231,6 +242,7 @@ export default function Account(props) {
           </Typography>
         </Grid>
       </Grid>
+      {acctdetails}
       {modbuttons}
       {updatebutton}
       <Divider />
