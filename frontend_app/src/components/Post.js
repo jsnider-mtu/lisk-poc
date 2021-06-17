@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
   message: {
     'white-space': 'pre-wrap',
+    padding: 20,
   },
   media: {
     height: 0,
@@ -203,41 +204,48 @@ export default function Post(props) {
         const base32ParAddress = cryptography.getBase32AddressFromAddress(Buffer.from(parPost.ownerAddress, 'hex'), 'lsk').toString('binary');
         parentpost =
           <div style={{flexGrow: 1}}>
-            <Link
-              component={RouterLink}
-              to={`/accounts/${base32ParAddress}`}
-            >
-              <Grid container spacing={5}>
-                <Grid item xs={1} />
-                <Grid item xs={1}>
-                  <Avatar aria-label="avatar" className={classes.parentAvatar}>
-                    <AssignmentIndIcon />
-                  </Avatar>
+            <Card raised>
+              <Link
+                component={RouterLink}
+                to={`/accounts/${base32ParAddress}`}
+              >
+                <Grid container>
+                  <Grid item xs={12}>
+                    <br />
+                  </Grid>
                 </Grid>
-                <Grid item xs={9}>
-                  <Typography variant="caption" color="textPrimary">
-                    {parPost.username}
-                  </Typography>
-                  <br />
-                  <Typography variant="caption" color="textSecondary">
-                    {new Date(parPost.timestamp).toLocaleString()}
-                  </Typography>
+                <Grid container spacing={5}>
+                  <Grid item xs={1} />
+                  <Grid item xs={1}>
+                    <Avatar aria-label="avatar" className={classes.parentAvatar}>
+                      <AssignmentIndIcon />
+                    </Avatar>
+                  </Grid>
+                  <Grid item xs={9}>
+                    <Typography variant="caption" color="textPrimary">
+                      {parPost.username}
+                    </Typography>
+                    <br />
+                    <Typography variant="caption" color="textSecondary">
+                      {new Date(parPost.timestamp).toLocaleString()}
+                    </Typography>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Link>
-            <Link
-              component={RouterLink}
-              to={`/post/${parPost.id}`}
-            >
-              <Grid container>
-                <Grid item xs={2} />
-                <Grid item xs={10}>
-                  <Typography variant="caption" color="textSecondary" gutterBottom>
-                    > {parPost.message}
-                  </Typography>
+              </Link>
+              <Link
+                component={RouterLink}
+                to={`/post/${parPost.id}`}
+              >
+                <Grid container>
+                  <Grid item xs={2} />
+                  <Grid item xs={10}>
+                    <Typography variant="body2" color="textSecondary" gutterBottom>
+                      > {parPost.message}
+                    </Typography>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Link>
+              </Link>
+            </Card>
           </div>;
       } else {
         parentpost =
@@ -335,6 +343,7 @@ export default function Post(props) {
         <Grid container spacing={1}>
           {props.item.hashtags.map((hasht, hindex) => (
           <Grid item xs key={hindex}>
+            <br />
             <Link
               component={RouterLink}
               to={`/hashtag/${hasht}`}
