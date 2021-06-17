@@ -182,35 +182,42 @@ export default function Post(props) {
       if (parPost.hasOwnProperty('ownerAddress')) {
         const base32ParAddress = cryptography.getBase32AddressFromAddress(Buffer.from(parPost.ownerAddress, 'hex'), 'lsk').toString('binary');
         parentpost =
-          <Link
-            component={RouterLink}
-            to={`/accounts/${base32ParAddress}`}
-          >
-            <Grid container>
-              <Grid item xs={1} />
-              <Grid item xs={2}>
-                <Avatar aria-label="avatar" className={classes.parentAvatar}>
-                  <AssignmentIndIcon />
-                </Avatar>
+          <div>
+            <Link
+              component={RouterLink}
+              to={`/accounts/${base32ParAddress}`}
+            >
+              <Grid container>
+                <Grid item xs={1} />
+                <Grid item xs={2}>
+                  <Avatar aria-label="avatar" className={classes.parentAvatar}>
+                    <AssignmentIndIcon />
+                  </Avatar>
+                </Grid>
+                <Grid item xs={9}>
+                  <Typography variant="body1" color="textPrimary">
+                    {parPost.username}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    {new Date(parPost.timestamp).toLocaleString()}
+                  </Typography>
+                </Grid>
               </Grid>
-              <Grid item xs={9}>
-                <Typography variant="body1" color="textPrimary">
-                  {parPost.username}
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  {new Date(parPost.timestamp).toLocaleString()}
-                </Typography>
+            </Link>
+            <Link
+              component={RouterLink}
+              to={`/post/${parPost.id}`}
+            >
+              <Grid container>
+                <Grid item xs={1} />
+                <Grid item xs={10}>
+                  <Typography variant="caption" color="textSecondary" gutterBottom>
+                    > {parPost.message}
+                  </Typography>
+                </Grid>
               </Grid>
-            </Grid>
-            <Grid container>
-              <Grid item xs={1} />
-              <Grid item xs={10}>
-                <Typography variant="caption" color="textSecondary" gutterBottom>
-                  > {parPost.message}
-                </Typography>
-              </Grid>
-            </Grid>
-          </Link>;
+            </Link>
+          </div>;
       } else {
         parentpost =
           <Typography variant="body2" color="textSecondary" gutterBottom>

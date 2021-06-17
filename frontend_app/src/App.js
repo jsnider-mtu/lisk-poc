@@ -28,6 +28,7 @@ import SignInPage from './components/SignInPage';
 import SignUpPage from './components/SignUpPage';
 import TransactionsPage from './components/TransactionsPage';
 import AccountPage from './components/AccountPage';
+import PostPage from './components/PostPage';
 import CreateAccountDialog from './components/dialogs/CreateAccountDialog';
 import TransferFundsDialog from './components/dialogs/TransferFundsDialog';
 import CreatePostDialog from './components/dialogs/CreatePostDialog';
@@ -185,6 +186,7 @@ function App() {
         
                                     <Route path="/home" component={HomePage} />
                                     <Route path="/accounts/:address" component={AccountPage} />
+                                    <Route path="/post/:postId" component={PostPage} />
                                     <Route path="/transactions" component={TransactionsPage} />
                                     <Route path="/signin" component={SignInPage} />
                                     <Route path="/signup" component={SignUpPage} />
