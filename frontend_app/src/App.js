@@ -102,6 +102,7 @@ function App() {
 
 
     let myAcct;
+    let logoutlink;
 
     if (document.cookie.split('; ').pop().split('=')[1].split(' ').length === 12) {
         const base32UIAddress = cryptography.getBase32AddressFromPassphrase(document.cookie.split('; ').pop().split('=')[1]).toString('hex');
@@ -115,8 +116,18 @@ function App() {
             >
                 My Account
             </Link>;
+        logoutlink =
+            <Link
+                color="inherit"
+                component={RouterLink}
+                to={"/logout"}
+                className={classes.appBarLink}
+            >
+                Logout
+            </Link>;
     } else {
         myAcct = <></>;
+        logoutlink = <></>;
     }
 
     return (
@@ -135,15 +146,8 @@ function App() {
                                 >
                                     <Typography variant="h6">Social Media App</Typography>
                                 </Link>
-                                <Link
-                                    color="inherit"
-                                    component={RouterLink}
-                                    to="/transactions"
-                                    className={classes.appBarLink}
-                                >
-                                    Transactions
-                                </Link>
                                 {myAcct}
+                                {logoutlink}
                                 <div className={classes.grow} />
                                 <Chip label={nodeInfoState.height} />
                             </Toolbar>
