@@ -67,7 +67,7 @@ export default function Account(props) {
     }
 
     fetchData();
-  }, [props.account.socmed.posts]);
+  }, [curUserAddress, props.account.socmed.posts]);
 
   let acctdetails;
 

@@ -101,7 +101,7 @@ export default function Post(props) {
     fetchData();
     setLikes(likes => likes + (newLike ? 1 : 0));
     setLikes(likes => likes + (newUnlike ? -1 : 0));
-  }, [newLike, newUnlike]);
+  }, [newLike, newUnlike, curUserAddress, props.item.parentPost, props.item.sharedPost]);
 
   let deletebutton;
 

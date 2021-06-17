@@ -27,7 +27,7 @@ export default function CreateAccountDialog(props) {
     const address = cryptography.getBase32AddressFromPassphrase(pw).toString("hex");
     const username = props.username;
     setData({ passphrase: pw, address, username });
-  }, [props.open]);
+  }, [props.username]);
 
   const handleSend = async (event) => {
     event.preventDefault();

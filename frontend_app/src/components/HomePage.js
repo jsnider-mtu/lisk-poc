@@ -39,7 +39,7 @@ function HomePage() {
     <Fragment>
       <CssBaseline />
       {Posts.map((item) => (
-      <div>
+      <div key={item.id}>
         <Grid key={item.id} container spacing={1} justify="center">
             <Grid key={item.id} item md={8}>
               <Post item={item} key={item.id} minimum={false} />

@@ -46,7 +46,7 @@ function HashtagPage() {
     }
 
     fetchData();
-  }, [hashtagPosts]);
+  }, [hashtag, hashtagPosts]);
 
   if (!loaded) {
     return <Fragment><CssBaseline /><CircularProgress /></Fragment>;
