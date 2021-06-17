@@ -3,7 +3,7 @@ import { Avatar, Container, Typography, Divider, Grid, Button } from "@material-
 import { makeStyles } from "@material-ui/core/styles";
 import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import { blue } from "@material-ui/core/colors";
-import { cryptography } from "@liskhq/lisk-client";
+import { cryptography, transactions } from "@liskhq/lisk-client";
 import BanAccountDialog from "./dialogs/BanAccountDialog";
 import DemoteAccountDialog from "./dialogs/DemoteAccountDialog";
 import FollowAccountDialog from "./dialogs/FollowAccountDialog";
@@ -210,10 +210,18 @@ export default function Account(props) {
             <AssignmentIndIcon />
           </Avatar>
         </Grid>
-        <Grid item xs={10}>
+        <Grid item xs={9}>
           <Typography variant="h5">{props.account.socmed.name}</Typography>
           <Typography variant="body2" color="textSecondary" gutterBottom>
             {props.account.socmed.bio}
+          </Typography>
+        </Grid>
+        <Grid item xs>
+          <Typography variant="body2" color="textPrimary">
+            {'Karma'}
+          </Typography>
+          <Typography variant="body2" color="textPrimary">
+            {transactions.convertBeddowsToLSK(props.account.token.balance)}
           </Typography>
         </Grid>
       </Grid>
