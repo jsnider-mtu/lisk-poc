@@ -10,32 +10,10 @@ import UnbanAccountDialog from "./dialogs/UnbanAccountDialog";
 import UnfollowAccountDialog from "./dialogs/UnfollowAccountDialog";
 import UpdateAccountDialog from "./dialogs/UpdateAccountDialog";
 import Post from "./Post";
-import { fetchPost } from "../api";
+import * as api from "../api";
 
-const useStyles = makeStyles((theme) => ({
-  propertyList: {
-    listStyle: "none",
-
-    "& li": {
-      margin: theme.spacing(2, 0),
-      borderBottomColor: theme.palette.divider,
-      borderBottomStyle: "solid",
-      borderBottomWidth: 1,
-
-      "& dt": {
-        display: "block",
-        width: "100%",
-        fontWeight: "bold",
-        margin: theme.spacing(1, 0),
-      },
-      "& dd": {
-        display: "block",
-        width: "100%",
-        margin: theme.spacing(1, 0),
-      },
-    },
-  },
-}));
+//const useStyles = makeStyles((theme) => ({
+//}));
 
 export default function Account(props) {
   const [posts, setPosts] = useState([]);
@@ -46,14 +24,27 @@ export default function Account(props) {
   const [openUnban, setOpenUnban] = useState(false);
   const [openUnfollow, setOpenUnfollow] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
-  const classes = useStyles();
+  //const classes = useStyles();
   const base32UIAddress = cryptography.getBase32AddressFromAddress(Buffer.from(props.account.address, 'hex'), 'lsk').toString('binary');
+  const curUserAddress = cryptography.getAddressFromPassphrase(document.cookie.split('; ').find(r => r.startsWith('passphrase=')).split('=')[1]).toString('hex');
+  const [mod, setMod] = useState(false);
 
   useEffect(() => {
+    let curUser = {};
     async function fetchData() {
-      const acctPosts = await Promise.all(
-        props.account.socmed.posts.map((a) => fetchPost(a))
+      curUser = await api.fetchAccountInfo(curUserAddress);
+      setMod(curUser.socmed.moderator);
+      let acctPosts = await Promise.all(
+        props.account.socmed.posts.map((a) => api.fetchPost(a))
       )
+      var i = 0;
+      while (i < acctPosts.length) {
+        if (acctPosts[i].deleted === true) {
+          acctPosts.splice(i, 1);
+        } else {
+          ++i;
+        }
+      }
       acctPosts.sort(function(a, b) {
         if (a.timestamp < b.timestamp) {
           return 1;
@@ -69,39 +60,11 @@ export default function Account(props) {
     fetchData();
   }, [props.account.socmed.posts]);
 
-  return (
-    <Container>
-      <Typography variant="h5">{base32UIAddress}</Typography>
-      <Divider />
-      <dl className={classes.propertyList}>
-        <li>
-          <dt>Balance</dt>
-          <dd>
-            {transactions.convertBeddowsToLSK(props.account.token.balance)}
-          </dd>
-          <dt>Username</dt>
-          <dd>{props.account.socmed.name}</dd>
-          <dt>Bio</dt>
-          <dd>{props.account.socmed.bio}</dd>
-          <dt>Avatar URL</dt>
-          <dd>{props.account.socmed.avatar}</dd>
-          <dt>Posts Count</dt>
-          <dd>{props.account.socmed.posts.length}</dd>
-          <dt>Follows Count</dt>
-          <dd>{props.account.socmed.follows.length}</dd>
-          <dt>Following Count</dt>
-          <dd>{props.account.socmed.following.length}</dd>
-          <dt>Nonce</dt>
-          <dd>{props.account.sequence.nonce}</dd>
-          <dt>Binary address</dt>
-          <dd>{props.account.address}</dd>
-          <dt>Moderator</dt>
-          <dd>{props.account.socmed.moderator.toString()}</dd>
-          <dt>Banned</dt>
-          <dd>{props.account.socmed.banned.toString()}</dd>
-        </li>
-      </dl>
-      <>
+  let buttons;
+
+  if (mod) {
+    buttons =
+      <div>
         <Button
           size="small"
           color="primary"
@@ -118,8 +81,6 @@ export default function Account(props) {
           }}
           account={props.account}
         />
-      </>
-      <>
         <Button
           size="small"
           color="primary"
@@ -136,8 +97,6 @@ export default function Account(props) {
           }}
           account={props.account}
         />
-      </>
-      <>
         <Button
           size="small"
           color="primary"
@@ -154,8 +113,6 @@ export default function Account(props) {
           }}
           account={props.account}
         />
-      </>
-      <>
         <Button
           size="small"
           color="primary"
@@ -172,8 +129,6 @@ export default function Account(props) {
           }}
           account={props.account}
         />
-      </>
-      <>
         <Button
           size="small"
           color="primary"
@@ -190,8 +145,6 @@ export default function Account(props) {
           }}
           account={props.account}
         />
-      </>
-      <>
         <Button
           size="small"
           color="primary"
@@ -208,8 +161,6 @@ export default function Account(props) {
           }}
           account={props.account}
         />
-      </>
-      <>
         <Button
           size="small"
           color="primary"
@@ -226,11 +177,19 @@ export default function Account(props) {
           }}
           account={props.account}
         />
-      </>
+      </div>;
+  } else {
+    buttons = <></>;
+  }
+
+  return (
+    <Container>
+      <Typography variant="h5">{base32UIAddress}</Typography>
+      <Divider />
       <Typography variant="h6">{"Posts"}</Typography>
       {posts.map((item) => (
-      <Grid container spacing={1} justify="center">
-          <Grid item md={8}>
+      <Grid container spacing={1} justify="center" key={item.id}>
+          <Grid item md={8} key={item.id}>
             <Post item={item} key={item.id} minimum={true} />
           </Grid>
       </Grid>

@@ -162,9 +162,10 @@ export default function Post(props) {
               </Avatar>
             </Grid>
             <Grid item xs={9}>
-              <Typography variant="caption" color="textPrimary">
+              <Typography variant="body1" color="textPrimary">
                 {'Post deleted'}
               </Typography>
+              <br />
             </Grid>
           </Grid>
           <Grid container>
