@@ -40,9 +40,9 @@ const useStyles = makeStyles((theme) => ({
         flex: 1,
     },
     speedDial: {
-        position: 'absolute',
-        bottom: theme.spacing(2),
-        right: theme.spacing(2),
+        position: 'fixed',
+        bottom: theme.spacing(5),
+        right: theme.spacing(5),
     },
     contentContainer: {
         padding: theme.spacing(5, 0),
@@ -87,7 +87,7 @@ function App() {
           minFeePerByte: info.genesisConfig.minFeePerByte,
           height: info.height,
         });
-        setInterval(updateHeight, 1000);
+        setInterval(updateHeight, 5000);
       }
       fetchData();
     }, []);
