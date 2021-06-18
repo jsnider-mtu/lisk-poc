@@ -33,7 +33,6 @@ export default function Account(props) {
   const [openUnfollow, setOpenUnfollow] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
   const classes = useStyles();
-  //const base32UIAddress = cryptography.getBase32AddressFromAddress(Buffer.from(props.account.address, 'hex'), 'lsk').toString('binary');
   const passp = document.cookie.split('; ').pop();
   const curUserAddress = cryptography.getAddressFromPassphrase(passp.split('=')[1]).toString('hex');
   const [mod, setMod] = useState(false);

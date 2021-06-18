@@ -71,6 +71,7 @@ export default function SignUpPage() {
         <Typography component="h1" variant="h5">
           Sign Up
         </Typography>
+        <br />
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
