@@ -14,7 +14,6 @@ function PostPage() {
 
   useEffect(() => {
     async function fetchData() {
-      setPost(await fetchPost(postId));
       if (post.hasOwnProperty('replies')) {
         let replyArr = await Promise.all(
           post.replies.map((a) => fetchPost(a))
@@ -38,11 +37,12 @@ function PostPage() {
         });
         setReplies(replyArr);
         setLoaded(true);
+      } else {
+        setPost(await fetchPost(postId));
       }
     }
-
     fetchData();
-  }, [post, postId]);
+  }, [loaded, post, postId]);
 
   if (!loaded) {
     return <Fragment><CssBaseline /><CircularProgress /></Fragment>;

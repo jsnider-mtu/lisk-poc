@@ -151,7 +151,6 @@ export default function Post(props) {
   }
 
   let parentpost;
-  let base32ParAddress = "";
 
   if (props.item.parentPost.length === 0 || props.minimum) {
     if (props.item.parentPost.length === 0) {
@@ -261,7 +260,7 @@ export default function Post(props) {
   if (props.item.sharedPost.length === 0) {
     sharedpost = <></>;
   } else {
-    let base32ShaAddress = "";
+    let base32ShaAddress;
     if (shaPost.hasOwnProperty('ownerAddress')) {
       const base32ShaAddress = cryptography.getBase32AddressFromAddress(Buffer.from(shaPost.ownerAddress, 'hex'), 'lsk').toString('binary');
     }
