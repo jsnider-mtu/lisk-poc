@@ -65,7 +65,7 @@ function App() {
     const [openSpeedDial, setOpenSpeedDial] = useState(false);
     const [openDialog, setOpenDialog] = useState(null);
     const [openSettings, setOpenSettings] = useState(false);
-    const [paletteType, setPaletteType] = useState("light");
+    const [paletteType, setPaletteType] = useState("dark");
 
     const theme = createMuiTheme({
         palette: {
