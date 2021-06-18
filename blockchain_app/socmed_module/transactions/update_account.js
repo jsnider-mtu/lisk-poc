@@ -12,17 +12,13 @@ class UpdateAccountAsset extends BaseAsset {
         dataType: "bytes",
         fieldNumber: 1,
       },
-      name: {
+      bio: {
         dataType: "string",
         fieldNumber: 2,
       },
-      bio: {
-        dataType: "string",
-        fieldNumber: 3,
-      },
       avatar: {
         dataType: "string",
-        fieldNumber: 4,
+        fieldNumber: 3,
       },
     },
   };
@@ -40,7 +36,6 @@ class UpdateAccountAsset extends BaseAsset {
     }
 
     // Set updatedAccount properties
-    updatedAccount.socmed.name = asset.name;
     updatedAccount.socmed.bio = asset.bio;
     updatedAccount.socmed.avatar = asset.avatar;
     await stateStore.account.set(updatedAddress, updatedAccount);
