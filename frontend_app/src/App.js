@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import {
     AppBar,
+    Button,
     Toolbar,
     Typography,
     Link,
@@ -39,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
     appBarLink: {
         margin: theme.spacing(0, 2),
         flex: 1,
+        textTransform: 'none',
     },
     speedDial: {
         position: 'fixed',
@@ -109,23 +111,26 @@ function App() {
         const base32UIAddress = cryptography.getBase32AddressFromPassphrase(document.cookie.split('; ').pop().split('=')[1]).toString('hex');
         const addyPath = `/accounts/${base32UIAddress}`
         myAcct =
-            <Link
+            <Button
+                size="small"
                 color="inherit"
-                component={RouterLink}
-                to={addyPath}
+                href={addyPath}
                 className={classes.appBarLink}
             >
                 My Account
-            </Link>;
+            </Button>;
         logoutlink =
-            <Link
+            <Button
+                size="small"
                 color="inherit"
-                component={RouterLink}
-                to={"/logout"}
                 className={classes.appBarLink}
+                onClick={() => {
+                  document.cookie = "passphrase=; Secure";
+                  window.location.href = "/signin";
+                }}
             >
                 Logout
-            </Link>;
+            </Button>;
     } else {
         myAcct = <></>;
         logoutlink = <></>;
