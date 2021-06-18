@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 //import { useParams } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -14,6 +14,8 @@ import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { cryptography, Buffer } from '@liskhq/lisk-client';
+import * as api from '../api';
 
 import CreateAccountDialog from './dialogs/CreateAccountDialog';
 import LoadingAccountDialog from './dialogs/LoadingAccountDialog';
@@ -55,6 +57,43 @@ export default function SignUpPage() {
   const classes = useStyles();
   const [openDialog, setOpenDialog] = useState(null);
   const [data, setData] = useState({ username: "", address: "" });
+  const [transactions, setTransactions] = useState([]);
+  const [txAccounts, setTxAccounts] = useState([]);
+  const [invalidUsername, setInvalidUsername] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      setTransactions(await api.getAllTransactions());
+      console.log(transactions);
+      let txAccts = await Promise.all(
+        transactions.map((t) => {
+          let binaryAddress = "";
+          if (t['recipientAddress']) {
+            binaryAddress = cryptography.getAddressFromAddress(Buffer.from(t['recipientAddress'], 'hex')).toString('hex');
+          } else if (t['senderPublicKey']) {
+            binaryAddress = cryptography.getAddressFromPublicKey(Buffer.from(t['senderPublicKey'], 'hex')).toString('hex');
+          }
+          if (binaryAddress.length > 0) {
+            return api.fetchAccountInfo(binaryAddress);
+          } else {
+            return {};
+          }
+        })
+      )
+      console.log(txAccts);
+      setTxAccounts(txAccts);
+    }
+    fetchData();
+    if (txAccounts.length > 0) {
+      let usernames = txAccounts.map((a) => a.socmed.name);
+      //console.log(usernames);
+      if (usernames.includes(data.username)) {
+        setInvalidUsername(true);
+      } else {
+        setInvalidUsername(false);
+      }
+    }
+  }, [txAccounts, data.username]);
 
   const handleChange = (event) => {
     event.persist();
@@ -83,6 +122,8 @@ export default function SignUpPage() {
               name="username"
               autoComplete="username"
               onChange={handleChange}
+              error={invalidUsername}
+              helperText="That username is not available"
             />
           </Grid>
         </Grid>
