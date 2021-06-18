@@ -57,16 +57,14 @@ export default function SignUpPage() {
   const classes = useStyles();
   const [openDialog, setOpenDialog] = useState(null);
   const [data, setData] = useState({ username: "", address: "" });
-  const [transactions, setTransactions] = useState([]);
   const [txAccounts, setTxAccounts] = useState([]);
   const [invalidUsername, setInvalidUsername] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
-      setTransactions(await api.getAllTransactions());
-      console.log(transactions);
+      const allTransactions = await api.getAllTransactions();
       let txAccts = await Promise.all(
-        transactions.map((t) => {
+        allTransactions.map((t) => {
           let binaryAddress = "";
           if (t['recipientAddress']) {
             binaryAddress = cryptography.getAddressFromAddress(Buffer.from(t['recipientAddress'], 'hex')).toString('hex');
