@@ -13,24 +13,19 @@ export const updateAccountSchema = {
       dataType: "bytes",
       fieldNumber: 1,
     },
-    name: {
+    bio: {
       dataType: "string",
       fieldNumber: 2,
     },
-    bio: {
-      dataType: "string",
-      fieldNumber: 3,
-    },
     avatar: {
       dataType: "string",
-      fieldNumber: 4,
+      fieldNumber: 3,
     },
   },
 };
 
 export const updateAccount = async ({
   address,
-  name,
   bio,
   avatar,
   passphrase,
@@ -57,7 +52,6 @@ export const updateAccount = async ({
       senderPublicKey: publicKey,
       asset: {
         address: Buffer.from(address, 'hex'),
-        name,
         bio,
         avatar,
       },

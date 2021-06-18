@@ -26,7 +26,6 @@ export default function UnfollowAccountDialog(props) {
   const passp = document.cookie.split('; ').pop().split('=')[1];
   const [data, setData] = useState({
     address: props.account.address,
-    name: props.account.socmed.name,
     bio: props.account.socmed.bio,
     avatar: props.account.socmed.avatar,
     fee: "0",
@@ -58,7 +57,7 @@ export default function UnfollowAccountDialog(props) {
           <form className={classes.root} noValidate autoComplete="off">
             <TextField
               label="Name"
-              value={data.name}
+              value={props.account.socmed.name}
               name="name"
               onChange={handleChange}
               InputProps={{
