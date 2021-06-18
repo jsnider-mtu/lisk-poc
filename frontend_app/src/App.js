@@ -20,6 +20,7 @@ import { SpeedDial, SpeedDialIcon, SpeedDialAction } from '@material-ui/lab';
 import { createMuiTheme, MuiThemeProvider, makeStyles } from '@material-ui/core/styles';
 import LocalAtmIcon from '@material-ui/icons/LocalAtm';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
+import SettingsIcon from '@material-ui/icons/Settings';
 import { cryptography } from "@liskhq/lisk-client";
 import * as api from './api';
 import { NodeInfoContext, nodeInfoContextDefaultValue } from './context';
@@ -35,6 +36,7 @@ import HashtagPage from './components/HashtagPage';
 import CreateAccountDialog from './components/dialogs/CreateAccountDialog';
 import TransferFundsDialog from './components/dialogs/TransferFundsDialog';
 import CreatePostDialog from './components/dialogs/CreatePostDialog';
+import SettingsDialog from './components/dialogs/SettingsDialog';
 
 const useStyles = makeStyles((theme) => ({
     appBarLink: {
@@ -62,13 +64,15 @@ function App() {
     );
     const [openSpeedDial, setOpenSpeedDial] = useState(false);
     const [openDialog, setOpenDialog] = useState(null);
+    const [openSettings, setOpenSettings] = useState(false);
+    const [paletteType, setPaletteType] = useState("light");
 
     const theme = createMuiTheme({
         palette: {
             secondary: {
                 main: "#0069ff",
             },
-            type: "dark",
+            type: paletteType,
         },
     });
 
@@ -196,6 +200,27 @@ function App() {
                             alignItems="flex-start"
                         >
                             <Grid item xs>
+                                <Container className={classes.contentContainer}>
+                                    <Button
+                                        classes={{position: 'fixed'}}
+                                        size="large"
+                                        color="inherit"
+                                        startIcon={<SettingsIcon />}
+                                        onClick={() => {
+                                            setOpenSettings(true);
+                                        }}
+                                    >
+                                        Settings
+                                    </Button>
+                                    <SettingsDialog
+                                        open={openSettings}
+                                        palType={paletteType}
+                                        handleClose={(pType) => {
+                                            setPaletteType(pType);
+                                            setOpenSettings(false);
+                                        }}
+                                    />
+                                </Container>
                             </Grid>
                             <Divider orientation="vertical" flexItem />
                             <Grid item xs={6}>
