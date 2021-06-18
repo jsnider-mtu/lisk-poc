@@ -52,6 +52,9 @@ const useStyles = makeStyles((theme) => ({
     contentContainer: {
         padding: theme.spacing(5, 0),
     },
+    settingsContainer: {
+        padding: theme.spacing(5),
+    },
     grow: {
         flexGrow: 1,
     },
@@ -200,9 +203,9 @@ function App() {
                             alignItems="flex-start"
                         >
                             <Grid item xs>
-                                <Container className={classes.contentContainer}>
+                                <Container className={classes.settingsContainer}>
                                     <Button
-                                        classes={{position: 'fixed'}}
+                                        style={{position: 'fixed'}}
                                         size="large"
                                         color="inherit"
                                         startIcon={<SettingsIcon />}
