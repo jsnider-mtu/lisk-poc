@@ -31,6 +31,7 @@ import SignInPage from './components/SignInPage';
 import SignUpPage from './components/SignUpPage';
 import TransactionsPage from './components/TransactionsPage';
 import AccountPage from './components/AccountPage';
+import UserPage from './components/UserPage';
 import PostPage from './components/PostPage';
 import HashtagPage from './components/HashtagPage';
 import CreateAccountDialog from './components/dialogs/CreateAccountDialog';
@@ -109,7 +110,6 @@ function App() {
     const handleSpeedDialOpen = () => {
         setOpenSpeedDial(true);
     };
-
 
     let myAcct;
     let logoutlink;
@@ -236,6 +236,7 @@ function App() {
                                         <Route path="/home" component={HomePage} />
                                         <Route path="/all" component={AllPage} />
                                         <Route path="/accounts/:address" component={AccountPage} />
+                                        <Route path="/user/:username" component={UserPage} />
                                         <Route path="/post/:postId" component={PostPage} />
                                         <Route path="/hashtag/:hashtag" component={HashtagPage} />
                                         <Route path="/transactions" component={TransactionsPage} />
