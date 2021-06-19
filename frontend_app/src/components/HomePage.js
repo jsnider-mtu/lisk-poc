@@ -21,7 +21,7 @@ function HomePage() {
       let allPosts = await fetchAllPosts();
       var i = 0;
       while (i < allPosts.length) {
-        if (allPosts[i].deleted === true || !curUser.socmed.follows.includes(allPosts[i].ownerAddress)) {
+        if (allPosts[i].deleted === true || (!curUser.socmed.follows.includes(allPosts[i].ownerAddress) && !allPosts[i].taggedusers.includes(curUser.socmed.name) && !curUser.socmed.posts.includes(allPosts[i].id))) {
           allPosts.splice(i, 1);
         } else {
           ++i;
