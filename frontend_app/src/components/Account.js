@@ -42,9 +42,8 @@ export default function Account(props) {
     async function fetchData() {
       curUser = await api.fetchAccountInfo(curUserAddress);
       setMod(curUser.socmed.moderator);
-      let acctPosts = await Promise.all(
-        props.account.socmed.posts.map((a) => api.fetchPost(a))
-      )
+      let allPosts = await api.fetchAllPosts();
+      let acctPosts = allPosts.filter((p) => props.account.socmed.posts.includes(p.id) || p.taggedusers.includes(props.account.socmed.name));
       var i = 0;
       while (i < acctPosts.length) {
         if (acctPosts[i].deleted === true) {
