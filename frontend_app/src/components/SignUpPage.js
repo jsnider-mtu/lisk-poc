@@ -59,39 +59,33 @@ export default function SignUpPage() {
   const [data, setData] = useState({ username: "", address: "" });
   const [txAccounts, setTxAccounts] = useState([]);
   const [invalidUsername, setInvalidUsername] = useState(false);
+  const [fetchDataRan, setFetchDataRan] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
       const allTransactions = await api.getAllTransactions();
+      const cuTransactions = allTransactions.filter((tx) => tx['moduleID'] === 1024 && tx['assetID'] === 14);
       let txAccts = await Promise.all(
-        allTransactions.map((t) => {
-          let binaryAddress = "";
-          if (t['recipientAddress']) {
-            binaryAddress = cryptography.getAddressFromAddress(Buffer.from(t['recipientAddress'], 'hex')).toString('hex');
-          } else if (t['senderPublicKey']) {
-            binaryAddress = cryptography.getAddressFromPublicKey(Buffer.from(t['senderPublicKey'], 'hex')).toString('hex');
-          }
-          if (binaryAddress.length > 0) {
-            return api.fetchAccountInfo(binaryAddress);
-          } else {
-            return {};
-          }
+        cuTransactions.map((t) => {
+          let binaryAddress = cryptography.getAddressFromPublicKey(Buffer.from(t['senderPublicKey'], 'hex')).toString('hex');
+          return api.fetchAccountInfo(binaryAddress);
         })
       )
-      console.log(txAccts);
       setTxAccounts(txAccts);
     }
-    fetchData();
+    if (!fetchDataRan) {
+      fetchData();
+      setFetchDataRan(true);
+    }
     if (txAccounts.length > 0) {
       let usernames = txAccounts.map((a) => a.socmed.name);
-      //console.log(usernames);
       if (usernames.includes(data.username)) {
         setInvalidUsername(true);
       } else {
         setInvalidUsername(false);
       }
     }
-  }, [txAccounts, data.username]);
+  }, [data.username, fetchDataRan]);
 
   const handleChange = (event) => {
     event.persist();
