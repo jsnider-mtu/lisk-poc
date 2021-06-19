@@ -60,9 +60,6 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(4),
     height: theme.spacing(4),
   },
-  hashtag: {
-    color: blue[500],
-  },
 }));
 
 export default function Post(props) {
