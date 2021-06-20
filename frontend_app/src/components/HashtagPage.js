@@ -1,9 +1,11 @@
 import React, { Fragment, useEffect, useState } from "react";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { useParams } from "react-router-dom";
-import { Typography, CircularProgress, Grid } from "@material-ui/core";
+import { Fab, Typography, CircularProgress, Grid } from "@material-ui/core";
 import * as api from "../api";
 import Post from "./Post";
+import ScrollTop from "./ScrollTop";
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
 
 function HashtagPage() {
@@ -46,7 +48,7 @@ function HashtagPage() {
     }
 
     fetchData();
-  }, [hashtag, hashtagPosts]);
+  }, [hashtag]);
 
   if (!loaded) {
     return <Fragment><CssBaseline /><CircularProgress /></Fragment>;
@@ -65,6 +67,11 @@ function HashtagPage() {
             <br />
           </div>
         ))}
+        <ScrollTop>
+          <Fab color="secondary" size="small" aria-label="scroll back to top">
+            <KeyboardArrowUpIcon />
+          </Fab>
+        </ScrollTop>
         </div>
       );
     } else {

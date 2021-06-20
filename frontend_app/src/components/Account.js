@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { Avatar, Container, Typography, Divider, Grid, Button } from "@material-ui/core";
+import { Fab, Avatar, Container, Typography, Divider, Grid, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import { blue } from "@material-ui/core/colors";
@@ -14,6 +14,8 @@ import UnfollowAccountDialog from "./dialogs/UnfollowAccountDialog";
 import UpdateAccountDialog from "./dialogs/UpdateAccountDialog";
 import Post from "./Post";
 import * as api from "../api";
+import ScrollTop from "./ScrollTop";
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -65,7 +67,7 @@ export default function Account(props) {
     }
 
     fetchData();
-  }, [curUserAddress, props.account.socmed.posts]);
+  }, [curUserAddress, props.account.socmed.posts, props.account.socmed.name]);
 
   let acctdetails;
 
@@ -257,6 +259,11 @@ export default function Account(props) {
         <br />
       </div>
       ))}
+      <ScrollTop>
+        <Fab color="secondary" size="small" aria-label="scroll back to top">
+          <KeyboardArrowUpIcon />
+        </Fab>
+      </ScrollTop>
     </Container>
   );
 }

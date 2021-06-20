@@ -2,8 +2,10 @@ import React, { Fragment, useEffect, useState } from "react";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { cryptography } from "@liskhq/lisk-client";
 import Post from "./Post";
-import { CircularProgress, Grid } from "@material-ui/core";
+import { Fab, CircularProgress, Grid } from "@material-ui/core";
 import { fetchAllPosts, fetchAccountInfo } from "../api";
+import ScrollTop from "./ScrollTop";
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
 function HomePage() {
   const [Posts, setPosts] = useState([]);
@@ -61,6 +63,11 @@ function HomePage() {
           <br />
         </div>
         ))}
+        <ScrollTop>
+          <Fab color="secondary" size="small" aria-label="scroll back to top">
+            <KeyboardArrowUpIcon />
+          </Fab>
+        </ScrollTop>
       </Fragment>
     );
   }
