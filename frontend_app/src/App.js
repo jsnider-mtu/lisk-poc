@@ -20,6 +20,7 @@ import { SpeedDial, SpeedDialIcon, SpeedDialAction } from '@material-ui/lab';
 import { createMuiTheme, MuiThemeProvider, makeStyles } from '@material-ui/core/styles';
 import LocalAtmIcon from '@material-ui/icons/LocalAtm';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
+import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { cryptography } from "@liskhq/lisk-client";
 import * as api from './api';
@@ -205,6 +206,15 @@ function App() {
                         >
                             <Grid item xs>
                                 <Container className={classes.settingsContainer}>
+                                    <Button
+                                        style={{position: 'fixed'}}
+                                        size="large"
+                                        color="inherit"
+                                        startIcon={<AllInclusiveIcon />}
+                                        href="/all"
+                                    >
+                                        All Posts
+                                    </Button><br /><br />
                                     <Button
                                         style={{position: 'fixed'}}
                                         size="large"
