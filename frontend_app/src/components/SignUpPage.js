@@ -112,10 +112,11 @@ export default function SignUpPage() {
               id="username"
               label="Username"
               name="username"
+              value={data.username}
               autoComplete="username"
               onChange={handleChange}
               error={invalidUsername}
-              helperText="That username is not available"
+              helperText={invalidUsername ? "That username is not available" : ""}
             />
           </Grid>
         </Grid>
