@@ -28,6 +28,7 @@ export default function UnfollowAccountDialog(props) {
     address: props.account.address,
     bio: props.account.socmed.bio,
     avatar: props.account.socmed.avatar,
+    displayname: props.account.socmed.displayname,
     fee: "0",
     passphrase: passp,
   });
@@ -56,13 +57,19 @@ export default function UnfollowAccountDialog(props) {
         <DialogContent>
           <form className={classes.root} noValidate autoComplete="off">
             <TextField
-              label="Name"
+              label="Username"
               value={props.account.socmed.name}
               name="name"
               onChange={handleChange}
               InputProps={{
                 readOnly: true,
               }}
+            />
+            <TextField
+              label="Display Name"
+              value={data.displayname}
+              name="displayname"
+              onChange={handleChange}
             />
             <TextField
               label="Bio"

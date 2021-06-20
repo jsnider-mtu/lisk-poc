@@ -20,6 +20,10 @@ class UpdateAccountAsset extends BaseAsset {
         dataType: "string",
         fieldNumber: 3,
       },
+      displayname: {
+        dataType: "string",
+        fieldNumber: 4,
+      },
     },
   };
 
@@ -38,6 +42,7 @@ class UpdateAccountAsset extends BaseAsset {
     // Set updatedAccount properties
     updatedAccount.socmed.bio = asset.bio;
     updatedAccount.socmed.avatar = asset.avatar;
+    updatedAccount.socmed.displayname = asset.displayname;
     await stateStore.account.set(updatedAddress, updatedAccount);
   }
 }

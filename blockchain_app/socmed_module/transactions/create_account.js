@@ -33,6 +33,7 @@ class CreateAccountAsset extends BaseAsset {
 
     // Set updatedAccount properties
     updatedAccount.socmed.name = asset.name;
+    updatedAccount.socmed.displayname = asset.name;
     await stateStore.account.set(updatedAddress, updatedAccount);
   }
 }

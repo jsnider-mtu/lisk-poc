@@ -39,7 +39,7 @@ export default function CreateAccountDialog(props) {
     <Fragment>
       <Dialog open={props.open} onBackdropClick={props.handleClose} fullWidth>
         <DialogTitle id="alert-dialog-title">
-          {"Please copy the username, address, and passphrase"}
+          {"Please save the username and passphrase in your password manager"}
         </DialogTitle>
         <DialogContent>
           <form noValidate autoComplete="off" className={classes.root}>

@@ -66,6 +66,10 @@ class SOCMEDModule extends BaseModule {
         dataType: "boolean",
         fieldNumber: 8,
       },
+      displayname: {
+        dataType: "string",
+        fieldNumber: 9,
+      },
     },
     default: {
       bio: "",
@@ -75,6 +79,7 @@ class SOCMEDModule extends BaseModule {
       following: [],
       moderator: false,
       banned: false,
+      displayname: "",
     },
   };
   beforeTransactionApply = async ({ transaction, stateStore, reducerHandler }) => {

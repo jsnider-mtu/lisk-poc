@@ -34,6 +34,7 @@ genesisBlockDevnet.header.asset.accounts = genesisBlockDevnet.header.asset.accou
                 following: [], // accounts following this one
                 moderator: false,
                 banned: false,
+                displayname: "",
             },
         }),
 );

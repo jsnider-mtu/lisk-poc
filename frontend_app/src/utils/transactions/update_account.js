@@ -21,6 +21,10 @@ export const updateAccountSchema = {
       dataType: "string",
       fieldNumber: 3,
     },
+    displayname: {
+      dataType: "string",
+      fieldNumber: 4,
+    },
   },
 };
 
@@ -28,6 +32,7 @@ export const updateAccount = async ({
   address,
   bio,
   avatar,
+  displayname,
   passphrase,
   fee,
   networkIdentifier,
@@ -54,6 +59,7 @@ export const updateAccount = async ({
         address: Buffer.from(address, 'hex'),
         bio,
         avatar,
+        displayname,
       },
     },
     Buffer.from(networkIdentifier, "hex"),
