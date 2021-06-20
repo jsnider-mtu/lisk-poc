@@ -148,7 +148,7 @@ function App() {
             <Fragment>
                 <NodeInfoContext.Provider value={nodeInfoState}>
                     <Router>
-                        <AppBar position="static">
+                        <AppBar position="fixed">
                             <Toolbar>
     
                                 <Link
@@ -165,6 +165,7 @@ function App() {
                                 <Chip label={nodeInfoState.height} />
                             </Toolbar>
                         </AppBar>
+                        <Toolbar id="back-to-top-anchor" />
     
                         <SpeedDial
                             ariaLabel="SpeedDial example"
