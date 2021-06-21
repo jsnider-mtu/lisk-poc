@@ -2,16 +2,47 @@ import React, { Fragment, useEffect, useState } from "react";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { cryptography } from "@liskhq/lisk-client";
 import Post from "./Post";
-import { Fab, CircularProgress, Grid } from "@material-ui/core";
+import { Zoom, Button, Fab, CircularProgress, Grid } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles';
 import { fetchAllPosts, fetchAccountInfo } from "../api";
 import ScrollTop from "./ScrollTop";
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
+const useStyles = makeStyles((theme) => ({
+  newposts: {
+    position: 'fixed',
+    top: theme.spacing(9),
+    left: 0,
+    right: 0,
+    'margin-left': 'auto',
+    'margin-right': 'auto',
+  },
+}));
+
 function HomePage() {
+  const classes = useStyles();
   const [Posts, setPosts] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  const [newPosts, setNewPosts] = useState(false);
+  const [intervalIds, setIntervalIds] = useState([]);
   const passp = document.cookie.split('; ').pop();
   const curUserAddress = cryptography.getAddressFromPassphrase(passp.split('=')[1]).toString('hex');
+
+  const fetchNewPosts = async (curposts) => {
+    let curUser = await fetchAccountInfo(curUserAddress);
+    let allNewPosts = await fetchAllPosts();
+    var i = 0;
+    while (i < allNewPosts.length) {
+      if (allNewPosts[i].deleted === true || (!curUser.socmed.follows.includes(allNewPosts[i].ownerAddress) && !allNewPosts[i].taggedusers.includes(curUser.socmed.name) && !curUser.socmed.posts.includes(allNewPosts[i].id))) {
+        allNewPosts.splice(i, 1);
+      } else {
+        ++i;
+      }
+    }
+    if (allNewPosts.length > curposts) {
+      setNewPosts(true);
+    }
+  }
 
   useEffect(() => {
     let curUser = {};
@@ -39,11 +70,16 @@ function HomePage() {
         return 0;
       });
       setPosts(allPosts);
+      if (intervalIds.length === 0) {
+        let intervalid = setInterval(fetchNewPosts, 10000, allPosts.length);
+        setIntervalIds(arr => [...arr, intervalid]);
+      }
     }
     if (document.cookie.split('; ').pop().split('=')[1].split(' ').length !== 12) {
       window.location.href="/signin";
     }
     fetchData();
+    setNewPosts(false);
     setLoaded(true);
   }, [loaded, curUserAddress]);
 
@@ -63,6 +99,20 @@ function HomePage() {
           <br />
         </div>
         ))}
+        <Zoom in={newPosts}>
+          <Button
+            variant='contained'
+            color='primary'
+            onClick={() => {
+              intervalIds.forEach(clearInterval);
+              setIntervalIds([]);
+              setLoaded(false)
+            }}
+            className={classes.newposts}
+          >
+            {'Load more posts'}
+          </Button>
+        </Zoom>
         <ScrollTop>
           <Fab color="secondary" size="small" aria-label="scroll back to top">
             <KeyboardArrowUpIcon />
