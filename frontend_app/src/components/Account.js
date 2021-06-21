@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Fab, Avatar, Container, Typography, Divider, Grid, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import { blue } from "@material-ui/core/colors";
 import { cryptography, transactions } from "@liskhq/lisk-client";
 import BanAccountDialog from "./dialogs/BanAccountDialog";
@@ -225,12 +224,11 @@ export default function Account(props) {
       <CssBaseline />
       <Grid container>
         <Grid item xs>
-          <Avatar aria-label="avatar" className={classes.avatar}>
-            <AssignmentIndIcon />
-          </Avatar>
+          <Avatar aria-label="avatar" className={classes.avatar} src={props.account.socmed.avatar} />
         </Grid>
         <Grid item xs={9}>
-          <Typography variant="h5">{props.account.socmed.name}</Typography>
+          <Typography variant="h5">{props.account.socmed.displayname}</Typography>
+          <Typography variant="body1">{'@' + props.account.socmed.name}</Typography>
           <Typography variant="body2" color="textSecondary" gutterBottom>
             {props.account.socmed.bio}
           </Typography>

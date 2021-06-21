@@ -8,18 +8,16 @@ import {
   Typography,
   Link,
   IconButton,
-  Grid,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import ShareIcon from "@material-ui/icons/Share";
 import ReplyIcon from "@material-ui/icons/Reply";
 import { blue } from '@material-ui/core/colors';
 import { makeStyles } from "@material-ui/core/styles";
 import { Link as RouterLink } from "react-router-dom";
-import { cryptography, Buffer } from "@liskhq/lisk-client";
+import { cryptography } from "@liskhq/lisk-client";
 import * as api from "../api";
 
 import LikePostDialog from "./dialogs/LikePostDialog";
@@ -69,7 +67,6 @@ export default function Post(props) {
   const [openLike, setOpenLike] = useState(false);
   const [openUnlike, setOpenUnlike] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
-  const base32UIAddress = cryptography.getBase32AddressFromAddress(Buffer.from(props.item.ownerAddress, 'hex'), 'lsk').toString('binary');
   const passp = document.cookie.split('; ').pop();
   const curUserAddress = cryptography.getAddressFromPassphrase(passp.split('=')[1]).toString('hex');
   const dateobj = new Date(props.item.timestamp);
@@ -80,26 +77,41 @@ export default function Post(props) {
   const [newUnlike, setNewUnlike] = useState(false);
   const [parPost, setParPost] = useState({});
   const [shaPost, setShaPost] = useState({});
+  const [parPostOwner, setParPostOwner] = useState({});
+  const [shaPostOwner, setShaPostOwner] = useState({});
   const [mod, setMod] = useState(false);
+  const [postOwner, setPostOwner] = useState({});
 
   useEffect(() => {
     let curUser = {};
     async function fetchData() {
-      if (props.item.parentPost.length !== 0) {
+      if (props.item.parentPost.length !== 0 && !parPost.hasOwnProperty('ownerAddress')) {
         const parpost = await api.fetchPost(props.item.parentPost);
         setParPost(parpost);
       }
-      if (props.item.sharedPost.length !== 0) {
+      if (props.item.sharedPost.length !== 0 && !shaPost.hasOwnProperty('ownerAddress')) {
         const shapost = await api.fetchPost(props.item.sharedPost);
         setShaPost(shapost);
       }
       curUser = await api.fetchAccountInfo(curUserAddress);
       setMod(curUser.socmed.moderator);
+      if (!postOwner.hasOwnProperty('socmed')) {
+        const postowner = await api.fetchAccountInfo(props.item.ownerAddress);
+        setPostOwner(postowner);
+      }
+      if (parPost.hasOwnProperty('ownerAddress')) {
+        const parpostowner = await api.fetchAccountInfo(parPost.ownerAddress);
+        setParPostOwner(parpostowner);
+      }
+      if (shaPost.hasOwnProperty('ownerAddress')) {
+        const shapostowner = await api.fetchAccountInfo(shaPost.ownerAddress);
+        setShaPostOwner(shapostowner);
+      }
     }
     fetchData();
     setLikes(likes => likes + (newLike ? 1 : 0));
     setLikes(likes => likes + (newUnlike ? -1 : 0));
-  }, [newLike, newUnlike, curUserAddress, props.item.parentPost, props.item.sharedPost]);
+  }, [newLike, newUnlike, curUserAddress, props.item.ownerAddress, props.item.parentPost, props.item.sharedPost, parPost, shaPost, postOwner]);
 
   let deletebutton;
 
@@ -154,12 +166,11 @@ export default function Post(props) {
       parentpost = <></>;
     } else {
       if (parPost.hasOwnProperty('ownerAddress')) {
-        const base32ParAddress = cryptography.getBase32AddressFromAddress(Buffer.from(parPost.ownerAddress, 'hex'), 'lsk').toString('binary');
         parentpost =
           <div>
-            <Typography variant="body1" color="textSecondary" gutterBottom>
+            <Typography variant="body2" color="textSecondary" gutterBottom>
               {'Replying to '}
-              <Link component={RouterLink} to={`/accounts/${base32ParAddress}`}>
+              <Link component={RouterLink} to={`/user/${parPost.username}`}>
                 {'@' + parPost.username}
               </Link>
             </Typography>
@@ -171,82 +182,70 @@ export default function Post(props) {
   } else {
     if (parPost.deleted) {
       parentpost =
-        <div>
-          <Grid container>
-            <Grid item xs={1} />
-            <Grid item xs={2}>
-              <Avatar aria-label="avatar" className={classes.parentAvatar}>
-                <AssignmentIndIcon />
-              </Avatar>
-            </Grid>
-            <Grid item xs={9}>
-              <Typography variant="body1" color="textPrimary">
+        <Card variant="outlined" className={classes.root}>
+          <CardHeader
+            avatar={
+              <Avatar aria-label="avatar" className={classes.avatar} />
+            }
+            title={
+              <Typography variant="body2" color="textSecondary">
                 {'Post deleted'}
               </Typography>
-              <br />
-            </Grid>
-          </Grid>
-          <Grid container>
-            <Grid item xs={1} />
-            <Grid item xs={10}>
-              <Typography variant="caption" color="textSecondary" gutterBottom>
-                > {'Post deleted'}
-              </Typography>
-            </Grid>
-          </Grid>
-        </div>;
+            }
+          />
+          <CardContent>
+            <Typography variant="caption" color="textSecondary" gutterBottom>
+              > {'Post deleted'}
+            </Typography>
+          </CardContent>
+        </Card>;
     } else {
-      if (parPost.hasOwnProperty('ownerAddress')) {
-        const base32ParAddress = cryptography.getBase32AddressFromAddress(Buffer.from(parPost.ownerAddress, 'hex'), 'lsk').toString('binary');
+      if (parPost.hasOwnProperty('ownerAddress') && parPostOwner.hasOwnProperty('socmed')) {
         parentpost =
-          <div style={{flexGrow: 1}}>
-            <Card raised>
-              <Link
-                component={RouterLink}
-                to={`/accounts/${base32ParAddress}`}
-              >
-                <Grid container>
-                  <Grid item xs={12}>
-                    <br />
-                  </Grid>
-                </Grid>
-                <Grid container spacing={5}>
-                  <Grid item xs={1} />
-                  <Grid item xs={1}>
-                    <Avatar aria-label="avatar" className={classes.parentAvatar}>
-                      <AssignmentIndIcon />
-                    </Avatar>
-                  </Grid>
-                  <Grid item xs={9}>
-                    <Typography variant="caption" color="textPrimary">
-                      {parPost.username}
-                    </Typography>
-                    <br />
-                    <Typography variant="caption" color="textSecondary">
-                      {new Date(parPost.timestamp).toLocaleString()}
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Link>
-              <Link
-                component={RouterLink}
-                to={`/post/${parPost.id}`}
-              >
-                <Grid container>
-                  <Grid item xs={2} />
-                  <Grid item xs={10}>
-                    <Typography variant="body2" color="textSecondary" gutterBottom>
-                      > {parPost.message}
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Link>
-            </Card>
-          </div>;
+          <Card variant="outlined" className={classes.root}>
+            <CardHeader
+              avatar={
+                <Link
+                  component={RouterLink}
+                  to={`/user/${parPost.username}`}
+                >
+                  <Avatar aria-label="avatar" className={classes.avatar} src={parPostOwner.socmed.avatar} />
+                </Link>
+              }
+              title={
+                <Link
+                  component={RouterLink}
+                  to={`/user/${parPost.username}`}
+                >
+                  <Typography variant="body2" color="textPrimary">
+                    {parPostOwner.socmed.displayname}
+                  </Typography>
+                  <Typography variant="body2" color="textPrimary">
+                    {'@' + parPost.username}
+                  </Typography>
+                </Link>
+              }
+              subheader={
+                <Link
+                  component={RouterLink}
+                  to={`/post/${parPost.id}`}
+                >
+                  <Typography variant="caption" color="textSecondary">
+                    {new Date(parPost.timestamp).toLocaleString()}
+                  </Typography>
+                </Link>
+              }
+            />
+            <CardContent>
+              <Typography variant="caption" color="textSecondary" gutterBottom>
+                > {parPost.message}
+              </Typography>
+            </CardContent>
+          </Card>;
       } else {
         parentpost =
           <Typography variant="body2" color="textSecondary" gutterBottom>
-            {"Something went way wrong"}
+            {"Loading content"}
           </Typography>;
       }
     }
@@ -257,55 +256,74 @@ export default function Post(props) {
   if (props.item.sharedPost.length === 0) {
     sharedpost = <></>;
   } else {
-    let base32ShaAddress;
-    if (shaPost.hasOwnProperty('ownerAddress')) {
-      const base32ShaAddress = cryptography.getBase32AddressFromAddress(Buffer.from(shaPost.ownerAddress, 'hex'), 'lsk').toString('binary');
-    }
     if (shaPost.deleted) {
       sharedpost =
         <Card variant="outlined" className={classes.root}>
           <CardHeader
             avatar={
-              <Avatar aria-label="avatar" className={classes.avatar}>
-                <AssignmentIndIcon />
-              </Avatar>
+              <Avatar aria-label="avatar" className={classes.avatar} />
             }
-            title={'Post deleted'}
+            title={
+              <Typography variant="body2" color="textSecondary">
+                {'Post deleted'}
+              </Typography>
+            }
           />
           <CardContent>
-            <Typography className={classes.message} variant="body1" color="textSecondary" component="p">
+            <Typography className={classes.message} variant="caption" color="textSecondary" gutterBottom>
               {'Post deleted'}
             </Typography>
           </CardContent>
         </Card>;
     } else {
-      sharedpost =
-        <Card variant="outlined" className={classes.root}>
-          <Link
-            component={RouterLink}
-            to={`/accounts/${base32ShaAddress}`}
-          >
+      if (shaPost.hasOwnProperty('ownerAddress') && shaPostOwner.hasOwnProperty('socmed')) {
+        sharedpost =
+          <Card variant="outlined" className={classes.root}>
             <CardHeader
               avatar={
-                <Avatar aria-label="avatar" className={classes.avatar}>
-                  <AssignmentIndIcon />
-                </Avatar>
+                <Link
+                  component={RouterLink}
+                  to={`/user/${shaPost.username}`}
+                >
+                  <Avatar aria-label="avatar" className={classes.avatar} src={shaPostOwner.socmed.avatar} />
+                </Link>
               }
-              title={shaPost.username}
-              subheader={new Date(shaPost.timestamp).toLocaleString()}
+              title={
+                <Link
+                  component={RouterLink}
+                  to={`/user/${shaPost.username}`}
+                >
+                  <Typography variant="body2" color="textPrimary">
+                    {shaPostOwner.socmed.displayname}
+                  </Typography>
+                  <Typography variant="body2" color="textPrimary">
+                    {'@' + shaPost.username}
+                  </Typography>
+                </Link>
+              }
+              subheader={
+                <Link
+                  component={RouterLink}
+                  to={`/post/${shaPost.id}`}
+                >
+                  <Typography variant="caption" color="textSecondary">
+                    {new Date(shaPost.timestamp).toLocaleString()}
+                  </Typography>
+                </Link>
+              }
             />
-          </Link>
-          <Link
-            component={RouterLink}
-            to={`/post/${shaPost.id}`}
-          >
             <CardContent>
               <Typography className={classes.message} variant="body1" color="textPrimary" component="p">
                 {shaPost.message}
               </Typography>
             </CardContent>
-          </Link>
-        </Card>;
+          </Card>;
+      } else {
+        sharedpost =
+          <Typography variant="body2" color="textSecondary" gutterBottom>
+            {"Loading content"}
+          </Typography>;
+      }
     }
   }
 
@@ -321,22 +339,69 @@ export default function Post(props) {
     })
   };
 
-  return (
-    <Card variant="outlined" className={classes.root}>
+  let posttitle;
+
+  if (postOwner.hasOwnProperty('socmed')) {
+    posttitle =
       <Link
         component={RouterLink}
-        to={`/accounts/${base32UIAddress}`}
+        to={`/user/${props.item.username}`}
       >
-        <CardHeader
-          avatar={
-            <Avatar aria-label="avatar" className={classes.avatar}>
-              <AssignmentIndIcon />
-            </Avatar>
-          }
-          title={props.item.username}
-          subheader={datetime}
-        />
-      </Link>
+        <Typography variant="body2" color="textPrimary">
+          {postOwner.socmed.displayname}
+        </Typography>
+        <Typography variant="body2" color="textPrimary">
+          {'@' + props.item.username}
+        </Typography>
+      </Link>;
+  } else {
+    posttitle =
+      <Link
+        component={RouterLink}
+        to={`/user/${props.item.username}`}
+      >
+        <Typography variant="body2" color="textPrimary">
+          {'@' + props.item.username}
+        </Typography>
+      </Link>;
+  }
+
+  let postavatar;
+
+  if (postOwner.hasOwnProperty('socmed')) {
+    postavatar =
+      <Link
+        component={RouterLink}
+        to={`/user/${props.item.username}`}
+      >
+        <Avatar aria-label="avatar" className={classes.avatar} src={postOwner.socmed.avatar} />
+      </Link>;
+  } else {
+    postavatar =
+      <Link
+        component={RouterLink}
+        to={`/user/${props.item.username}`}
+      >
+        <Avatar aria-label="avatar" className={classes.avatar} />
+      </Link>;
+  }
+
+  return (
+    <Card variant="outlined" className={classes.root}>
+      <CardHeader
+        avatar={postavatar}
+        title={posttitle}
+        subheader={
+          <Link
+            component={RouterLink}
+            to={`/post/${props.item.id}`}
+          >
+            <Typography variant="caption" color="textSecondary">
+              {datetime}
+            </Typography>
+          </Link>
+        }
+      />
       <CardContent>
         {parentpost}
         <Typography className={classes.message} variant="body1" color="textPrimary" component="p">

@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { useParams } from "react-router-dom";
-import { Fab, Typography, CircularProgress, Grid } from "@material-ui/core";
+import { Divider, Fab, Typography, CircularProgress, Grid } from "@material-ui/core";
 import * as api from "../api";
 import Post from "./Post";
 import ScrollTop from "./ScrollTop";
@@ -57,6 +57,8 @@ function HashtagPage() {
       return (
         <div>
           <CssBaseline />
+          <Typography variant="h5" align="center" paragraph>{'#' + hashtag}</Typography>
+          <br /><Divider /><br />
           {hashtagPosts.map((item) => (
           <div>
             <Grid container spacing={1} justify="center" key={item.id}>
