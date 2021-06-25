@@ -26,6 +26,8 @@ import SharePostDialog from "./dialogs/SharePostDialog";
 import CreateChildPostDialog from "./dialogs/CreateChildPostDialog";
 import DeletePostDialog from "./dialogs/DeletePostDialog";
 
+//const linkPreview = require("../link-preview-generator");
+
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 500,
@@ -106,6 +108,18 @@ export default function Post(props) {
       if (shaPost.hasOwnProperty('ownerAddress')) {
         const shapostowner = await api.fetchAccountInfo(shaPost.ownerAddress);
         setShaPostOwner(shapostowner);
+      }
+      if (props.item.message.indexOf('http') !== -1) {
+        let linkuri;
+        const linkstart = props.item.message.indexOf('http');
+        const linkend = props.item.message.indexOf(' ', linkstart);
+        if (linkend === -1) {
+          linkuri = props.item.message.slice(linkstart);
+        } else {
+          linkuri = props.item.message.slice(linkstart, linkend);
+        }
+        //const linkpredata = await linkPreview(linkuri);
+        //console.log(linkpredata);
       }
     }
     fetchData();
@@ -339,6 +353,16 @@ export default function Post(props) {
     })
   };
 
+  const LINK_PREVIEWER = string => {
+    return string.split(/((?:^|\s)(?:https?:\/\/[a-z\d-_.]+))/i).filter(Boolean).map((v,i)=>{
+      if(v.replace(/^\s+|\s+$/g, '').startsWith('http')){
+        return <Link key={i} to={`${v.replace(/^\s+|\s+$/g, '')}`}>{v}</Link>;
+      } else {
+        return <></>;
+      }
+    })
+  };
+
   let posttitle;
 
   if (postOwner.hasOwnProperty('socmed')) {
@@ -407,6 +431,7 @@ export default function Post(props) {
         <Typography className={classes.message} variant="body1" color="textPrimary" component="p">
           {HASHTAG_FORMATTER(props.item.message)}
         </Typography>
+        {LINK_PREVIEWER(props.item.message)}
         {sharedpost}
       </CardContent>
       <CardActions>
