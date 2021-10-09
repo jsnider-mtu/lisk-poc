@@ -136,7 +136,7 @@ function App() {
                 color="inherit"
                 className={classes.appBarLink}
                 onClick={() => {
-                  document.cookie = "passphrase=; Secure";
+                  document.cookie = "passphrase=; path=/";
                   window.location.href = "/signin";
                 }}
             >
