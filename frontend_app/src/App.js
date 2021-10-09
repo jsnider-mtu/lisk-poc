@@ -115,7 +115,10 @@ function App() {
     let myAcct;
     let logoutlink;
 
-    if (document.cookie.split('; ').pop().split('=')[1].split(' ').length === 12) {
+    if (document.cookie === '') {
+        myAcct = <></>;
+        logoutlink = <></>;
+    } else if (document.cookie.split('; ').pop().split('=')[1].split(' ').length === 12) {
         const base32UIAddress = cryptography.getBase32AddressFromPassphrase(document.cookie.split('; ').pop().split('=')[1]).toString('hex');
         const addyPath = `/accounts/${base32UIAddress}`
         myAcct =

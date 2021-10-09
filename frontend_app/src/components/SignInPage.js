@@ -55,7 +55,8 @@ export default function SignInPage() {
   const [openLoginError, setOpenLoginError] = useState(false);
 
   useEffect(() => {
-    if (document.cookie.split('; ').pop().split('=')[1].split(' ').length === 12) {
+    if (document.cookie === '') {
+    } else if (document.cookie.split('; ').pop().split('=')[1].split(' ').length === 12) {
       window.location.href = '/home';
     }
   }, []);
@@ -73,9 +74,7 @@ export default function SignInPage() {
       if (!res) {
         setOpenLoginError(true);
       } else if (data.username === res.socmed.name) {
-        if (data.passphrase.split(' ').length === 12) {
-          document.cookie = `passphrase=${data.passphrase}; Secure`;
-        }
+        document.cookie = `passphrase=${data.passphrase}; path=/`;
         window.location.href = '/home';
       } else {
         setOpenLoginError(true);

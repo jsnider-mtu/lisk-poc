@@ -74,6 +74,25 @@ const appConfig = utils.objects.mergeDeep({}, configDevnet, {
     logger: {
         consoleLogLevel: 'info',
     },
+    plugins: {
+        httpApi: {
+            port: 4000,
+            host: '0.0.0.0',
+            whiteList: [],
+            cors: {
+                origin: '*',
+                methods: ['GET', 'POST', 'PUT'],
+            },
+            limits: {
+                max: 0,
+                delayMs: 0,
+                delayAfter: 0,
+                windowMs: 60000,
+                headersTimeout: 5000,
+                serverSetTimeout: 20000,
+            },
+        },
+    },
 });
 
 // 5.Initialize the application with genesis block and application config
