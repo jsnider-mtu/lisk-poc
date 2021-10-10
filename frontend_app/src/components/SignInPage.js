@@ -21,7 +21,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       <GitHubIcon />
-      {'Github is '}
+      {' Github is '}
       <Link color="inherit" href="https://github.com/jsnider-mtu/lisk-poc">
         Here
       </Link>
