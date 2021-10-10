@@ -11,11 +11,16 @@ function UserPage() {
 
   useEffect(() => {
     async function fetchData() {
-      const allTransactions = await getAllTransactions();
-      const cuTransactions = allTransactions.filter((tx) => tx['moduleID'] === 1024 && tx['assetID'] === 14);
-      const address = cuTransactions.find((t) => t['name'] === username)['address'];
-      setAccount(await fetchAccountInfo(address));
-      setLoaded(true);
+      if (username === 'afsa') {
+        setAccount(await fetchAccountInfo('6577b5898d1448857a2928f4bce4d3d866378113'));
+        setLoaded(true)
+      } else {
+        const allTransactions = await getAllTransactions();
+        const cuTransactions = allTransactions.filter((tx) => tx['moduleID'] === 1024 && tx['assetID'] === 14);
+        const address = cuTransactions.find((t) => t['name'] === username)['address'];
+        setAccount(await fetchAccountInfo(address));
+        setLoaded(true);
+      }
     }
 
     fetchData();
