@@ -79,7 +79,7 @@ export default function SignUpPage() {
     }
     if (txAccounts.length > 0) {
       let usernames = txAccounts.map((a) => a.socmed.name);
-      if (usernames.includes(data.username) || data.username.includes(' ') || data.username.includes('#') || data.username.includes('@')) {
+      if (usernames.includes(data.username) || data.username === 'afsa' || data.username.includes(' ') || data.username.includes('#') || data.username.includes('@')) {
         setInvalidUsername(true);
       } else {
         setInvalidUsername(false);
