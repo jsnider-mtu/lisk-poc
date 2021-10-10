@@ -333,6 +333,8 @@ export default function Post(props) {
         return <Link key={i} component={RouterLink} to={`/hashtag/${v.replace(/^\s+|\s+$/g, '').slice(1)}`}>{v}</Link>;
       } else if (v.replace(/^\s+|\s+$/g, '').startsWith('@')) {
         return <Link key={i} component={RouterLink} to={`/user/${v.replace(/^\s+|\s+$/g, '').slice(1)}`}>{v}</Link>;
+      } else if (v.replace(/^\s+|\s+$/g, '').startsWith('http')) {
+        return <Link key={i} component={RouterLink} to={v.replace(/^\s+|\s+$/g, '')}>{v}</Link>;
       } else {
         return v;
       }
