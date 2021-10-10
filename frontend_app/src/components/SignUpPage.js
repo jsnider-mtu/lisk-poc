@@ -23,12 +23,10 @@ import LoadingAccountDialog from './dialogs/LoadingAccountDialog';
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
+      {'Github is '}
+      <Link color="inherit" href="https://github.com/jsnider-mtu/lisk-poc">
+        Here
+      </Link>
     </Typography>
   );
 }
