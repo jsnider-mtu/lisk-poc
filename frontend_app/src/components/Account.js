@@ -34,8 +34,8 @@ export default function Account(props) {
   const [openUnfollow, setOpenUnfollow] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
   const classes = useStyles();
-  const passp = document.cookie.split('; ').pop();
-  const curUserAddress = cryptography.getAddressFromPassphrase(passp.split('=')[1]).toString('hex');
+  const passp = document.cookie.split('passphrase')[1].slice(1).split('; ')[0];
+  const curUserAddress = cryptography.getAddressFromPassphrase(passp).toString('hex');
   const [mod, setMod] = useState(false);
 
   useEffect(() => {

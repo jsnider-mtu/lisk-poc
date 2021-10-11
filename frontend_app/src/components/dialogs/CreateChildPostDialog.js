@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 export default function CreateChildPostDialog(props) {
   const nodeInfo = useContext(NodeInfoContext);
   const classes = useStyles();
-  const passp = document.cookie.split('; ').pop().split('=')[1];
+  const passp = document.cookie.split('passphrase')[1].slice(1).split('; ')[0];
   const [data, setData] = useState({
     message: "",
     parentPost: props.post.id,

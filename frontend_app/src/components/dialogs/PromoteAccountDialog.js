@@ -9,7 +9,7 @@ import * as api from "../../api";
 
 export default function PromoteAccountDialog(props) {
   const nodeInfo = useContext(NodeInfoContext);
-  const passp = document.cookie.split('; ').pop().split('=')[1];
+  const passp = document.cookie.split('passphrase')[1].slice(1).split('; ')[0];
   const data = {
     address: props.account.address,
     fee: "0",

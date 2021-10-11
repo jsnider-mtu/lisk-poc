@@ -66,7 +66,7 @@ function AllPage() {
         setIntervalIds(arr => [...arr, intervalid]);
       }
     }
-    if (document.cookie.split('; ').pop().split('=')[1].split(' ').length !== 12) {
+    if (document.cookie.split('passphrase')[1].slice(1).split('; ')[0].split(' ').length !== 12) {
       window.location.href="/signin";
     }
     fetchData();

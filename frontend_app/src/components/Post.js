@@ -67,8 +67,8 @@ export default function Post(props) {
   const [openLike, setOpenLike] = useState(false);
   const [openUnlike, setOpenUnlike] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
-  const passp = document.cookie.split('; ').pop();
-  const curUserAddress = cryptography.getAddressFromPassphrase(passp.split('=')[1]).toString('hex');
+  const passp = document.cookie.split('passphrase')[1].slice(1).split('; ')[0];
+  const curUserAddress = cryptography.getAddressFromPassphrase(passp).toString('hex');
   const dateobj = new Date(props.item.timestamp);
   const datetime = dateobj.toLocaleString();
   const [likes, setLikes] = useState(props.item.likes.length);

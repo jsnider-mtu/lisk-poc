@@ -9,7 +9,7 @@ import * as api from "../../api";
 
 export default function LikePostDialog(props) {
   const nodeInfo = useContext(NodeInfoContext);
-  const passp = document.cookie.split('; ').pop().split('=')[1];
+  const passp = document.cookie.split('passphrase')[1].slice(1).split('; ')[0];
   const data = {
     postId: props.post.id,
     fee: "0",

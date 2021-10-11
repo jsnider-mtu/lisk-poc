@@ -56,7 +56,7 @@ export default function SignInPage() {
 
   useEffect(() => {
     if (document.cookie === '') {
-    } else if (document.cookie.split('; ').pop().split('=')[1].split(' ').length === 12) {
+    } else if (document.cookie.split('passphrase')[1].slice(1).split('; ')[0].split(' ').length === 12) {
       window.location.href = '/home';
     }
   }, []);

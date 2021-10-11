@@ -70,7 +70,11 @@ function App() {
     const [openSpeedDial, setOpenSpeedDial] = useState(false);
     const [openDialog, setOpenDialog] = useState(null);
     const [openSettings, setOpenSettings] = useState(false);
-    const [paletteType, setPaletteType] = useState("dark");
+    if (document.cookie.includes('paletteType')) {
+      const [paletteType, setPaletteType] = useState(document.cookie.split('paletteType')[1].slice(1).split('; ')[0]);
+    } else {
+      const [paletteType, setPaletteType] = useState("dark");
+    }
 
     const theme = createMuiTheme({
         palette: {
@@ -121,8 +125,8 @@ function App() {
         speeddial = <></>;
         myAcct = <></>;
         logoutlink = <></>;
-    } else if (document.cookie.split('; ').pop().split('=')[1].split(' ').length === 12) {
-        const base32UIAddress = cryptography.getBase32AddressFromPassphrase(document.cookie.split('; ').pop().split('=')[1]).toString('hex');
+    } else if (document.cookie.split('passphrase')[1].slice(1).split('; ')[0].split(' ').length === 12) {
+        const base32UIAddress = cryptography.getBase32AddressFromPassphrase(document.cookie.split('passphrase')[1].slice(1).split('; ')[0]).toString('hex');
         const addyPath = `/accounts/${base32UIAddress}`
         myAcct =
             <Button
@@ -239,6 +243,7 @@ function App() {
                                         palType={paletteType}
                                         handleClose={(pType) => {
                                             setPaletteType(pType);
+                                            document.cookie = `paletteType=${pType}; path=/`;
                                             setOpenSettings(false);
                                         }}
                                     />
