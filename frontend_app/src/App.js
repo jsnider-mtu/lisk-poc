@@ -70,10 +70,9 @@ function App() {
     const [openSpeedDial, setOpenSpeedDial] = useState(false);
     const [openDialog, setOpenDialog] = useState(null);
     const [openSettings, setOpenSettings] = useState(false);
+    const palType = "dark";
     if (document.cookie.includes('paletteType')) {
       const palType = document.cookie.split('paletteType')[1].slice(1).split('; ')[0];
-    } else {
-      const palType = "dark";
     }
     const [paletteType, setPaletteType] = useState(palType);
 
