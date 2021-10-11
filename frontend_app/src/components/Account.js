@@ -73,7 +73,7 @@ export default function Account(props) {
   if (mod) {
     acctdetails =
       <Typography variant="body2" color="textPrimary">
-        {'Address: ' + props.account.id}
+        {'Address: ' + props.account.address}
         <br />
         {'Banned: ' + props.account.socmed.banned.toString() + '  Moderator: ' + props.account.socmed.moderator.toString()}
       </Typography>
