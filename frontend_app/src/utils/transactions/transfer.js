@@ -44,8 +44,7 @@ export const transfer = async ({
   const {
     sequence: { nonce },
   } = await fetchAccountInfo(address.toString("hex"));
-  // const recipient = cryptography.getAddressFromBase32Address(recipientAddress);
-  const recipient = recipientAddress;
+  const recipient = cryptography.getAddressFromBase32Address(recipientAddress);
   const { id, ...rest } = transactions.signTransaction(
     transferAssetSchema,
     {
