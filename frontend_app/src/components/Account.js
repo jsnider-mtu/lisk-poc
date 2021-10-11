@@ -80,7 +80,7 @@ export default function Account(props) {
   } else {
     acctdetails =
       <Typography variant="body2" color="textPrimary">
-        {'Address: ' + cryptography.getAddressFromBase32Address(props.account.address)}
+        {'Address: ' + props.account.address}
       </Typography>;
   }
 
