@@ -17,9 +17,14 @@ function UserPage() {
       } else {
         const allTransactions = await getAllTransactions();
         const cuTransactions = allTransactions.filter((tx) => tx['moduleID'] === 1024 && tx['assetID'] === 14);
-        const address = cuTransactions.find((t) => t['name'] === username)['address'];
-        setAccount(await fetchAccountInfo(address));
-        setLoaded(true);
+        const addressObj = cuTransactions.find((t) => t['name'] === username);
+        if (addressObj.hasOwnProperty('address')) {
+          const address = addressObj['address'];
+          setAccount(await fetchAccountInfo(address));
+          setLoaded(true);
+        } else {
+          return <Fragment><CssBaseline /></Fragment>;
+        }
       }
     }
 
