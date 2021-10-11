@@ -113,10 +113,12 @@ function App() {
         setOpenSpeedDial(true);
     };
 
+    let speeddial;
     let myAcct;
     let logoutlink;
 
     if (document.cookie === '') {
+        speeddial = <></>;
         myAcct = <></>;
         logoutlink = <></>;
     } else if (document.cookie.split('; ').pop().split('=')[1].split(' ').length === 12) {
@@ -143,7 +145,38 @@ function App() {
             >
                 Logout
             </Button>;
+        speeddial =
+            <SpeedDial
+                ariaLabel="SpeedDial example"
+                color="secondary"
+                className={classes.speedDial}
+                icon={<SpeedDialIcon />}
+                onClose={handleSpeedDialClose}
+                onOpen={handleSpeedDialOpen}
+                open={openSpeedDial}
+                direction={'up'}
+            >
+                <SpeedDialAction
+                    key={'Create Post'}
+                    icon={<AddPhotoAlternateIcon />}
+                    tooltipTitle={'Create Post'}
+                    onClick={() => {
+                        setOpenSpeedDial(false);
+                        setOpenDialog('CreatePostDialog');
+                    }}
+                />
+                <SpeedDialAction
+                    key={'Transfer'}
+                    icon={<LocalAtmIcon />}
+                    tooltipTitle={'Transfer Funds'}
+                    onClick={() => {
+                        setOpenSpeedDial(false);
+                        setOpenDialog('TransferFundsDialog');
+                    }}
+                />
+            </SpeedDial>;
     } else {
+        speeddial = <></>;
         myAcct = <></>;
         logoutlink = <></>;
     }
@@ -172,36 +205,7 @@ function App() {
                         </AppBar>
                         <Toolbar id="back-to-top-anchor" />
     
-                        <SpeedDial
-                            ariaLabel="SpeedDial example"
-                            color="secondary"
-                            className={classes.speedDial}
-                            icon={<SpeedDialIcon />}
-                            onClose={handleSpeedDialClose}
-                            onOpen={handleSpeedDialOpen}
-                            open={openSpeedDial}
-                            direction={'up'}
-                        >
-                            <SpeedDialAction
-                                key={'Create Post'}
-                                icon={<AddPhotoAlternateIcon />}
-                                tooltipTitle={'Create Post'}
-                                onClick={() => {
-                                    setOpenSpeedDial(false);
-                                    setOpenDialog('CreatePostDialog');
-                                }}
-                            />
-    
-                            <SpeedDialAction
-                                key={'Transfer'}
-                                icon={<LocalAtmIcon />}
-                                tooltipTitle={'Transfer Funds'}
-                                onClick={() => {
-                                    setOpenSpeedDial(false);
-                                    setOpenDialog('TransferFundsDialog');
-                                }}
-                            />
-                        </SpeedDial>
+                        {speeddial}
     
                         <Grid container
                             direction="row"
