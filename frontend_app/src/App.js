@@ -101,6 +101,7 @@ function App() {
         });
         setInterval(updateHeight, 5000);
       }
+      document.title = "Social Media App";
       fetchData();
     }, []);
 
