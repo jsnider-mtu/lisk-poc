@@ -78,7 +78,10 @@ export default function Account(props) {
         {'Banned: ' + props.account.socmed.banned.toString() + '  Moderator: ' + props.account.socmed.moderator.toString()}
       </Typography>
   } else {
-    acctdetails = <></>;
+    acctdetails =
+      <Typography variant="body2" color="textPrimary">
+        {'Address: ' + props.account.address}
+      </Typography>;
   }
 
   let modbuttons;
