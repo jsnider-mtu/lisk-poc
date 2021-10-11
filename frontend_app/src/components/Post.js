@@ -328,7 +328,7 @@ export default function Post(props) {
   }
 
   const HASHTAG_FORMATTER = string => {
-    return string.split(/((?:^|\s)(?:[@#][a-z\d-]+)(?:http))/gi).filter(Boolean).map((v,i)=>{
+    return string.split(/((?:^|\s)(?:[@#][a-z\d-]+))/gi).filter(Boolean).map((v,i)=>{
       if(v.replace(/^\s+|\s+$/g, '').startsWith('#')){
         return <Link key={i} component={RouterLink} to={`/hashtag/${v.replace(/^\s+|\s+$/g, '').slice(1)}`}>{v}</Link>;
       } else if (v.replace(/^\s+|\s+$/g, '').startsWith('@')) {
