@@ -71,10 +71,11 @@ function App() {
     const [openDialog, setOpenDialog] = useState(null);
     const [openSettings, setOpenSettings] = useState(false);
     if (document.cookie.includes('paletteType')) {
-      const [paletteType, setPaletteType] = useState(document.cookie.split('paletteType')[1].slice(1).split('; ')[0]);
+      const palType = document.cookie.split('paletteType')[1].slice(1).split('; ')[0];
     } else {
-      const [paletteType, setPaletteType] = useState("dark");
+      const palType = "dark";
     }
+    const [paletteType, setPaletteType] = useState(palType);
 
     const theme = createMuiTheme({
         palette: {
