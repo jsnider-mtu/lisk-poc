@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { Fab, Avatar, Container, Typography, Divider, Grid, Button, Tooltip } from "@material-ui/core";
+import { Card, Fab, Avatar, Container, Typography, Divider, Grid, Button, Tooltip } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { blue } from "@material-ui/core/colors";
 import { cryptography, transactions } from "@liskhq/lisk-client";
