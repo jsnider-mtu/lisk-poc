@@ -220,7 +220,7 @@ export default function Post(props) {
                     title={
                       <React.Fragment>
                         <Card variant="outlined" className={classes.bigAvatar}>
-                          <img src={parPostOwner.socmed.avatar} width={theme.spacing(50)} height={theme.spacing(50)} />
+                          <img src={parPostOwner.socmed.avatar} width="400" height="400" />
                         </Card>
                       </React.Fragment>
                     }
