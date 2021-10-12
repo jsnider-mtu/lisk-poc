@@ -24,6 +24,11 @@ function AllPage() {
   const [loaded, setLoaded] = useState(false);
   const [newPosts, setNewPosts] = useState(false);
   const [intervalIds, setIntervalIds] = useState([]);
+  const [postIndex, setPostIndex] = useState(0);
+
+  const bottomreached = () => {
+    setPostIndex(postIndex+1);
+  }
 
   const fetchNewPosts = async (curposts) => {
     let allNewPosts = await fetchAllPosts();
@@ -60,7 +65,7 @@ function AllPage() {
         }
         return 0;
       });
-      setPosts(allPosts);
+      setPosts(allPosts.slice(postIndex*5, postIndex*5+5));
       if (intervalIds.length === 0) {
         let intervalid = setInterval(fetchNewPosts, 10000, allPosts.length);
         setIntervalIds(arr => [...arr, intervalid]);
@@ -72,7 +77,7 @@ function AllPage() {
     fetchData();
     setNewPosts(false);
     setLoaded(true);
-  }, [loaded]);
+  }, [loaded, index]);
 
   if (!loaded) {
     return <Fragment><CssBaseline /><CircularProgress /></Fragment>;
@@ -90,6 +95,7 @@ function AllPage() {
           <br />
         </div>
         ))}
+        <handleViewport(Block) onEnterViewport={bottomreached} />
         <Zoom in={newPosts}>
           <Button
             variant='contained'
