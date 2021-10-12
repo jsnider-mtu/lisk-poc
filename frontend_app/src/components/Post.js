@@ -302,7 +302,18 @@ export default function Post(props) {
                   component={RouterLink}
                   to={`/user/${shaPost.username}`}
                 >
-                  <Avatar aria-label="avatar" className={classes.avatar} src={shaPostOwner.socmed.avatar} />
+                  <Tooltip disableFocusListener disableTouchListener
+                    placement="left"
+                    title={
+                      <React.Fragment>
+                        <Card variant="outlined" className={classes.bigAvatar}>
+                          <img src={shaPostOwner.socmed.avatar} width="280" height="280" />
+                        </Card>
+                      </React.Fragment>
+                    }
+                  >
+                    <Avatar aria-label="avatar" className={classes.avatar} src={shaPostOwner.socmed.avatar} />
+                  </Tooltip>
                 </Link>
               }
               title={
@@ -393,7 +404,18 @@ export default function Post(props) {
         component={RouterLink}
         to={`/user/${props.item.username}`}
       >
-        <Avatar aria-label="avatar" className={classes.avatar} src={postOwner.socmed.avatar} />
+        <Tooltip disableFocusListener disableTouchListener
+          placement="left"
+          title={
+            <React.Fragment>
+              <Card variant="outlined" className={classes.bigAvatar}>
+                <img src={postOwner.socmed.avatar} width="280" height="280" />
+              </Card>
+            </React.Fragment>
+          }
+        >
+          <Avatar aria-label="avatar" className={classes.avatar} src={postOwner.socmed.avatar} />
+        </Tooltip>
       </Link>;
   } else {
     postavatar =
