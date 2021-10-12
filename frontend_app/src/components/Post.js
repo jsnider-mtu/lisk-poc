@@ -211,6 +211,7 @@ export default function Post(props) {
                   to={`/user/${parPost.username}`}
                 >
                   <Tooltip disableFocusListener disableTouchListener
+                    placement="left"
                     title={
                       <React.Fragment>
                         <Card variant="outlined" className={classes.root}>
