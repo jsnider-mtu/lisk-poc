@@ -64,6 +64,10 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(50),
     height: theme.spacing(50),
   },
+  bigImg: {
+    maxWidth: theme.spacing(50),
+    maxHeight: theme.spacing(50),
+  },
 }));
 
 export default function Post(props) {
@@ -220,7 +224,9 @@ export default function Post(props) {
                     title={
                       <React.Fragment>
                         <Card variant="outlined" className={classes.bigAvatar}>
-                          <img src={parPostOwner.socmed.avatar} />
+                          <div className="bigImg">
+                            <img src={parPostOwner.socmed.avatar} />
+                          </div>
                         </Card>
                       </React.Fragment>
                     }
