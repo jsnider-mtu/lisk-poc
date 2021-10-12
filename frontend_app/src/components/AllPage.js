@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { fetchAllPosts } from "../api";
 import ScrollTop from "./ScrollTop";
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import { handleViewport } from 'react-in-viewport';
 
 const useStyles = makeStyles((theme) => ({
   newposts: {
