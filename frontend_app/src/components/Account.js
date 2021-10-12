@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { Fab, Avatar, Container, Typography, Divider, Grid, Button } from "@material-ui/core";
+import { Fab, Avatar, Container, Typography, Divider, Grid, Button, Tooltip } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { blue } from "@material-ui/core/colors";
 import { cryptography, transactions } from "@liskhq/lisk-client";
@@ -21,6 +21,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: blue[500],
     width: theme.spacing(7),
     height: theme.spacing(7),
+  },
+  bigAvatar: {
+    backgroundColor: blue[500],
+    width: theme.spacing(35),
+    height: theme.spacing(35),
   },
 }));
 
@@ -229,7 +234,18 @@ export default function Account(props) {
       <CssBaseline />
       <Grid container>
         <Grid item xs>
-          <Avatar aria-label="avatar" className={classes.avatar} src={props.account.socmed.avatar} />
+          <Tooltip disableFocusListener disableTouchListener
+            placement="left"
+            title={
+              <React.Fragment>
+                <Card variant="outlined" className={classes.bigAvatar}>
+                  <img src={props.account.socmed.avatar} width="280" height="280" />
+                </Card>
+              </React.Fragment>
+            }
+          >
+            <Avatar aria-label="avatar" className={classes.avatar} src={props.account.socmed.avatar} />
+          </Tooltip>
         </Grid>
         <Grid item xs={9}>
           <Typography variant="h5">{props.account.socmed.displayname}</Typography>
