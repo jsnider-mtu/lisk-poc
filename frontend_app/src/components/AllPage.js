@@ -30,6 +30,14 @@ function AllPage() {
     setPostIndex(postIndex+1);
   }
 
+  const circle = () => {
+    return (
+      <CircularProgress />
+    );
+  }
+
+  const CircleViewport = handleViewport(circle);
+
   const fetchNewPosts = async (curposts) => {
     let allNewPosts = await fetchAllPosts();
     var i = 0;
@@ -95,9 +103,7 @@ function AllPage() {
           <br />
         </div>
         ))}
-        <handleViewport onEnterViewport={bottomreached}>
-          <CircularProgress />
-        </handleViewport>
+        <CircleViewport onEnterViewport={bottomreached} />
         <Zoom in={newPosts}>
           <Button
             variant='contained'
