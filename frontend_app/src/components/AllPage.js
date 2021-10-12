@@ -60,7 +60,7 @@ function AllPage() {
         }
         return 0;
       });
-      setPosts(allPosts);
+      setPosts(allPosts.slice(0, 5));
       if (intervalIds.length === 0) {
         let intervalid = setInterval(fetchNewPosts, 10000, allPosts.length);
         setIntervalIds(arr => [...arr, intervalid]);
