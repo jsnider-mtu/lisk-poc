@@ -56,6 +56,7 @@ function AllPage() {
 
   useEffect(() => {
     async function fetchData() {
+      console.log('Entered fetchData');
       let allPosts = await fetchAllPosts();
       var i = 0;
       while (i < allPosts.length) {
@@ -79,10 +80,12 @@ function AllPage() {
         let intervalid = setInterval(fetchNewPosts, 10000, allPosts.length);
         setIntervalIds(arr => [...arr, intervalid]);
       }
+      console.log('Exiting fetchData');
     }
     if (document.cookie.split('passphrase')[1].slice(1).split('; ')[0].split(' ').length !== 12) {
       window.location.href="/signin";
     }
+    console.log('Running fetchData');
     fetchData();
     setNewPosts(false);
     setLoaded(true);
