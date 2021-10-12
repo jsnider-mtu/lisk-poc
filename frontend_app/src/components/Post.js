@@ -63,8 +63,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: blue[500],
     width: theme.spacing(100),
     height: theme.spacing(100),
-    maxWidth: '100%',
-    maxHeight: '100%',
   },
 }));
 
