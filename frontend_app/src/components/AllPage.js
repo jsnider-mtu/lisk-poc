@@ -95,7 +95,9 @@ function AllPage() {
           <br />
         </div>
         ))}
-        <handleViewport onEnterViewport={bottomreached} />
+        <handleViewport onEnterViewport={bottomreached}>
+          <CircularProgress />
+        </handleViewport>
         <Zoom in={newPosts}>
           <Button
             variant='contained'
