@@ -77,7 +77,7 @@ function AllPage() {
     fetchData();
     setNewPosts(false);
     setLoaded(true);
-  }, [loaded, index]);
+  }, [loaded, postIndex]);
 
   if (!loaded) {
     return <Fragment><CssBaseline /><CircularProgress /></Fragment>;
