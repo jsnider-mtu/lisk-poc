@@ -107,7 +107,7 @@ function AllPage() {
           <br />
         </div>
         ))}
-        <CircleViewport onEnterViewport={bottomreached} />
+        <CircleViewport onEnterViewport={console.log('Circle is in Viewport')} />
         <Zoom in={newPosts}>
           <Button
             variant='contained'
