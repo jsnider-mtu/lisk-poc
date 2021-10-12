@@ -210,7 +210,15 @@ export default function Post(props) {
                   component={RouterLink}
                   to={`/user/${parPost.username}`}
                 >
-                  <Tooltip disableFocusListener disableTouchListener title="Add">
+                  <Tooltip disableFocusListener disableTouchListener
+                    title={
+                      <React.Fragment>
+                        <Card variant="outlined" className={classes.root}>
+                          <img src={parPostOwner.socmed.avatar} />
+                        </Card>
+                      </React.Fragment>
+                    }
+                  >
                     <Avatar aria-label="avatar" className={classes.avatar} src={parPostOwner.socmed.avatar} />
                   </Tooltip>
                 </Link>
