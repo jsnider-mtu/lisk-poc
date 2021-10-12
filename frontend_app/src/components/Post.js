@@ -210,7 +210,9 @@ export default function Post(props) {
                   component={RouterLink}
                   to={`/user/${parPost.username}`}
                 >
-                  <Avatar aria-label="avatar" className={classes.avatar} src={parPostOwner.socmed.avatar} />
+                  <Tooltip disableFocusListener disableTouchListener title="Add">
+                    <Avatar aria-label="avatar" className={classes.avatar} src={parPostOwner.socmed.avatar} />
+                  </Tooltip>
                 </Link>
               }
               title={
