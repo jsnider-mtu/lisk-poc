@@ -61,8 +61,10 @@ const useStyles = makeStyles((theme) => ({
   },
   bigAvatar: {
     backgroundColor: blue[500],
-    width: theme.spacing(10),
-    height: theme.spacing(10),
+    width: theme.spacing(100),
+    height: theme.spacing(100),
+    maxWidth: '100%',
+    maxHeight: '100%',
   },
 }));
 
