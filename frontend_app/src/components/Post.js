@@ -8,6 +8,7 @@ import {
   Typography,
   Link,
   IconButton,
+  Tooltip,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FavoriteIcon from "@material-ui/icons/Favorite";
