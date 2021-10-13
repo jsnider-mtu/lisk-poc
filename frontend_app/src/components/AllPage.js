@@ -25,19 +25,6 @@ function AllPage() {
   const [loaded, setLoaded] = useState(false);
   const [newPosts, setNewPosts] = useState(false);
   const [intervalIds, setIntervalIds] = useState([]);
-  const [postIndex, setPostIndex] = useState(0);
-
-  // const bottomreached = () => {
-  //   setPostIndex(postIndex+1);
-  // }
-
-  const circle = () => {
-    return (
-      <CircularProgress />
-    );
-  }
-
-  const CircleViewport = handleViewport(circle);
 
   const fetchNewPosts = async (curposts) => {
     let allNewPosts = await fetchAllPosts();
@@ -56,7 +43,6 @@ function AllPage() {
 
   useEffect(() => {
     async function fetchData() {
-      console.log('Entered fetchData');
       let allPosts = await fetchAllPosts();
       var i = 0;
       while (i < allPosts.length) {
@@ -75,17 +61,15 @@ function AllPage() {
         }
         return 0;
       });
-      setPosts(allPosts.slice(postIndex*5, postIndex*5+5));
+      setPosts(allPosts);
       if (intervalIds.length === 0) {
         let intervalid = setInterval(fetchNewPosts, 10000, allPosts.length);
         setIntervalIds(arr => [...arr, intervalid]);
       }
-      console.log('Exiting fetchData');
     }
     if (document.cookie.split('passphrase')[1].slice(1).split('; ')[0].split(' ').length !== 12) {
       window.location.href="/signin";
     }
-    console.log('Running fetchData');
     fetchData();
     setNewPosts(false);
     setLoaded(true);
@@ -107,7 +91,6 @@ function AllPage() {
           <br />
         </div>
         ))}
-        <CircleViewport onEnterViewport={setPostIndex(postIndex+1) && setLoaded(false)} />
         <Zoom in={newPosts}>
           <Button
             variant='contained'
