@@ -27,7 +27,7 @@ import SharePostDialog from "./dialogs/SharePostDialog";
 import CreateChildPostDialog from "./dialogs/CreateChildPostDialog";
 import DeletePostDialog from "./dialogs/DeletePostDialog";
 
-import noavatar from '../../public/noavatar.png';
+import noavatar from '../noavatar.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
