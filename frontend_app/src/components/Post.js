@@ -309,7 +309,7 @@ export default function Post(props) {
                     title={
                       <React.Fragment>
                         <Card variant="outlined" className={classes.bigAvatar}>
-                          <img alt="" src={shaPostOwner.socmed.avatar} width="280" height="280" />
+                          <img alt="" src={shaPostOwner.socmed.avatar || noavatar} width="280" height="280" />
                         </Card>
                       </React.Fragment>
                     }
@@ -411,7 +411,7 @@ export default function Post(props) {
           title={
             <React.Fragment>
               <Card variant="outlined" className={classes.bigAvatar}>
-                <img alt="" src={postOwner.socmed.avatar} width="280" height="280" />
+                <img alt="" src={postOwner.socmed.avatar || noavatar} width="280" height="280" />
               </Card>
             </React.Fragment>
           }
