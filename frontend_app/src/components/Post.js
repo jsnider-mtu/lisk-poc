@@ -89,6 +89,7 @@ export default function Post(props) {
   const [shaPostOwner, setShaPostOwner] = useState({});
   const [mod, setMod] = useState(false);
   const [postOwner, setPostOwner] = useState({});
+  const [shaParPost, setShaParPost] = useState({});
 
   useEffect(() => {
     let curUser = {};
@@ -112,6 +113,10 @@ export default function Post(props) {
         setParPostOwner(parpostowner);
       }
       if (shaPost.hasOwnProperty('ownerAddress')) {
+        if (shaPost.parentPost.length !== 0) {
+          const shaparpost = await api.fetchPost(shaPost.parentPost);
+          setShaParPost(shaparpost);
+        }
         const shapostowner = await api.fetchAccountInfo(shaPost.ownerAddress);
         setShaPostOwner(shapostowner);
       }
@@ -119,7 +124,7 @@ export default function Post(props) {
     fetchData();
     setLikes(likes => likes + (newLike ? 1 : 0));
     setLikes(likes => likes + (newUnlike ? -1 : 0));
-  }, [newLike, newUnlike, curUserAddress, props.item.ownerAddress, props.item.parentPost, props.item.sharedPost, parPost, shaPost, postOwner]);
+  }, [newLike, newUnlike, curUserAddress, props.item.ownerAddress, props.item.parentPost, props.item.sharedPost, parPost, shaPost, shaParPost, postOwner]);
 
   let deletebutton;
 
@@ -296,58 +301,119 @@ export default function Post(props) {
         </Card>;
     } else {
       if (shaPost.hasOwnProperty('ownerAddress') && shaPostOwner.hasOwnProperty('socmed')) {
-        sharedpost =
-          <Card variant="outlined" className={classes.root}>
-            <CardHeader
-              avatar={
-                <Link
-                  component={RouterLink}
-                  to={`/user/${shaPost.username}`}
-                >
-                  <Tooltip disableFocusListener disableTouchListener
-                    placement="left"
-                    title={
-                      <React.Fragment>
-                        <Card variant="outlined" className={classes.bigAvatar}>
-                          <img alt="" src={shaPostOwner.socmed.avatar || noavatar} width="280" height="280" />
-                        </Card>
-                      </React.Fragment>
-                    }
+        if (shaParPost.hasOwnProperty('ownerAddress')) {
+          sharedpost =
+            <Card variant="outlined" className={classes.root}>
+              <CardHeader
+                avatar={
+                  <Link
+                    component={RouterLink}
+                    to={`/user/${shaPost.username}`}
                   >
-                    <Avatar aria-label="avatar" className={classes.avatar} src={shaPostOwner.socmed.avatar} />
-                  </Tooltip>
-                </Link>
-              }
-              title={
-                <Link
-                  component={RouterLink}
-                  to={`/user/${shaPost.username}`}
-                >
-                  <Typography variant="body2" color="textPrimary">
-                    {shaPostOwner.socmed.displayname}
-                  </Typography>
-                  <Typography variant="body2" color="textPrimary">
-                    {'@' + shaPost.username}
-                  </Typography>
-                </Link>
-              }
-              subheader={
-                <Link
-                  component={RouterLink}
-                  to={`/post/${shaPost.id}`}
-                >
-                  <Typography variant="caption" color="textSecondary">
-                    {new Date(shaPost.timestamp).toLocaleString()}
-                  </Typography>
-                </Link>
-              }
-            />
-            <CardContent>
-              <Typography className={classes.message} variant="body1" color="textPrimary" component="p">
-                {shaPost.message}
-              </Typography>
-            </CardContent>
-          </Card>;
+                    <Tooltip disableFocusListener disableTouchListener
+                      placement="left"
+                      title={
+                        <React.Fragment>
+                          <Card variant="outlined" className={classes.bigAvatar}>
+                            <img alt="" src={shaPostOwner.socmed.avatar || noavatar} width="280" height="280" />
+                          </Card>
+                        </React.Fragment>
+                      }
+                    >
+                      <Avatar aria-label="avatar" className={classes.avatar} src={shaPostOwner.socmed.avatar} />
+                    </Tooltip>
+                  </Link>
+                }
+                title={
+                  <Link
+                    component={RouterLink}
+                    to={`/user/${shaPost.username}`}
+                  >
+                    <Typography variant="body2" color="textPrimary">
+                      {shaPostOwner.socmed.displayname}
+                    </Typography>
+                    <Typography variant="body2" color="textPrimary">
+                      {'@' + shaPost.username}
+                    </Typography>
+                  </Link>
+                }
+                subheader={
+                  <Link
+                    component={RouterLink}
+                    to={`/post/${shaPost.id}`}
+                  >
+                    <Typography variant="caption" color="textSecondary">
+                      {new Date(shaPost.timestamp).toLocaleString()}
+                    </Typography>
+                  </Link>
+                }
+              />
+              <CardContent>
+                <Typography variant="body2" color="textSecondary" gutterBottom>
+                  {'Replying to '}
+                  <Link component={RouterLink} to={`/user/${shaParPost.username}`}>
+                    {'@' + shaParPost.username}
+                  </Link>
+                </Typography>
+                <Typography className={classes.message} variant="body1" color="textPrimary" component="p">
+                  {shaPost.message}
+                </Typography>
+              </CardContent>
+            </Card>;
+        } else {
+          sharedpost =
+            <Card variant="outlined" className={classes.root}>
+              <CardHeader
+                avatar={
+                  <Link
+                    component={RouterLink}
+                    to={`/user/${shaPost.username}`}
+                  >
+                    <Tooltip disableFocusListener disableTouchListener
+                      placement="left"
+                      title={
+                        <React.Fragment>
+                          <Card variant="outlined" className={classes.bigAvatar}>
+                            <img alt="" src={shaPostOwner.socmed.avatar || noavatar} width="280" height="280" />
+                          </Card>
+                        </React.Fragment>
+                      }
+                    >
+                      <Avatar aria-label="avatar" className={classes.avatar} src={shaPostOwner.socmed.avatar} />
+                    </Tooltip>
+                  </Link>
+                }
+                title={
+                  <Link
+                    component={RouterLink}
+                    to={`/user/${shaPost.username}`}
+                  >
+                    <Typography variant="body2" color="textPrimary">
+                      {shaPostOwner.socmed.displayname}
+                    </Typography>
+                    <Typography variant="body2" color="textPrimary">
+                      {'@' + shaPost.username}
+                    </Typography>
+                  </Link>
+                }
+                subheader={
+                  <Link
+                    component={RouterLink}
+                    to={`/post/${shaPost.id}`}
+                  >
+                    <Typography variant="caption" color="textSecondary">
+                      {new Date(shaPost.timestamp).toLocaleString()}
+                    </Typography>
+                  </Link>
+                }
+              />
+              <CardContent>
+                <Typography className={classes.message} variant="body1" color="textPrimary" component="p">
+                  {shaPost.message}
+                </Typography>
+              </CardContent>
+            </Card>;
+        }
       } else {
         sharedpost =
           <Typography variant="body2" color="textSecondary" gutterBottom>
