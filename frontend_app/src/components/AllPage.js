@@ -27,9 +27,9 @@ function AllPage() {
   const [intervalIds, setIntervalIds] = useState([]);
   const [postIndex, setPostIndex] = useState(0);
 
-  const bottomreached = () => {
-    setPostIndex(postIndex+1);
-  }
+  // const bottomreached = () => {
+  //   setPostIndex(postIndex+1);
+  // }
 
   const circle = () => {
     return (
@@ -107,7 +107,7 @@ function AllPage() {
           <br />
         </div>
         ))}
-        <CircleViewport onEnterViewport={console.log('Circle is in Viewport')} />
+        <CircleViewport onEnterViewport={setPostIndex(postIndex+1)} />
         <Zoom in={newPosts}>
           <Button
             variant='contained'
