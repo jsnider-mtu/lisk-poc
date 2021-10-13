@@ -89,7 +89,7 @@ function AllPage() {
     fetchData();
     setNewPosts(false);
     setLoaded(true);
-  }, [loaded, postIndex]);
+  }, [loaded]);
 
   if (!loaded) {
     return <Fragment><CssBaseline /><CircularProgress /></Fragment>;
@@ -107,7 +107,7 @@ function AllPage() {
           <br />
         </div>
         ))}
-        <CircleViewport onEnterViewport={setPostIndex(postIndex+1)} />
+        <CircleViewport onEnterViewport={setPostIndex(postIndex+1); setLoaded(false)} />
         <Zoom in={newPosts}>
           <Button
             variant='contained'
