@@ -29,7 +29,7 @@ import DeletePostDialog from "./dialogs/DeletePostDialog";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 700,
+    maxWidth: 900,
   },
   message: {
     'white-space': 'pre-wrap',
