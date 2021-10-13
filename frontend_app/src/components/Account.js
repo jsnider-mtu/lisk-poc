@@ -15,6 +15,7 @@ import Post from "./Post";
 import * as api from "../api";
 import ScrollTop from "./ScrollTop";
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import noavatar from '../noavatar.png';
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -239,7 +240,7 @@ export default function Account(props) {
             title={
               <React.Fragment>
                 <Card variant="outlined" className={classes.bigAvatar}>
-                  <img alt="" src={props.account.socmed.avatar} width="280" height="280" />
+                  <img alt="" src={props.account.socmed.avatar || noavatar} width="280" height="280" />
                 </Card>
               </React.Fragment>
             }
