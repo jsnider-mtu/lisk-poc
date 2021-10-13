@@ -349,18 +349,22 @@ export default function Post(props) {
                 }
               />
               <CardContent>
-                <Typography variant="body2" color="textSecondary" gutterBottom>
-                  {'Replying to '}
-                  <Link component={RouterLink} to={`/user/${shaParPost.username}`}>
-                    {'@' + shaParPost.username}
-                  </Link>
-                </Typography>
-                <Typography variant="caption" color="textSecondary" gutterBottom>
-                  > {shaParPost.message}
-                </Typography>
-                <Typography className={classes.message} variant="body1" color="textPrimary" component="p">
-                  {shaPost.message}
-                </Typography>
+                <Card variant="outlined" className={classes.root}>
+                  <CardContent>
+                    <Typography variant="body2" color="textSecondary" gutterBottom>
+                      {'Replying to '}
+                      <Link component={RouterLink} to={`/user/${shaParPost.username}`}>
+                        {'@' + shaParPost.username}
+                      </Link>
+                    </Typography>
+                    <Typography variant="caption" color="textSecondary" gutterBottom>
+                      > {shaParPost.message}
+                    </Typography>
+                    <Typography className={classes.message} variant="body1" color="textPrimary" component="p">
+                      {shaPost.message}
+                    </Typography>
+                  </CardContent>
+                </Card>
               </CardContent>
             </Card>;
         } else {
