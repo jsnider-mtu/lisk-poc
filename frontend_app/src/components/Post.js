@@ -256,7 +256,7 @@ export default function Post(props) {
               }
             />
             <CardContent>
-              <Typography variant="caption" color="textSecondary" gutterBottom>
+              <Typography variant="body2" color="textSecondary" gutterBottom>
                 > {parPost.message}
               </Typography>
             </CardContent>
