@@ -27,6 +27,8 @@ import SharePostDialog from "./dialogs/SharePostDialog";
 import CreateChildPostDialog from "./dialogs/CreateChildPostDialog";
 import DeletePostDialog from "./dialogs/DeletePostDialog";
 
+import noavatar from '../../public/noavatar.png';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 900,
@@ -220,7 +222,7 @@ export default function Post(props) {
                     title={
                       <React.Fragment>
                         <Card variant="outlined" className={classes.bigAvatar}>
-                          <img alt="" src={parPostOwner.socmed.avatar} width="280" height="280" />
+                          <img alt="" src={parPostOwner.socmed.avatar || noavatar} width="280" height="280" />
                         </Card>
                       </React.Fragment>
                     }
