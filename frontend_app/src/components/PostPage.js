@@ -53,7 +53,7 @@ function PostPage() {
       <div>
         <CssBaseline />
         <Grid container spacing={1} justify="center">
-          <Grid item md={8}>
+          <Grid item md={10}>
             <Post item={post} minimum={false} />
           </Grid>
         </Grid>
@@ -61,7 +61,7 @@ function PostPage() {
         {replies.map((item) => (
         <div key={item.id}>
           <Grid container spacing={1} justify="center" key={item.id}>
-            <Grid item md={8} key={item.id}>
+            <Grid item md={10} key={item.id}>
               <Post item={item} key={item.id} minimum={true} />
             </Grid>
           </Grid>
