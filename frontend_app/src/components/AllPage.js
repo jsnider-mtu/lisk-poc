@@ -107,7 +107,7 @@ function AllPage() {
           <br />
         </div>
         ))}
-        <CircleViewport onEnterViewport={setPostIndex(postIndex+1); setLoaded(false)} />
+        <CircleViewport onEnterViewport={setPostIndex(postIndex+1) && setLoaded(false)} />
         <Zoom in={newPosts}>
           <Button
             variant='contained'
