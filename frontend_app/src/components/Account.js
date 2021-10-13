@@ -268,7 +268,7 @@ export default function Account(props) {
       {modbuttons}
       {updatebutton}
       <Divider />
-      <Typography variant="h6">{"Posts"}</Typography>
+      <Typography variant="h5">{"Posts"}</Typography>
       {posts.map((item) => (
       <div key={item.id}>
         <Grid container spacing={1} justify="center" key={item.id}>
