@@ -516,7 +516,7 @@ export default function Post(props) {
       />
       <CardContent>
         {parentpost}
-        <Typography className={classes.message} variant="body1" color="textPrimary" component="p">
+        <Typography className={classes.message} variant="body1" color="textPrimary">
           {HASHTAG_FORMATTER(props.item.message)}
         </Typography>
         {sharedpost}
