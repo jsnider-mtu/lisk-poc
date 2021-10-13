@@ -354,6 +354,8 @@ export default function Post(props) {
                   <Link component={RouterLink} to={`/user/${shaParPost.username}`}>
                     {'@' + shaParPost.username}
                   </Link>
+                  <br />
+                  > {shaParPost.message}
                 </Typography>
                 <Typography className={classes.message} variant="body1" color="textPrimary" component="p">
                   {shaPost.message}
