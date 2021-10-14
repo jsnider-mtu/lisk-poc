@@ -19,6 +19,7 @@ function PostPage() {
       if (post.id !== postId) {
         console.log('post.id !== postId');
         setReplies([]);
+        console.log(replies);
         setLoaded(false);
         setPost(await fetchPost(postId));
       }
