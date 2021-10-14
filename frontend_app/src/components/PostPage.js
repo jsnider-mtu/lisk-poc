@@ -18,9 +18,8 @@ function PostPage() {
     async function fetchData() {
       if (post.id !== postId) {
         console.log('post.id !== postId');
-        while (replies.length > 0) {
-          setReplies([]);
-        }
+        setReplies([]);
+        console.log(replies);
         setLoaded(false);
         setPost(await fetchPost(postId));
       }
