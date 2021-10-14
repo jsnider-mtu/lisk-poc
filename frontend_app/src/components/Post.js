@@ -360,11 +360,11 @@ export default function Post(props) {
                     <Typography variant="caption" color="textSecondary" gutterBottom>
                       > {shaParPost.message}
                     </Typography>
-                    <Typography className={classes.message} variant="body1" color="textPrimary" component="p">
-                      {shaPost.message}
-                    </Typography>
                   </CardContent>
                 </Card>
+                <Typography className={classes.message} variant="body1" color="textPrimary" component="p">
+                  {shaPost.message}
+                </Typography>
               </CardContent>
             </Card>;
         } else {
