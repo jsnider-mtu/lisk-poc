@@ -352,7 +352,6 @@ export default function Post(props) {
                 <Card variant="outlined" className={classes.root}>
                   <CardContent>
                     <Typography variant="body2" color="textSecondary" gutterBottom>
-                      {'Replying to '}
                       <Link component={RouterLink} to={`/user/${shaParPost.username}`}>
                         {'@' + shaParPost.username}
                       </Link>
