@@ -19,11 +19,12 @@ function PostPage() {
     async function fetchData() {
       if (post.id !== postId) {
         console.log('post.id !== postId');
+        console.log(post.id + ' !== ' + postId);
         setPost(await fetchPost(postId));
         console.log(replies);
         setLoaded(false);
       }
-      if (post.hasOwnProperty('replies')) {
+      if (post.hasOwnProperty('replies') && post.id === postId) {
         let replyArr = [];
         replyArr = await Promise.all(
           post.replies.map((a) => fetchPost(a))
