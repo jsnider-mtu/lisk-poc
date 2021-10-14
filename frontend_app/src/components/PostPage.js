@@ -19,7 +19,6 @@ function PostPage() {
       if (post.id !== postId) {
         console.log('post.id !== postId');
         setPost(await fetchPost(postId));
-        setReplies([]);
         console.log(replies);
         setLoaded(false);
       }
@@ -51,6 +50,7 @@ function PostPage() {
         setPost(await fetchPost(postId));
       }
     }
+    setReplies([]);
     fetchData();
   }, [loaded, post, postId]);
 
