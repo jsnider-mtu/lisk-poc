@@ -352,7 +352,7 @@ export default function Post(props) {
                 <Card variant="outlined" className={classes.root}>
                   <CardContent>
                     <Typography variant="body2" color="textSecondary" gutterBottom>
-                      <Link component={RouterLink} to={`/user/${shaParPost.username}`}>
+                      <Link component={RouterLink} to={`/user/${shaParPost.username}`} style={{ color: '#FFF' }}>
                         {'@' + shaParPost.username}
                       </Link>
                     </Typography>
