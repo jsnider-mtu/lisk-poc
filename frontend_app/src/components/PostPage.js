@@ -18,10 +18,10 @@ function PostPage() {
     async function fetchData() {
       if (post.id !== postId) {
         console.log('post.id !== postId');
+        setPost(await fetchPost(postId));
         setReplies([]);
         console.log(replies);
         setLoaded(false);
-        setPost(await fetchPost(postId));
       }
       if (post.hasOwnProperty('replies')) {
         let replyArr = [];
