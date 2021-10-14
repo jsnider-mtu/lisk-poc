@@ -13,6 +13,7 @@ function PostPage() {
   const [post, setPost] = useState({});
   const [replies, setReplies] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  const emptyArr = [];
 
   useEffect(() => {
     async function fetchData() {
@@ -50,7 +51,7 @@ function PostPage() {
         setPost(await fetchPost(postId));
       }
     }
-    setReplies([]);
+    setReplies(emptyArr);
     fetchData();
   }, [loaded, post, postId]);
 
