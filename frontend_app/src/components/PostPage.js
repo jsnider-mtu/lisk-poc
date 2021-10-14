@@ -22,7 +22,8 @@ function PostPage() {
         setPost(await fetchPost(postId));
       }
       if (post.hasOwnProperty('replies')) {
-        let replyArr = await Promise.all(
+        let replyArr = [];
+        replyArr = await Promise.all(
           post.replies.map((a) => fetchPost(a))
         );
         var i = 0;
