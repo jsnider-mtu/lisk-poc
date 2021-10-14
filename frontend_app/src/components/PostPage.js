@@ -16,6 +16,9 @@ function PostPage() {
 
   useEffect(() => {
     async function fetchData() {
+      if (post.id !== postId) {
+        setPost(await fetchPost(postId));
+      }
       if (post.hasOwnProperty('replies')) {
         let replyArr = await Promise.all(
           post.replies.map((a) => fetchPost(a))
