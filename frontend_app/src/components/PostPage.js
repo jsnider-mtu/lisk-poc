@@ -18,6 +18,7 @@ function PostPage() {
     async function fetchData() {
       if (post.id !== postId) {
         console.log('post.id !== postId');
+        setLoaded(false);
         setPost(await fetchPost(postId));
       }
       if (post.hasOwnProperty('replies')) {
