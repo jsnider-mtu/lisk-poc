@@ -13,15 +13,11 @@ function PostPage() {
   const [post, setPost] = useState({});
   const [replies, setReplies] = useState([]);
   const [loaded, setLoaded] = useState(false);
-  const emptyArr = [];
 
   useEffect(() => {
     async function fetchData() {
       if (post.id !== postId) {
-        console.log('post.id !== postId');
-        console.log(post.id + ' !== ' + postId);
         setPost(await fetchPost(postId));
-        console.log(replies);
         setLoaded(false);
       }
       if (post.hasOwnProperty('replies') && post.id === postId) {
@@ -52,7 +48,6 @@ function PostPage() {
         setPost(await fetchPost(postId));
       }
     }
-    setReplies(emptyArr);
     fetchData();
   }, [loaded, post, postId]);
 
