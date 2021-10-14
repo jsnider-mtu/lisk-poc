@@ -23,6 +23,8 @@ function PostPage() {
       }
       if (post.hasOwnProperty('replies')) {
         let replyArr = [];
+        console.log('replyArr should be empty:');
+        console.log(replyArr);
         replyArr = await Promise.all(
           post.replies.map((a) => fetchPost(a))
         );
