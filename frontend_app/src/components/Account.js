@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { Card, Fab, Avatar, Container, Typography, Divider, Grid, Button, Tooltip } from "@material-ui/core";
+import { CircularProgress, Card, Fab, Avatar, Container, Typography, Divider, Grid, Button, Tooltip } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { blue } from "@material-ui/core/colors";
 import { cryptography, transactions } from "@liskhq/lisk-client";
@@ -16,6 +16,7 @@ import * as api from "../api";
 import ScrollTop from "./ScrollTop";
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import noavatar from '../noavatar.png';
+import LazyLoad from 'react-lazyload';
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -270,14 +271,16 @@ export default function Account(props) {
       <Divider />
       <br /><Typography variant="h5">{"Posts"}</Typography><br />
       {posts.map((item) => (
-      <div key={item.id}>
-        <Grid container spacing={1} justify="center" key={item.id}>
-            <Grid item md={10} key={item.id}>
-              <Post item={item} key={item.id} minimum={false} />
-            </Grid>
-        </Grid>
-        <br />
-      </div>
+      <LazyLoad key={item.id} placeholder={<CircularProgress />}>
+        <div key={item.id}>
+          <Grid container spacing={1} justify="center" key={item.id}>
+              <Grid item md={10} key={item.id}>
+                <Post item={item} key={item.id} minimum={false} />
+              </Grid>
+          </Grid>
+          <br />
+        </div>
+      </LazyLoad>
       ))}
       <ScrollTop>
         <Fab color="secondary" size="small" aria-label="scroll back to top">

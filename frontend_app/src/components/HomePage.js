@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { fetchAllPosts, fetchAccountInfo } from "../api";
 import ScrollTop from "./ScrollTop";
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import LazyLoad from 'react-lazyload';
 
 const useStyles = makeStyles((theme) => ({
   newposts: {
@@ -90,14 +91,16 @@ function HomePage() {
       <Fragment>
         <CssBaseline />
         {Posts.map((item) => (
-        <div key={item.id}>
-          <Grid key={item.id} container spacing={1} justify="center">
-              <Grid key={item.id} item md={10}>
-                <Post item={item} key={item.id} minimum={false} />
-              </Grid>
-          </Grid>
-          <br />
-        </div>
+        <LazyLoad key={item.id} placeholder={<CircularProgress />}>
+          <div key={item.id}>
+            <Grid key={item.id} container spacing={1} justify="center">
+                <Grid key={item.id} item md={10}>
+                  <Post item={item} key={item.id} minimum={false} />
+                </Grid>
+            </Grid>
+            <br />
+          </div>
+        </LazyLoad>
         ))}
         <Zoom in={newPosts}>
           <Button

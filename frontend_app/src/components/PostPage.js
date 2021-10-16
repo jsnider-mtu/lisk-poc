@@ -6,6 +6,7 @@ import { fetchPost } from "../api";
 import Post from "./Post";
 import ScrollTop from "./ScrollTop";
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import LazyLoad from 'react-lazyload';
 
 
 function PostPage() {
@@ -64,14 +65,16 @@ function PostPage() {
         </Grid>
         <br />
         {replies.map((item) => (
-        <div key={item.id}>
-          <Grid container spacing={1} justify="center" key={item.id}>
-            <Grid item md={10} key={item.id}>
-              <Post item={item} key={item.id} minimum={true} />
+        <LazyLoad key={item.id} placeholder={<CircularProgress />}>
+          <div key={item.id}>
+            <Grid container spacing={1} justify="center" key={item.id}>
+              <Grid item md={10} key={item.id}>
+                <Post item={item} key={item.id} minimum={true} />
+              </Grid>
             </Grid>
-          </Grid>
-          <br />
-        </div>
+            <br />
+          </div>
+        </LazyLoad>
         ))}
         <ScrollTop>
           <Fab color="secondary" size="small" aria-label="scroll back to top">

@@ -6,6 +6,7 @@ import * as api from "../api";
 import Post from "./Post";
 import ScrollTop from "./ScrollTop";
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import LazyLoad from 'react-lazyload';
 
 
 function HashtagPage() {
@@ -60,20 +61,22 @@ function HashtagPage() {
           <Typography variant="h5" align="center" paragraph>{'#' + hashtag}</Typography>
           <br /><Divider /><br />
           {hashtagPosts.map((item) => (
-          <div>
-            <Grid container spacing={1} justify="center" key={item.id}>
-              <Grid item md={10} key={item.id}>
-                <Post item={item} key={item.id} minimum={false} />
+          <LazyLoad key={item.id} placeholder={<CircularProgress />}>
+            <div>
+              <Grid container spacing={1} justify="center" key={item.id}>
+                <Grid item md={10} key={item.id}>
+                  <Post item={item} key={item.id} minimum={false} />
+                </Grid>
               </Grid>
-            </Grid>
-            <br />
-          </div>
-        ))}
-        <ScrollTop>
-          <Fab color="secondary" size="small" aria-label="scroll back to top">
-            <KeyboardArrowUpIcon />
-          </Fab>
-        </ScrollTop>
+              <br />
+            </div>
+          </LazyLoad>
+          ))}
+          <ScrollTop>
+            <Fab color="secondary" size="small" aria-label="scroll back to top">
+              <KeyboardArrowUpIcon />
+            </Fab>
+          </ScrollTop>
         </div>
       );
     } else {
