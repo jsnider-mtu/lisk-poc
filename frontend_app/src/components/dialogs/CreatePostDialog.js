@@ -47,9 +47,9 @@ export default function CreatePostDialog(props) {
     props.handleClose();
   };
 
-  const startUpload = async (event) => {
+  const startUpload = e => {
     // s3 code here
-    console.log(event);
+    console.log(e.target.files);
   };
 
   return (
