@@ -1,13 +1,15 @@
 export const fetchNodeInfo = async () => {
   return fetch("https://"+window.location.hostname+":4000/api/node/info")
     .then((res) => res.json())
-    .then((res) => res.data);
+    .then((res) => res.data)
+    .catch((error) => console.log(error));
 };
 
 export const fetchAccountInfo = async (address) => {
   return fetch(`https://`+window.location.hostname+`:4000/api/accounts/${address}`)
     .then((res) => res.json())
-    .then((res) => res.data);
+    .then((res) => res.data)
+    .catch((error) => console.log(error));
 };
 
 export const sendTransactions = async (tx) => {
@@ -19,19 +21,22 @@ export const sendTransactions = async (tx) => {
     body: JSON.stringify(tx),
   })
     .then((res) => res.json())
-    .then((res) => res.data);
+    .then((res) => res.data)
+    .catch((error) => console.log(error));
 };
 
 export const fetchAllPosts = async () => {
   return fetch("https://"+window.location.hostname+":8080/api/posts")
     .then((res) => res.json())
-    .then((res) => res.data);
+    .then((res) => res.data)
+    .catch((error) => console.log(error));
 };
 
 export const fetchPost = async (id) => {
   return fetch(`https://`+window.location.hostname+`:8080/api/posts/${id}`)
     .then((res) => res.json())
-    .then((res) => res.data);
+    .then((res) => res.data)
+    .catch((error) => console.log(error));
 };
 
 export const getAllTransactions = async () => {
@@ -39,5 +44,6 @@ export const getAllTransactions = async () => {
     .then((res) => res.json())
     .then((res) => {
       return res.data;
-    });
+    })
+    .catch((error) => console.log(error));
 };
