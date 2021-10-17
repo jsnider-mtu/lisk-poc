@@ -61,7 +61,7 @@ function HashtagPage() {
           <Typography variant="h5" align="center" paragraph>{'#' + hashtag}</Typography>
           <br /><Divider /><br />
           {hashtagPosts.map((item) => (
-          <LazyLoad key={item.id} placeholder={<CircularProgress />}>
+          <LazyLoad once key={item.id} placeholder={<CircularProgress />}>
             <div>
               <Grid container spacing={1} justify="center" key={item.id}>
                 <Grid item md={10} key={item.id}>
