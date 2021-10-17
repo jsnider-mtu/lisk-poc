@@ -47,6 +47,11 @@ export default function CreatePostDialog(props) {
     props.handleClose();
   };
 
+  const startUpload = async (event) => {
+    // s3 code here
+    console.log(event);
+  };
+
   return (
     <Fragment>
       <Dialog open={props.open} onBackdropClick={props.handleClose}>
@@ -63,6 +68,7 @@ export default function CreatePostDialog(props) {
               rows={6}
               variant="outlined"
             />
+            <input type='file' onChange={startUpload} />
           </form>
         </DialogContent>
         <DialogActions>
