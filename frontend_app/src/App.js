@@ -19,7 +19,8 @@ import {
 import { SpeedDial, SpeedDialIcon, SpeedDialAction } from '@material-ui/lab';
 import { createMuiTheme, MuiThemeProvider, makeStyles } from '@material-ui/core/styles';
 import LocalAtmIcon from '@material-ui/icons/LocalAtm';
-import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
+//import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
+import AddCommentIcon from '@material-ui/icons/AddComment';
 import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { cryptography } from "@liskhq/lisk-client";
@@ -162,7 +163,7 @@ function App() {
             >
                 <SpeedDialAction
                     key={'Create Post'}
-                    icon={<AddPhotoAlternateIcon />}
+                    icon={<AddCommentIcon />}
                     tooltipTitle={'Create Post'}
                     onClick={() => {
                         setOpenSpeedDial(false);
