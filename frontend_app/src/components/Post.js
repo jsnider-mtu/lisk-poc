@@ -108,12 +108,12 @@ export default function Post(props) {
         const postowner = await api.fetchAccountInfo(props.item.ownerAddress);
         setPostOwner(postowner);
       }
-      if (parPost.hasOwnProperty('ownerAddress')) {
+      if (parPost.hasOwnProperty('ownerAddress') && !parPostOwner.hasOwnProperty('socmed')) {
         const parpostowner = await api.fetchAccountInfo(parPost.ownerAddress);
         setParPostOwner(parpostowner);
       }
-      if (shaPost.hasOwnProperty('ownerAddress')) {
-        if (shaPost.parentPost.length !== 0) {
+      if (shaPost.hasOwnProperty('ownerAddress') && !shaPostOwner.hasOwnProperty('socmed')) {
+        if (shaPost.parentPost.length !== 0 && !shaParPost.hasOwnProperty('ownerAddress')) {
           const shaparpost = await api.fetchPost(shaPost.parentPost);
           setShaParPost(shaparpost);
         }
