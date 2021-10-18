@@ -79,9 +79,9 @@ function App() {
 
     const theme = createMuiTheme({
         palette: {
-            //secondary: {
-            //    main: "#0069ff",
-            //},
+            secondary: {
+                main: "#0069ff",
+            },
             type: paletteType,
         },
     });
