@@ -436,7 +436,22 @@ export default function Post(props) {
       } else if (v.replace(/^\s+|\s+$/g, '').startsWith('@')) {
         return <Link key={i} component={RouterLink} to={`/user/${v.replace(/^\s+|\s+$/g, '').slice(1)}`}>{v}</Link>;
       } else if (v.replace(/^\s+|\s+$/g, '').startsWith('http')) {
-        return <Link key={i} component={RouterLink} to={{pathname: v.replace(/^\s+|\s+$/g, '')}} target="_blank">{' '+v}</Link>;
+        if (/(\.png$)|(\.jpg$)|(\.jpeg$)|(\.gif$)/i.test(v.replace(/^\s+|\s+$/g, ''))) {
+          return <Tooltip disableFocusListener disableTouchListener
+                   placement="right"
+                   title={
+                     <React.Fragment>
+                       <Card variant="outlined" className={classes.bigAvatar}>
+                         <img alt="" src={v.replace(/^\s+|\s+$/g, '')} width="280" height="280" />
+                       </Card>
+                     </React.Fragment>
+                   }
+                 >
+                   <Link key={i} component={RouterLink} to={{pathname: v.replace(/^\s+|\s+$/g, '')}} target="_blank">{' '+v}</Link>
+                 </Tooltip>;
+        } else {
+          return <Link key={i} component={RouterLink} to={{pathname: v.replace(/^\s+|\s+$/g, '')}} target="_blank">{' '+v}</Link>;
+        }
       } else {
         return v;
       }
