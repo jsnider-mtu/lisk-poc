@@ -83,16 +83,6 @@ function App() {
             secondary: {
                 main: "#0069ff",
             },
-            action: {
-                active: lightBlue[200],
-                activeOpacity: 1,
-                hover: lightBlue[100],
-                hoverOpacity: 1,
-                focus: lightBlue[600],
-                focusOpacity: 1,
-                selected: lightBlue[300],
-                selectedOpacity: 1,
-            },
             type: paletteType,
         },
     });
