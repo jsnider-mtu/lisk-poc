@@ -394,7 +394,7 @@ export default function Post(props) {
                   </CardContent>
                 </Card>
                 <Typography className={classes.message} variant="body1" color="textPrimary" component="p">
-                  {shaPost.message}
+                  {HASHTAG_FORMATTER(shaPost.message)}
                 </Typography>
               </CardContent>
             </Card>;
@@ -447,7 +447,7 @@ export default function Post(props) {
               />
               <CardContent>
                 <Typography className={classes.message} variant="body1" color="textPrimary" component="p">
-                  {shaPost.message}
+                  {HASHTAG_FORMATTER(shaPost.message)}
                 </Typography>
               </CardContent>
             </Card>;
