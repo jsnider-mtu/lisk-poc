@@ -186,7 +186,7 @@ export default function Post(props) {
           return <>{' '}<Tooltip disableFocusListener disableTouchListener
                    placement="right"
                    title={
-                     <React.Fragment>
+                     <React.Fragment key={i}>
                        <Card variant="outlined" className={classes.bigAvatar}>
                          <img alt="" src={v.replace(/^\s+|\s+$/g, '')} width="280" height="280" />
                        </Card>
