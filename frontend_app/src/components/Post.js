@@ -175,6 +175,35 @@ export default function Post(props) {
       </IconButton>;
   }
 
+  const HASHTAG_FORMATTER = string => {
+    return string.split(/(?:^|\s)(?:([@#][a-z\d-]+)|(https?:\/\/[.a-zA-Z\d-_?&=/]+))/gi).filter(Boolean).map((v,i)=>{
+      if(v.replace(/^\s+|\s+$/g, '').startsWith('#')){
+        return <Link key={i} className={classes.msgLinks} component={RouterLink} to={`/hashtag/${v.replace(/^\s+|\s+$/g, '').slice(1)}`}>{v}</Link>;
+      } else if (v.replace(/^\s+|\s+$/g, '').startsWith('@')) {
+        return <Link key={i} className={classes.msgLinks} component={RouterLink} to={`/user/${v.replace(/^\s+|\s+$/g, '').slice(1)}`}>{v}</Link>;
+      } else if (v.replace(/^\s+|\s+$/g, '').startsWith('http')) {
+        if (/(\.png$)|(\.jpg$)|(\.jpeg$)|(\.gif$)/i.test(v.replace(/^\s+|\s+$/g, ''))) {
+          return <Tooltip disableFocusListener disableTouchListener
+                   placement="right"
+                   title={
+                     <React.Fragment>
+                       <Card variant="outlined" className={classes.bigAvatar}>
+                         <img alt="" src={v.replace(/^\s+|\s+$/g, '')} width="280" height="280" />
+                       </Card>
+                     </React.Fragment>
+                   }
+                 >
+                   <Link key={i} className={classes.msgLinks} component={RouterLink} to={{pathname: v.replace(/^\s+|\s+$/g, '')}} target="_blank">{' '+v}</Link>
+                 </Tooltip>;
+        } else {
+          return <Link key={i} className={classes.msgLinks} component={RouterLink} to={{pathname: v.replace(/^\s+|\s+$/g, '')}} target="_blank">{' '+v}</Link>;
+        }
+      } else {
+        return v;
+      }
+    })
+  };
+
   let parentpost;
 
   if (props.item.parentPost.length === 0 || props.minimum) {
@@ -431,35 +460,6 @@ export default function Post(props) {
       }
     }
   }
-
-  const HASHTAG_FORMATTER = string => {
-    return string.split(/(?:^|\s)(?:([@#][a-z\d-]+)|(https?:\/\/[.a-zA-Z\d-_?&=/]+))/gi).filter(Boolean).map((v,i)=>{
-      if(v.replace(/^\s+|\s+$/g, '').startsWith('#')){
-        return <Link key={i} className={classes.msgLinks} component={RouterLink} to={`/hashtag/${v.replace(/^\s+|\s+$/g, '').slice(1)}`}>{v}</Link>;
-      } else if (v.replace(/^\s+|\s+$/g, '').startsWith('@')) {
-        return <Link key={i} className={classes.msgLinks} component={RouterLink} to={`/user/${v.replace(/^\s+|\s+$/g, '').slice(1)}`}>{v}</Link>;
-      } else if (v.replace(/^\s+|\s+$/g, '').startsWith('http')) {
-        if (/(\.png$)|(\.jpg$)|(\.jpeg$)|(\.gif$)/i.test(v.replace(/^\s+|\s+$/g, ''))) {
-          return <Tooltip disableFocusListener disableTouchListener
-                   placement="right"
-                   title={
-                     <React.Fragment>
-                       <Card variant="outlined" className={classes.bigAvatar}>
-                         <img alt="" src={v.replace(/^\s+|\s+$/g, '')} width="280" height="280" />
-                       </Card>
-                     </React.Fragment>
-                   }
-                 >
-                   <Link key={i} className={classes.msgLinks} component={RouterLink} to={{pathname: v.replace(/^\s+|\s+$/g, '')}} target="_blank">{' '+v}</Link>
-                 </Tooltip>;
-        } else {
-          return <Link key={i} className={classes.msgLinks} component={RouterLink} to={{pathname: v.replace(/^\s+|\s+$/g, '')}} target="_blank">{' '+v}</Link>;
-        }
-      } else {
-        return v;
-      }
-    })
-  };
 
   let posttitle;
 
