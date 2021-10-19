@@ -187,8 +187,8 @@ export default function Post(props) {
                    placement="right"
                    title={
                      <React.Fragment key={i}>
-                       <Card variant="outlined" className={classes.bigAvatar}>
-                         <img alt="" src={v.replace(/^\s+|\s+$/g, '')} width="280" height="280" />
+                       <Card key={i} variant="outlined" className={classes.bigAvatar}>
+                         <img key={i} alt="" src={v.replace(/^\s+|\s+$/g, '')} width="280" height="280" />
                        </Card>
                      </React.Fragment>
                    }
