@@ -180,7 +180,7 @@ export default function Post(props) {
       if(v.replace(/^\s+|\s+$/g, '').startsWith('#')){
         return <>{' '}<Link key={i} className={classes.msgLinks} component={RouterLink} to={`/hashtag/${v.replace(/^\s+|\s+$/g, '').slice(1)}`}>{v}</Link></>;
       } else if (v.replace(/^\s+|\s+$/g, '').startsWith('@')) {
-        return <Link key={i} className={classes.msgLinks} component={RouterLink} to={`/user/${v.replace(/^\s+|\s+$/g, '').slice(1)}`}>{' '+v}</Link>;
+        return <>{' '}<Link key={i} className={classes.msgLinks} component={RouterLink} to={`/user/${v.replace(/^\s+|\s+$/g, '').slice(1)}`}>{v}</Link></>;
       } else if (v.replace(/^\s+|\s+$/g, '').startsWith('http')) {
         if (/(\.png$)|(\.jpg$)|(\.jpeg$)|(\.gif$)/i.test(v.replace(/^\s+|\s+$/g, ''))) {
           return <Tooltip disableFocusListener disableTouchListener
@@ -193,10 +193,10 @@ export default function Post(props) {
                      </React.Fragment>
                    }
                  >
-                   <Link key={i} className={classes.msgLinks} component={RouterLink} to={{pathname: v.replace(/^\s+|\s+$/g, '')}} target="_blank">{' '+v}</Link>
+                   <>{' '}<Link key={i} className={classes.msgLinks} component={RouterLink} to={{pathname: v.replace(/^\s+|\s+$/g, '')}} target="_blank">{v}</Link></>
                  </Tooltip>;
         } else {
-          return <Link key={i} className={classes.msgLinks} component={RouterLink} to={{pathname: v.replace(/^\s+|\s+$/g, '')}} target="_blank">{' '+v}</Link>;
+          return <>{' '}<Link key={i} className={classes.msgLinks} component={RouterLink} to={{pathname: v.replace(/^\s+|\s+$/g, '')}} target="_blank">{v}</Link></>;
         }
       } else {
         return v;
