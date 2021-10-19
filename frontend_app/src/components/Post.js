@@ -265,7 +265,7 @@ export default function Post(props) {
             />
             <CardContent>
               <Typography variant="body2" color="textSecondary" gutterBottom>
-                > {parPost.message}
+                > {HASHTAG_FORMATTER(parPost.message)}
               </Typography>
             </CardContent>
           </Card>;
