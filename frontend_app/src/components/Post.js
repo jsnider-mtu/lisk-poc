@@ -193,7 +193,7 @@ export default function Post(props) {
                      </React.Fragment>
                    }
                  >
-                   <>{' '}<Link key={i} className={classes.msgLinks} component={RouterLink} to={{pathname: v.replace(/^\s+|\s+$/g, '')}} target="_blank">{v}</Link></>
+                   {' '}<Link key={i} className={classes.msgLinks} component={RouterLink} to={{pathname: v.replace(/^\s+|\s+$/g, '')}} target="_blank">{v}</Link>
                  </Tooltip>;
         } else {
           return <>{' '}<Link key={i} className={classes.msgLinks} component={RouterLink} to={{pathname: v.replace(/^\s+|\s+$/g, '')}} target="_blank">{v}</Link></>;
