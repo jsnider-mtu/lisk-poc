@@ -102,7 +102,6 @@ function AllPage() {
               intervalIds.forEach(clearInterval);
               setIntervalIds([]);
               setLoaded(false);
-              window[`scrollTo`]({ top: 0, behavior: `smooth` });
             }}
             className={classes.newposts}
           >
