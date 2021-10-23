@@ -530,7 +530,7 @@ export default function Post(props) {
   }
 
   return (
-    <Card variant="outlined" className={classes.root}>
+    <Card style={{ height: "528" }} variant="outlined" className={classes.root}>
       <CardHeader
         avatar={postavatar}
         title={posttitle}
