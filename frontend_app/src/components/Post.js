@@ -33,7 +33,9 @@ import noavatar from '../noavatar.png';
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 900,
-    height: 528,
+  },
+  content: {
+    maxHeight: 528,
   },
   message: {
     'white-space': 'pre-wrap',
@@ -546,7 +548,7 @@ export default function Post(props) {
           </Link>
         }
       />
-      <CardContent>
+      <CardContent className={classes.content}>
         {parentpost}
         <Typography className={classes.message} variant="body1" color="textPrimary">
           {HASHTAG_FORMATTER(props.item.message)}
