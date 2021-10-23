@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 900,
   },
   content: {
-    maxHeight: 528,
+    maxHeight: 480,
     overflow: 'auto',
   },
   message: {
