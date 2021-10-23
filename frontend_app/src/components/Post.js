@@ -33,6 +33,7 @@ import noavatar from '../noavatar.png';
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 900,
+    height: 528,
   },
   message: {
     'white-space': 'pre-wrap',
@@ -530,7 +531,7 @@ export default function Post(props) {
   }
 
   return (
-    <Card style={{ height: "528" }} variant="outlined" className={classes.root}>
+    <Card variant="outlined" className={classes.root}>
       <CardHeader
         avatar={postavatar}
         title={posttitle}
