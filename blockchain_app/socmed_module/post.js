@@ -122,7 +122,7 @@ const createPost = ({ message, ownerAddress, nonce, username, avatar }) => {
       taggedusers.push(words[i].slice(1));
       ++i;
     } else if (words[i].startsWith('http')) {
-      hyperlinks.push(words[i].slice(1));
+      hyperlinks.push(words[i]);
       ++i;
     } else {
       ++i;
@@ -175,7 +175,7 @@ const createChildPost = ({ message, ownerAddress, nonce, username, avatar, paren
       taggedusers.push(words[i].slice(1));
       ++i;
     } else if (words[i].startsWith('http')) {
-      hyperlinks.push(words[i].slice(1));
+      hyperlinks.push(words[i]);
       ++i;
     } else {
       ++i;
@@ -228,7 +228,7 @@ const createSharePost = ({ message, ownerAddress, nonce, username, avatar, share
       taggedusers.push(words[i].slice(1));
       ++i;
     } else if (words[i].startsWith('http')) {
-      hyperlinks.push(words[i].slice(1));
+      hyperlinks.push(words[i]);
       ++i;
     } else {
       ++i;
