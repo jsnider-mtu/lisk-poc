@@ -84,6 +84,12 @@ export default function SignUpPage() {
       } else {
         setInvalidUsername(false);
       }
+    } else {
+      if (data.username === 'afsa' || data.username.includes(' ') || data.username.includes('#') || data.username.includes('@')) {
+        setInvalidUsername(true);
+      } else {
+        setInvalidUsername(false);
+      }
     }
   }, [data.username, fetchDataRan]);
 
