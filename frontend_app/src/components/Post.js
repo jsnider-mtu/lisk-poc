@@ -19,6 +19,7 @@ import { blue } from '@material-ui/core/colors';
 import { makeStyles } from "@material-ui/core/styles";
 import { Link as RouterLink } from "react-router-dom";
 import { cryptography } from "@liskhq/lisk-client";
+import { LinkPreview } from '@dhaiwat10/react-link-preview';
 import * as api from "../api";
 
 import LikePostDialog from "./dialogs/LikePostDialog";
@@ -519,6 +520,15 @@ export default function Post(props) {
       </Link>;
   }
 
+  let linkpreview;
+
+  if (props.item.hyperlinks.length === 0) {
+    linkpreview = <></>;
+  } else {
+    linkpreview =
+      <LinkPreview url={props.item.hyperlinks[0]} />;
+  }
+
   return (
     <Card variant="outlined" className={classes.root}>
       <CardHeader
@@ -600,6 +610,7 @@ export default function Post(props) {
           post={props.item}
         />
       </CardActions>
+      {linkpreview}
     </Card>
   );
 }

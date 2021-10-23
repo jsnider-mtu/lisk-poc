@@ -83,6 +83,13 @@ const registeredPostsSchema = {
               dataType: "string",
             },
           },
+          hyperlinks: {
+            type: "array",
+            fieldNumber: 15,
+            items: {
+              dataType: "string",
+            },
+          },
         },
       },
     },
@@ -105,6 +112,7 @@ const createPost = ({ message, ownerAddress, nonce, username, avatar }) => {
   const words = message.split(' ');
   let hashtags = [];
   let taggedusers = [];
+  let hyperlinks = [];
   var i = 0;
   while (i < words.length) {
     if (words[i].startsWith('#')) {
@@ -112,6 +120,9 @@ const createPost = ({ message, ownerAddress, nonce, username, avatar }) => {
       ++i;
     } else if (words[i].startsWith('@')) {
       taggedusers.push(words[i].slice(1));
+      ++i;
+    } else if (words[i].startsWith('http')) {
+      hyperlinks.push(words[i].slice(1));
       ++i;
     } else {
       ++i;
@@ -137,6 +148,7 @@ const createPost = ({ message, ownerAddress, nonce, username, avatar }) => {
     avatar,
     hashtags,
     taggedusers,
+    hyperlinks,
   };
 };
 
@@ -153,6 +165,7 @@ const createChildPost = ({ message, ownerAddress, nonce, username, avatar, paren
   const words = message.split(' ');
   let hashtags = [];
   let taggedusers = [];
+  let hyperlinks = [];
   var i = 0;
   while (i < words.length) {
     if (words[i].startsWith('#')) {
@@ -160,6 +173,9 @@ const createChildPost = ({ message, ownerAddress, nonce, username, avatar, paren
       ++i;
     } else if (words[i].startsWith('@')) {
       taggedusers.push(words[i].slice(1));
+      ++i;
+    } else if (words[i].startsWith('http')) {
+      hyperlinks.push(words[i].slice(1));
       ++i;
     } else {
       ++i;
@@ -185,6 +201,7 @@ const createChildPost = ({ message, ownerAddress, nonce, username, avatar, paren
     avatar,
     hashtags,
     taggedusers,
+    hyperlinks,
   };
 };
 
@@ -201,6 +218,7 @@ const createSharePost = ({ message, ownerAddress, nonce, username, avatar, share
   const words = message.split(' ');
   let hashtags = [];
   let taggedusers = [];
+  let hyperlinks = [];
   var i = 0;
   while (i < words.length) {
     if (words[i].startsWith('#')) {
@@ -208,6 +226,9 @@ const createSharePost = ({ message, ownerAddress, nonce, username, avatar, share
       ++i;
     } else if (words[i].startsWith('@')) {
       taggedusers.push(words[i].slice(1));
+      ++i;
+    } else if (words[i].startsWith('http')) {
+      hyperlinks.push(words[i].slice(1));
       ++i;
     } else {
       ++i;
@@ -233,6 +254,7 @@ const createSharePost = ({ message, ownerAddress, nonce, username, avatar, share
     avatar,
     hashtags,
     taggedusers,
+    hyperlinks,
   };
 };
 
