@@ -80,7 +80,7 @@ export default function Account(props) {
   if (mod) {
     acctdetails =
       <Typography variant="body2" color="textPrimary">
-        {'Address: ' + cryptography.getBase32AddressFromAddress(props.account.address, 'hex')}
+        {'Address: ' + cryptography.getBase32AddressFromAddress(Buffer.from(props.account.address, 'hex'))}
         <br />
         {'Banned: ' + props.account.socmed.banned.toString() + '  Moderator: ' + props.account.socmed.moderator.toString()}
       </Typography>
