@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     maxHeight: 528,
+    overflow: 'auto',
   },
   message: {
     'white-space': 'pre-wrap',
