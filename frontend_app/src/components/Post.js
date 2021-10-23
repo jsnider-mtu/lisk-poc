@@ -525,6 +525,7 @@ export default function Post(props) {
   if (props.item.hyperlinks.length === 0) {
     linkpreview = <></>;
   } else {
+    console.log(props.item.hyperlinks[0]);
     linkpreview =
       <LinkPreview url={props.item.hyperlinks[0]} />;
   }
