@@ -298,7 +298,7 @@ export default function Post(props) {
               }
             />
             <CardContent>
-              <Typography variant="body1" color="textSecondary" gutterBottom>
+              <Typography className={classes.message} variant="body1" color="textSecondary" gutterBottom>
                 {'> ' + HASHTAG_FORMATTER(parPost.message)}
               </Typography>
             </CardContent>
