@@ -531,7 +531,7 @@ export default function Post(props) {
   } else {
     linkpreview =
       <LinkPreview url={props.item.hyperlinks[0]} 
-        backgroundColor={blue[200]}
+        backgroundColor={blue[250]}
         primaryTextColor="white"
         secondaryTextColor="light-gray"
       />;
