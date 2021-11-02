@@ -540,6 +540,17 @@ export default function Post(props) {
       />;
   }
 
+  let msg;
+
+  if (props.item.message.length === 0) {
+    msg = <></>;
+  } else {
+    msg =
+      <Typography className={classes.message} variant="body1" color="textPrimary">
+        {HASHTAG_FORMATTER(props.item.message)}
+      </Typography>
+  }
+
   return (
     <Card variant="outlined" className={classes.root}>
       <CardHeader
@@ -558,9 +569,7 @@ export default function Post(props) {
       />
       <CardContent className={classes.content}>
         {parentpost}
-        <Typography className={classes.message} variant="body1" color="textPrimary">
-          {HASHTAG_FORMATTER(props.item.message)}
-        </Typography>
+        {msg}
         {sharedpost}
       </CardContent>
       <CardActions>
