@@ -43,8 +43,9 @@ export default function CreatePostDialog(props) {
       networkIdentifier: nodeInfo.networkIdentifier,
       minFeePerByte: nodeInfo.minFeePerByte,
     });
-    await api.sendTransactions(res.tx);
-    props.handleClose();
+    const res2 = await api.sendTransactions(res.tx);
+    console.log(res2);
+    props.handleClose(res2);
   };
 
   return (
