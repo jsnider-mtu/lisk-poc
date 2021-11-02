@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
   },
   parentcontent: {
-    padding: 20,
+    padding-left: 20,
   },
   message: {
     'white-space': 'pre-wrap',
@@ -301,7 +301,7 @@ export default function Post(props) {
               }
             />
             <CardContent>
-              <Typography variant="body1" color="textSecondary" gutterBottom>
+              <Typography className={classes.parentcontent} variant="body1" color="textSecondary" gutterBottom>
                 {'> ' + HASHTAG_FORMATTER(parPost.message)}
               </Typography>
             </CardContent>
