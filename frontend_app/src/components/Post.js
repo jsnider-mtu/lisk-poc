@@ -27,6 +27,7 @@ import UnlikePostDialog from "./dialogs/UnlikePostDialog";
 import SharePostDialog from "./dialogs/SharePostDialog";
 import CreateChildPostDialog from "./dialogs/CreateChildPostDialog";
 import DeletePostDialog from "./dialogs/DeletePostDialog";
+import CreatePostErrorDialog from "./dialogs/CreatePostErrorDialog";
 
 import noavatar from '../noavatar.png';
 
@@ -89,6 +90,7 @@ export default function Post(props) {
   const classes = useStyles();
   const [openShare, setOpenShare] = useState(false);
   const [openReply, setOpenReply] = useState(false);
+  const [openError, setOpenError] = useState(false);
   const [openLike, setOpenLike] = useState(false);
   const [openUnlike, setOpenUnlike] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
@@ -611,8 +613,13 @@ export default function Post(props) {
         {props.item.shares.length}
         <SharePostDialog
           open={openShare}
-          handleClose={() => {
-            setOpenShare(false);
+          handleClose={(res) => {
+            if (res === 'error') {
+              setOpenShare(false);
+              setOpenError(true);
+            } else {
+              setOpenShare(false);
+            }
           }}
           post={props.item.sharedPost.length > 0 ? {id: props.item.sharedPost} : props.item}
         />
@@ -627,8 +634,13 @@ export default function Post(props) {
         {props.item.replies.length}
         <CreateChildPostDialog
           open={openReply}
-          handleClose={() => {
-            setOpenReply(false);
+          handleClose={(res) => {
+            if (res === 'error') {
+              setOpenReply(false);
+              setOpenError(true);
+            } else {
+              setOpenReply(false);
+            }
           }}
           post={props.item}
         />
@@ -639,6 +651,12 @@ export default function Post(props) {
             setOpenDelete(false);
           }}
           post={props.item}
+        />
+        <CreatePostErrorDialog
+          open={openError}
+          handleClose={() => {
+            setOpenError(false);
+          }}
         />
       </CardActions>
       {linkpreview}

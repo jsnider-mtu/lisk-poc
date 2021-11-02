@@ -44,8 +44,12 @@ export default function SharePostDialog(props) {
       networkIdentifier: nodeInfo.networkIdentifier,
       minFeePerByte: nodeInfo.minFeePerByte,
     });
-    await api.sendTransactions(res.tx);
-    props.handleClose();
+    const res2 = await api.sendTransactions(res.tx);
+    if (typeof(res2) === 'undefined') {
+      props.handleClose('error');
+    } else {
+      props.handleClose(res2);
+    }
   };
 
   return (
