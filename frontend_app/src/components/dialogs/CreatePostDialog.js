@@ -44,8 +44,11 @@ export default function CreatePostDialog(props) {
       minFeePerByte: nodeInfo.minFeePerByte,
     });
     const res2 = await api.sendTransactions(res.tx);
-    console.log(res2);
-    props.handleClose(res2);
+    if (res2.hasOwnProperty('transactionId') {
+      props.handleClose(res2);
+    } else {
+      props.handleClose('error');
+    }
   };
 
   return (

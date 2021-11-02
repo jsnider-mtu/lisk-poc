@@ -40,6 +40,7 @@ import HashtagPage from './components/HashtagPage';
 import CreateAccountDialog from './components/dialogs/CreateAccountDialog';
 import TransferFundsDialog from './components/dialogs/TransferFundsDialog';
 import CreatePostDialog from './components/dialogs/CreatePostDialog';
+import CreatePostErrorDialog from './components/dialogs/CreatePostErrorDialog';
 import SettingsDialog from './components/dialogs/SettingsDialog';
 
 const useStyles = makeStyles((theme) => ({
@@ -278,6 +279,17 @@ function App() {
     
                         <CreatePostDialog
                             open={openDialog === 'CreatePostDialog'}
+                            handleClose={(res) => {
+                                if (res === 'error') {
+                                    setOpenDialog('CreatePostError');
+                                } else {
+                                    setOpenDialog(null);
+                                }
+                            }}
+                        />
+
+                        <CreatePostErrorDialog
+                            open={openDialog === 'CreatePostError'}
                             handleClose={() => {
                                 setOpenDialog(null);
                             }}
