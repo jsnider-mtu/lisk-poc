@@ -404,7 +404,7 @@ export default function Post(props) {
                         {'@' + shaParPost.username}
                       </Link>
                     </Typography>
-                    <Typography variant="caption" color="textSecondary" gutterBottom>
+                    <Typography className={classes.parentpadding} variant="caption" color="textSecondary" gutterBottom>
                       > {shaParPost.message}
                     </Typography>
                   </CardContent>
