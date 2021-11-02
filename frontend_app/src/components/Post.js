@@ -45,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
     'white-space': 'pre-wrap',
     'padding-left': 20,
     'padding-right': 20,
+    'padding-bottom': 20,
   },
   media: {
     height: 0,
