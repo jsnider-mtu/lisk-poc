@@ -409,7 +409,7 @@ export default function Post(props) {
                     </Typography>
                   </CardContent>
                 </Card>
-                <Typography className={classes.message} variant="body1" color="textPrimary" component="p">
+                <Typography className={classes.parentpadding} variant="body1" color="textPrimary" component="p">
                   {HASHTAG_FORMATTER(shaPost.message)}
                 </Typography>
               </CardContent>
