@@ -34,15 +34,16 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 900,
   },
-  parpost: {
-    'padding-bottom': 20,
-  },
   content: {
     maxHeight: 400,
     overflow: 'auto',
   },
   parentcontent: {
     'padding-left': 20,
+  },
+  parentpadding: {
+    padding: 20,
+    'white-space': 'pre-wrap',
   },
   message: {
     'white-space': 'pre-wrap',
@@ -549,11 +550,16 @@ export default function Post(props) {
 
   if (props.item.message.length === 0) {
     msg = <></>;
+  } else if (props.item.parentPost.length !== 0) {
+    msg =
+      <Typography className={classes.parentpadding} variant="body1" color="textPrimary">
+        {HASHTAG_FORMATTER(props.item.message)}
+      </Typography>;
   } else {
     msg =
       <Typography className={classes.message} variant="body1" color="textPrimary">
         {HASHTAG_FORMATTER(props.item.message)}
-      </Typography>
+      </Typography>;
   }
 
   return (
