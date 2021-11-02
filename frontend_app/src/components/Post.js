@@ -240,7 +240,7 @@ export default function Post(props) {
   } else {
     if (parPost.deleted) {
       parentpost =
-        <Card variant="outlined" className={classes.parpost}>
+        <Card variant="outlined" className={classes.root}>
           <CardHeader
             avatar={
               <Avatar aria-label="avatar" className={classes.avatar} />
@@ -260,7 +260,7 @@ export default function Post(props) {
     } else {
       if (parPost.hasOwnProperty('ownerAddress') && parPostOwner.hasOwnProperty('socmed')) {
         parentpost =
-          <Card variant="outlined" className={classes.parpost}>
+          <Card variant="outlined" className={classes.root}>
             <CardHeader
               avatar={
                 <Link
