@@ -27,7 +27,7 @@ export default function CreatePostErrorDialog(props) {
       <Dialog open={props.open} onBackdropClick={props.handleClose}>
         <DialogTitle id="alert-dialog-title">{"Error Creating Post"}</DialogTitle>
         <DialogContent>
-          <Typography variant="body1" color="red">
+          <Typography variant="body1" color="textPrimary">
             {'Post was too long. Max 512 characters'}
           </Typography>
         </DialogContent>
