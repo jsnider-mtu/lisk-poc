@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
   },
   parentcontent: {
-    padding-left: 20,
+    'padding-left': 20,
   },
   message: {
     'white-space': 'pre-wrap',
