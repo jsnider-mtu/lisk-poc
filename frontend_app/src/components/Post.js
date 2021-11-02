@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 900,
   },
+  parpost: {
+    'padding-bottom': 20,
+  },
   content: {
     maxHeight: 400,
     overflow: 'auto',
@@ -237,7 +240,7 @@ export default function Post(props) {
   } else {
     if (parPost.deleted) {
       parentpost =
-        <Card variant="outlined" className={classes.root}>
+        <Card variant="outlined" className={classes.parpost}>
           <CardHeader
             avatar={
               <Avatar aria-label="avatar" className={classes.avatar} />
@@ -257,7 +260,7 @@ export default function Post(props) {
     } else {
       if (parPost.hasOwnProperty('ownerAddress') && parPostOwner.hasOwnProperty('socmed')) {
         parentpost =
-          <Card variant="outlined" style={{'padding-bottom': 20}} className={classes.root}>
+          <Card variant="outlined" className={classes.parpost}>
             <CardHeader
               avatar={
                 <Link
