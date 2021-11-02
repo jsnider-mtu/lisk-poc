@@ -257,7 +257,7 @@ export default function Post(props) {
     } else {
       if (parPost.hasOwnProperty('ownerAddress') && parPostOwner.hasOwnProperty('socmed')) {
         parentpost =
-          <Card variant="outlined" className={classes.root}>
+          <Card variant="outlined" style={{'padding-bottom': 20}} className={classes.root}>
             <CardHeader
               avatar={
                 <Link
