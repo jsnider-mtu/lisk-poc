@@ -109,6 +109,7 @@ export default function Post(props) {
   const [mod, setMod] = useState(false);
   const [postOwner, setPostOwner] = useState({});
   const [shaParPost, setShaParPost] = useState({});
+  const [parShaPost, setParShaPost] = useState({});
 
   useEffect(() => {
     let curUser = {};
@@ -128,6 +129,10 @@ export default function Post(props) {
         setPostOwner(postowner);
       }
       if (parPost.hasOwnProperty('ownerAddress') && !parPostOwner.hasOwnProperty('socmed')) {
+        if (parPost.sharedPost.length !== 0 && !parShaPost.hasOwnProperty('ownerAddress')) {
+          const parshapost = await api.fetchPost(parPost.sharedPost);
+          setParShaPost(parshapost);
+        }
         const parpostowner = await api.fetchAccountInfo(parPost.ownerAddress);
         setParPostOwner(parpostowner);
       }
@@ -262,58 +267,125 @@ export default function Post(props) {
         </Card>;
     } else {
       if (parPost.hasOwnProperty('ownerAddress') && parPostOwner.hasOwnProperty('socmed')) {
-        parentpost =
-          <Card variant="outlined" className={classes.root}>
-            <CardHeader
-              avatar={
-                <Link
-                  component={RouterLink}
-                  to={`/user/${parPost.username}`}
-                >
-                  <Tooltip disableFocusListener disableTouchListener
-                    placement="left"
-                    title={
-                      <React.Fragment>
-                        <Card variant="outlined" className={classes.bigAvatar}>
-                          <img alt="" src={parPostOwner.socmed.avatar || noavatar} width="280" height="280" />
-                        </Card>
-                      </React.Fragment>
-                    }
+        if (parShaPost.hasOwnProperty('ownerAddress')) {
+          parentpost =
+            <Card variant="outlined" className={classes.root}>
+              <CardHeader
+                avatar={
+                  <Link
+                    component={RouterLink}
+                    to={`/user/${parPost.username}`}
                   >
-                    <Avatar aria-label="avatar" className={classes.avatar} src={parPostOwner.socmed.avatar} />
-                  </Tooltip>
-                </Link>
-              }
-              title={
-                <Link
-                  component={RouterLink}
-                  to={`/user/${parPost.username}`}
-                >
-                  <Typography variant="body2" color="textPrimary">
-                    {parPostOwner.socmed.displayname}
-                  </Typography>
-                  <Typography variant="body2" color="textPrimary">
-                    {'@' + parPost.username}
-                  </Typography>
-                </Link>
-              }
-              subheader={
-                <Link
-                  component={RouterLink}
-                  to={`/post/${parPost.id}`}
-                >
-                  <Typography variant="caption" color="textSecondary">
-                    {new Date(parPost.timestamp).toLocaleString()}
-                  </Typography>
-                </Link>
-              }
-            />
-            <CardContent>
-              <Typography className={classes.parentcontent} variant="body1" color="textSecondary" gutterBottom>
-                > {HASHTAG_FORMATTER(parPost.message)}
-              </Typography>
-            </CardContent>
-          </Card>;
+                    <Tooltip disableFocusListener disableTouchListener
+                      placement="left"
+                      title={
+                        <React.Fragment>
+                          <Card variant="outlined" className={classes.bigAvatar}>
+                            <img alt="" src={parPostOwner.socmed.avatar || noavatar} width="280" height="280" />
+                          </Card>
+                        </React.Fragment>
+                      }
+                    >
+                      <Avatar aria-label="avatar" className={classes.avatar} src={parPostOwner.socmed.avatar} />
+                    </Tooltip>
+                  </Link>
+                }
+                title={
+                  <Link
+                    component={RouterLink}
+                    to={`/user/${parPost.username}`}
+                  >
+                    <Typography variant="body2" color="textPrimary">
+                      {parPostOwner.socmed.displayname}
+                    </Typography>
+                    <Typography variant="body2" color="textPrimary">
+                      {'@' + parPost.username}
+                    </Typography>
+                  </Link>
+                }
+                subheader={
+                  <Link
+                    component={RouterLink}
+                    to={`/post/${parPost.id}`}
+                  >
+                    <Typography variant="caption" color="textSecondary">
+                      {new Date(parPost.timestamp).toLocaleString()}
+                    </Typography>
+                  </Link>
+                }
+              />
+              <CardContent>
+                <Card variant="outlined" className={classes.root}>
+                  <CardContent>
+                    <Typography variant="body2" color="textSecondary" gutterBottom>
+                      <Link component={RouterLink} to={`/user/${parShaPost.username}`} style={{ color: '#FFF' }}>
+                        {'@' + parShaPost.username}
+                      </Link>
+                    </Typography>
+                    <Typography className={classes.parentcontent} variant="caption" color="textSecondary" gutterBottom>
+                      {HASHTAG_FORMATTER(parShaPost.message)}
+                    </Typography>
+                  </CardContent>
+                </Card>
+                <Typography className={classes.parentpadding} variant="body1" color="textPrimary" component="p">
+                  > {HASHTAG_FORMATTER(parPost.message)}
+                </Typography>
+              </CardContent>
+            </Card>;
+        } else {
+          parentpost =
+            <Card variant="outlined" className={classes.root}>
+              <CardHeader
+                avatar={
+                  <Link
+                    component={RouterLink}
+                    to={`/user/${parPost.username}`}
+                  >
+                    <Tooltip disableFocusListener disableTouchListener
+                      placement="left"
+                      title={
+                        <React.Fragment>
+                          <Card variant="outlined" className={classes.bigAvatar}>
+                            <img alt="" src={parPostOwner.socmed.avatar || noavatar} width="280" height="280" />
+                          </Card>
+                        </React.Fragment>
+                      }
+                    >
+                      <Avatar aria-label="avatar" className={classes.avatar} src={parPostOwner.socmed.avatar} />
+                    </Tooltip>
+                  </Link>
+                }
+                title={
+                  <Link
+                    component={RouterLink}
+                    to={`/user/${parPost.username}`}
+                  >
+                    <Typography variant="body2" color="textPrimary">
+                      {parPostOwner.socmed.displayname}
+                    </Typography>
+                    <Typography variant="body2" color="textPrimary">
+                      {'@' + parPost.username}
+                    </Typography>
+                  </Link>
+                }
+                subheader={
+                  <Link
+                    component={RouterLink}
+                    to={`/post/${parPost.id}`}
+                  >
+                    <Typography variant="caption" color="textSecondary">
+                      {new Date(parPost.timestamp).toLocaleString()}
+                    </Typography>
+                  </Link>
+                }
+              />
+              <CardContent>
+                <Typography className={classes.parentcontent} variant="body1" color="textSecondary" gutterBottom>
+                  > {HASHTAG_FORMATTER(parPost.message)}
+                </Typography>
+              </CardContent>
+            </Card>;
+        }
       } else {
         parentpost =
           <Typography variant="body2" color="textSecondary" gutterBottom>
