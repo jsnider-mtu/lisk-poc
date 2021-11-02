@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
   parentcontent: {
     'padding-left': 20,
+    display: 'inline-block',
   },
   parentpadding: {
     padding: 20,
