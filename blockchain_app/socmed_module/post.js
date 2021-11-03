@@ -109,7 +109,7 @@ const createPost = ({ message, ownerAddress, nonce, username, avatar }) => {
     throw new Error("Message length must not exceed 512");
   }
 
-  const words = message.split(' ');
+  const words = message.split(/^|\s+/).filter(Boolean);
   let hashtags = [];
   let taggedusers = [];
   let hyperlinks = [];
