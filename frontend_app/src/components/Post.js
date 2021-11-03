@@ -247,7 +247,7 @@ export default function Post(props) {
       }
     }
   } else {
-    if (parPost.deleted) {
+    if (parPost.deleted || parPost.banned) {
       parentpost =
         <Card variant="outlined" className={classes.root}>
           <CardHeader
@@ -401,7 +401,7 @@ export default function Post(props) {
   if (props.item.sharedPost.length === 0) {
     sharedpost = <></>;
   } else {
-    if (shaPost.deleted) {
+    if (shaPost.deleted || parPost.banned) {
       sharedpost =
         <Card variant="outlined" className={classes.root}>
           <CardHeader
