@@ -81,9 +81,12 @@ function HashtagPage() {
       );
     } else {
       return (
-        <Typography variant="h5">
-          {'No posts contain the hashtag: ' + hashtag}
-        </Typography>
+        <div>
+          <CssBaseline />
+          <Typography variant="h5">
+            {'No posts contain the hashtag: ' + hashtag}
+          </Typography>
+        </div>
       );
     }
   }
