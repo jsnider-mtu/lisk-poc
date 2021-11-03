@@ -90,6 +90,10 @@ const registeredPostsSchema = {
               dataType: "string",
             },
           },
+          banned: {
+            dataType: "boolean",
+            fieldNumber: 16,
+          },
         },
       },
     },
@@ -149,6 +153,7 @@ const createPost = ({ message, ownerAddress, nonce, username, avatar }) => {
     hashtags,
     taggedusers,
     hyperlinks,
+    banned: false,
   };
 };
 
@@ -202,6 +207,7 @@ const createChildPost = ({ message, ownerAddress, nonce, username, avatar, paren
     hashtags,
     taggedusers,
     hyperlinks,
+    banned: false,
   };
 };
 
@@ -255,6 +261,7 @@ const createSharePost = ({ message, ownerAddress, nonce, username, avatar, share
     hashtags,
     taggedusers,
     hyperlinks,
+    banned: false,
   };
 };
 

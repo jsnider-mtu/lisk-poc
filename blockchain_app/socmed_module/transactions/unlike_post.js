@@ -27,6 +27,10 @@ class UnlikePostAsset extends BaseAsset {
     const senderAddress = transaction.senderAddress;
     const senderAccount = await stateStore.account.get(senderAddress);
 
+    if (senderAccount.socmed.banned === true) {
+      throw new Error("You are banned");
+    }
+
     const post = posts[postIndex];
     const postOwner = await stateStore.account.get(post.ownerAddress);
 

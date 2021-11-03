@@ -41,7 +41,11 @@ class CreateChildPostAsset extends BaseAsset {
     const allPosts = await getAllPosts(stateStore);
     const parentPostIndex = allPosts.findIndex((a) => a.id.equals(asset.parentPost));
     if (parentPostIndex < 0) {
-      throw new Error("Parent post does not exist.")
+      throw new Error("Parent post does not exist.");
+    }
+
+    if (senderAccount.socmed.banned === true) {
+      throw new Error("You are banned");
     }
 
     // 5.create post

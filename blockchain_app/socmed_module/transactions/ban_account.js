@@ -1,4 +1,5 @@
 const { BaseAsset } = require("lisk-sdk");
+const { getAllPosts, setAllPosts } = require("../post");
 
 class BanAccountAsset extends BaseAsset {
   name = "banAccount";
@@ -33,6 +34,14 @@ class BanAccountAsset extends BaseAsset {
     } else {
         throw new Error("Account " + asset.address + " is already banned");
     }
+
+    // Set all bannedAccount's posts as banned
+    const posts = await getAllPosts(stateStore);
+    bannedAccount.socmed.posts.forEach((p) => {
+      let pIndex = posts.findIndex((t) => t.id.equals(p));
+      posts[pIndex].banned = true;
+    });
+    await setAllPosts(stateStore, posts);
   }
 }
 

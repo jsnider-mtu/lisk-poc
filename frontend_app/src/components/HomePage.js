@@ -34,7 +34,7 @@ function HomePage() {
     let allNewPosts = await fetchAllPosts();
     var i = 0;
     while (i < allNewPosts.length) {
-      if (allNewPosts[i].deleted === true || (!curUser.socmed.follows.includes(allNewPosts[i].ownerAddress) && !allNewPosts[i].taggedusers.includes(curUser.socmed.name) && !curUser.socmed.posts.includes(allNewPosts[i].id))) {
+      if (allNewPosts[i].deleted === true || allNewPosts[i].banned === true || (!curUser.socmed.follows.includes(allNewPosts[i].ownerAddress) && !allNewPosts[i].taggedusers.includes(curUser.socmed.name) && !curUser.socmed.posts.includes(allNewPosts[i].id))) {
         allNewPosts.splice(i, 1);
       } else {
         ++i;

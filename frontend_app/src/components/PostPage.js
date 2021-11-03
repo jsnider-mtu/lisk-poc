@@ -28,7 +28,7 @@ function PostPage() {
         );
         var i = 0;
         while (i < replyArr.length) {
-          if (replyArr[i].deleted === true) {
+          if (replyArr[i].deleted === true || replyArr[i].banned === true) {
             replyArr.splice(i, 1);
           } else {
             ++i;

@@ -30,6 +30,11 @@ class LikePostAsset extends BaseAsset {
 
     const post = posts[postIndex];
     const postOwner = await stateStore.account.get(post.ownerAddress);
+    const senderAccount = await stateStore.account.get(transaction.senderAddress);
+
+    if (senderAccount.socmed.banned === true) {
+      throw new Error("You are banned");
+    }
 
     // Exit if already liked by this sender
     const likeIndex = post.likes.findIndex((p) => p.equals(transaction.senderAddress));

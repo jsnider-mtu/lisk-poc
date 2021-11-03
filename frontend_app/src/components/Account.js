@@ -54,7 +54,7 @@ export default function Account(props) {
       let acctPosts = allPosts.filter((p) => props.account.socmed.posts.includes(p.id) || p.taggedusers.includes(props.account.socmed.name));
       var i = 0;
       while (i < acctPosts.length) {
-        if (acctPosts[i].deleted === true) {
+        if (acctPosts[i].deleted === true || acctPosts[i].banned === true) {
           acctPosts.splice(i, 1);
         } else {
           ++i;

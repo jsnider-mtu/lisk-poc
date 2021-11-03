@@ -31,7 +31,7 @@ function AllPage() {
     let allNewPosts = await fetchAllPosts();
     var i = 0;
     while (i < allNewPosts.length) {
-      if (allNewPosts[i].deleted === true) {
+      if (allNewPosts[i].deleted === true || allNewPosts[i].banned === true) {
         allNewPosts.splice(i, 1);
       } else {
         ++i;

@@ -34,6 +34,10 @@ class CreatePostAsset extends BaseAsset {
     const senderAddress = transaction.senderAddress;
     const senderAccount = await stateStore.account.get(senderAddress);
 
+    if (senderAccount.socmed.banned === true) {
+      throw new Error("You are banned");
+    }
+
     // 5.create post
     const post = createPost({
       message: asset.message,

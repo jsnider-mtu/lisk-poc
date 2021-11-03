@@ -44,6 +44,10 @@ class CreateSharePostAsset extends BaseAsset {
     const senderAddress = transaction.senderAddress;
     const senderAccount = await stateStore.account.get(senderAddress);
 
+    if (senderAccount.socmed.banned === true) {
+      throw new Error("You are banned");
+    }
+
     const postOwner = await stateStore.account.get(sharedPost.ownerAddress);
 
     // Exit if already shared by this sender
