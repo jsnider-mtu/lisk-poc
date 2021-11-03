@@ -83,7 +83,7 @@ function HashtagPage() {
       return (
         <div>
           <CssBaseline />
-          <Typography variant="h5">
+          <Typography variant="h5" align="center" paragraph>
             {'No posts contain the hashtag: ' + hashtag}
           </Typography>
         </div>
