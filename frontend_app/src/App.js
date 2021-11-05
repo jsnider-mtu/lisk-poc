@@ -37,6 +37,7 @@ import AccountPage from './components/AccountPage';
 import UserPage from './components/UserPage';
 import PostPage from './components/PostPage';
 import HashtagPage from './components/HashtagPage';
+import TrashPage from './components/TrashPage';
 import CreateAccountDialog from './components/dialogs/CreateAccountDialog';
 import TransferFundsDialog from './components/dialogs/TransferFundsDialog';
 import CreatePostDialog from './components/dialogs/CreatePostDialog';
@@ -269,6 +270,7 @@ function App() {
                                         <Route path="/transactions" component={TransactionsPage} />
                                         <Route path="/signin" component={SignInPage} />
                                         <Route path="/signup" component={SignUpPage} />
+                                        <Route path="/trash" component={TrashPage} />
                                     </Switch>
                                 </Container>
                             </Grid>

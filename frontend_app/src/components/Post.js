@@ -11,6 +11,7 @@ import {
   Tooltip,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
+import RestoreFromTrashIcon from "@material-ui/icons/RestoreFromTrash";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import ShareIcon from "@material-ui/icons/Share";
@@ -27,6 +28,7 @@ import UnlikePostDialog from "./dialogs/UnlikePostDialog";
 import SharePostDialog from "./dialogs/SharePostDialog";
 import CreateChildPostDialog from "./dialogs/CreateChildPostDialog";
 import DeletePostDialog from "./dialogs/DeletePostDialog";
+import UndeletePostDialog from "./dialogs/UndeletePostDialog";
 import CreatePostErrorDialog from "./dialogs/CreatePostErrorDialog";
 
 import noavatar from '../noavatar.png';
@@ -95,6 +97,7 @@ export default function Post(props) {
   const [openLike, setOpenLike] = useState(false);
   const [openUnlike, setOpenUnlike] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
+  const [openUndelete, setOpenUndelete] = useState(false);
   const passp = document.cookie.split('passphrase')[1].slice(1).split('; ')[0];
   const curUserAddress = cryptography.getAddressFromPassphrase(passp).toString('hex');
   const dateobj = new Date(props.item.timestamp);
@@ -153,7 +156,7 @@ export default function Post(props) {
 
   let deletebutton;
 
-  if (curUserAddress === props.item.ownerAddress || mod) {
+  if (!props.item.deleted && (curUserAddress === props.item.ownerAddress || mod)) {
     deletebutton = 
         <IconButton
           aria-label="delete"
@@ -165,6 +168,22 @@ export default function Post(props) {
         </IconButton>;
   } else {
     deletebutton = <></>;
+  }
+
+  let undeletebutton;
+
+  if (props.item.deleted && mod) {
+    undeletebutton =
+      <IconButton
+        aria-label="undelete"
+        onClick={() => {
+          setOpenUndelete(true);
+        }}
+      >
+        <RestoreFromTrashIcon />
+      </IconButton>
+  } else {
+    undeletebutton = <></>;
   }
 
   let likebutton;
@@ -722,6 +741,14 @@ export default function Post(props) {
           open={openDelete}
           handleClose={() => {
             setOpenDelete(false);
+          }}
+          post={props.item}
+        />
+        {undeletebutton}
+        <UndeletePostDialog
+          open={openUndelete}
+          handleClose={() => {
+            setOpenUndelete(false);
           }}
           post={props.item}
         />
