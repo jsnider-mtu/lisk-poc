@@ -105,12 +105,12 @@ function App() {
       let curUser = {};
       let curUserAddress = "";
       const passp = document.cookie.split('passphrase')[1].slice(1).split('; ')[0];
-      if (passp.split(' ').length === 12) {
-        curUserAddress = cryptography.getAddressFromPassphrase(passp).toString('hex');
-        curUser = await api.fetchAccountInfo(curUserAddress);
-        setMod(curUser.socmed.moderator);
-      }
       async function fetchData() {
+        if (passp.split(' ').length === 12) {
+          curUserAddress = cryptography.getAddressFromPassphrase(passp).toString('hex');
+          curUser = await api.fetchAccountInfo(curUserAddress);
+          setMod(curUser.socmed.moderator);
+        }
         const info = await api.fetchNodeInfo();
         updateNodeInfoState({
           networkIdentifier: info.networkIdentifier,
