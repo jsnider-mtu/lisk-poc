@@ -87,12 +87,13 @@ function AllPage() {
     return (
       <Fragment>
         <CssBaseline />
-        <SearchBar
-          className={classes.searchbar}
-          value={searchValue}
-          onChange={(newValue) => setSearchValue(newValue)}
-          onRequestSearch={() => window.location.href=`/search/${searchValue}`}
-        />
+        <div className={classes.searchbar}>
+          <SearchBar
+            value={searchValue}
+            onChange={(newValue) => setSearchValue(newValue)}
+            onRequestSearch={() => window.location.href=`/search/${searchValue}`}
+          />
+        </div>
         <br /><Divider /><br />
         {Posts.map((item) => (
         <LazyLoad once key={item.id} placeholder={<CircularProgress />}>
