@@ -10,7 +10,7 @@ import LazyLoad from 'react-lazyload';
 
 
 function SearchPage() {
-  const { searchValue } = useParams();
+  const { searchValue } = decodeURIComponent(useParams());
   const [foundPosts, setFoundPosts] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
