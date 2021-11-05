@@ -186,7 +186,7 @@ function App() {
                 <SpeedDialAction
                     key={'Transfer'}
                     icon={<LocalAtmIcon />}
-                    tooltipTitle={'Transfer Funds'}
+                    tooltipTitle={'Transfer Karma'}
                     onClick={() => {
                         setOpenSpeedDial(false);
                         setOpenDialog('TransferFundsDialog');
