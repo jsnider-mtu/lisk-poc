@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     'margin-right': 'auto',
   },
   searchbar: {
-    width: 'auto',
+    maxWidth: 900,
   },
 }));
 
