@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     'margin-right': 'auto',
   },
   searchbar: {
-    width: theme.spacing(8),
+    width: 'auto',
     padding: 20,
   },
 }));
