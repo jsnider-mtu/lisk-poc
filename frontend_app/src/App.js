@@ -69,7 +69,8 @@ const useStyles = makeStyles((theme) => ({
     },
     searchbar: {
         maxWidth: 200,
-        left: theme.spacing(5),
+        right: theme.spacing(5),
+        top: theme.spacing(5),
         position: 'fixed',
     },
 }));
