@@ -92,7 +92,7 @@ function AllPage() {
           <SearchBar
             value={searchValue}
             onChange={(newValue) => setSearchValue(newValue)}
-            onRequestSearch={() => window.location.href=`/search/${searchValue}`}
+            onRequestSearch={() => window.location.href=`/search/${encodeURIComponent(searchValue)}`}
           />
         </div>
         <br /><Divider /><br />
