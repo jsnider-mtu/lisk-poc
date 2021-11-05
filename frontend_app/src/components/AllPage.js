@@ -4,6 +4,7 @@ import Post from "./Post";
 import { Divider, Zoom, Button, CircularProgress, Grid, Fab } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import { fetchAllPosts } from "../api";
+import SearchBar from "material-ui-search-bar";
 import ScrollTop from "./ScrollTop";
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import LazyLoad from 'react-lazyload';
@@ -26,6 +27,7 @@ function AllPage() {
   const [loaded, setLoaded] = useState(false);
   const [newPosts, setNewPosts] = useState(false);
   const [intervalIds, setIntervalIds] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
 
   const fetchNewPosts = async (curposts) => {
     let allNewPosts = await fetchAllPosts();
@@ -82,6 +84,11 @@ function AllPage() {
     return (
       <Fragment>
         <CssBaseline />
+        <SearchBar
+          value={searchValue}
+          onChange={(newValue) => setSearchValue(newValue)}
+          onRequestSearch={() => window.location.href=`/search/${searchValue}`}
+        />
         <br /><Divider /><br />
         {Posts.map((item) => (
         <LazyLoad once key={item.id} placeholder={<CircularProgress />}>
