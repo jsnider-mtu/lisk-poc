@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
   },
   searchbar: {
     width: 'auto',
-    padding: 20,
   },
 }));
 
