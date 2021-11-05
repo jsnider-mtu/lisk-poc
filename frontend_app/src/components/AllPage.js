@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   searchbar: {
     maxWidth: 400,
-    align: 'center',
+    margin: 'auto',
   },
 }));
 
