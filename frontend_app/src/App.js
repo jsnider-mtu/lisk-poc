@@ -270,7 +270,7 @@ function App() {
                                         }}
                                     >
                                         Settings
-                                    </Button>
+                                    </Button><br /><br />
                                     <SettingsDialog
                                         open={openSettings}
                                         palType={paletteType}
