@@ -4,7 +4,6 @@ import Post from "./Post";
 import { Divider, Zoom, Button, CircularProgress, Grid, Fab } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import { fetchAllPosts } from "../api";
-import SearchBar from "material-ui-search-bar";
 import ScrollTop from "./ScrollTop";
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import LazyLoad from 'react-lazyload';
@@ -88,14 +87,6 @@ function AllPage() {
     return (
       <Fragment>
         <CssBaseline />
-        <div className={classes.searchbar}>
-          <SearchBar
-            value={searchValue}
-            onChange={(newValue) => setSearchValue(newValue)}
-            onRequestSearch={() => window.location.href=`/search/${encodeURIComponent(searchValue)}`}
-          />
-        </div>
-        <br /><Divider /><br />
         {Posts.map((item) => (
         <LazyLoad once key={item.id} placeholder={<CircularProgress />}>
           <div key={item.id}>

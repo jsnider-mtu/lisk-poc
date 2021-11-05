@@ -19,6 +19,7 @@ import {
 import { lightBlue } from '@material-ui/core/colors';
 import { SpeedDial, SpeedDialIcon, SpeedDialAction } from '@material-ui/lab';
 import { createMuiTheme, MuiThemeProvider, makeStyles } from '@material-ui/core/styles';
+import SearchBar from "material-ui-search-bar";
 import LocalAtmIcon from '@material-ui/icons/LocalAtm';
 //import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import AddCommentIcon from '@material-ui/icons/AddComment';
@@ -66,6 +67,10 @@ const useStyles = makeStyles((theme) => ({
     grow: {
         flexGrow: 1,
     },
+    searchbar: {
+        maxWidth: 200,
+        margin: 'auto',
+    },
 }));
 
 function App() {
@@ -82,6 +87,7 @@ function App() {
       palType = document.cookie.split('paletteType')[1].slice(1).split('; ')[0];
     }
     const [paletteType, setPaletteType] = useState(palType);
+    const [searchValue, setSearchValue] = useState("");
 
     const theme = createMuiTheme({
         palette: {
@@ -308,6 +314,13 @@ function App() {
                             </Grid>
                             <Divider orientation="vertical" flexItem />
                             <Grid item xs>
+                                <div className={classes.searchbar}>
+                                    <SearchBar
+                                        value={searchValue}
+                                        onChange={(newValue) => setSearchValue(newValue)}
+                                        onRequestSearch={() => window.location.href=`/search/${encodeURIComponent(searchValue)}`}
+                                    />
+                                </div>
                             </Grid>
                         </Grid>
     
