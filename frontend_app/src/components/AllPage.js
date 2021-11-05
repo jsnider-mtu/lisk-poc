@@ -19,6 +19,9 @@ const useStyles = makeStyles((theme) => ({
     'margin-left': 'auto',
     'margin-right': 'auto',
   },
+  searchbar: {
+    maxWidth: theme.spacing(8),
+  },
 }));
 
 function AllPage() {
@@ -85,6 +88,7 @@ function AllPage() {
       <Fragment>
         <CssBaseline />
         <SearchBar
+          className={classes.searchbar}
           value={searchValue}
           onChange={(newValue) => setSearchValue(newValue)}
           onRequestSearch={() => window.location.href=`/search/${searchValue}`}
