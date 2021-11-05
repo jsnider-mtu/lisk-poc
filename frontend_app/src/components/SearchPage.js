@@ -10,7 +10,7 @@ import LazyLoad from 'react-lazyload';
 
 
 function SearchPage() {
-  const { searchValue } = decodeURIComponent(useParams());
+  const { searchValue } = useParams();
   const [foundPosts, setFoundPosts] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
@@ -28,7 +28,7 @@ function SearchPage() {
       }
       var x = 0;
       while (x < allPosts.length) {
-        if (allPosts[x].message.includes(searchValue)) {
+        if (allPosts[x].message.includes(decodeURIComponent(searchValue))) {
           foundposts.push(allPosts[x]);
           ++x;
         } else {
@@ -58,7 +58,7 @@ function SearchPage() {
       return (
         <div>
           <CssBaseline />
-          <Typography variant="h5" align="center" paragraph>{'Search: ' + searchValue}</Typography>
+          <Typography variant="h5" align="center" paragraph>{'Search: ' + decodeURIComponent(searchValue)}</Typography>
           <br /><Divider /><br />
           {foundPosts.map((item) => (
           <LazyLoad once key={item.id} placeholder={<CircularProgress />}>
@@ -84,7 +84,7 @@ function SearchPage() {
         <div>
           <CssBaseline />
           <Typography variant="h5" align="center" paragraph>
-            {'No posts contain the string: ' + searchValue}
+            {'No posts contain the string: ' + decodeURIComponent(searchValue)}
           </Typography>
         </div>
       );
