@@ -1,9 +1,8 @@
 import React, { Fragment, useEffect, useState } from "react";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Post from "./Post";
-import { Divider, TextField, Zoom, Button, CircularProgress, Grid, Fab } from "@material-ui/core";
+import { Divider, Zoom, Button, CircularProgress, Grid, Fab } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
-import Autocomplete from '@material-ui/lab/Autocomplete';
 import { fetchAllPosts } from "../api";
 import ScrollTop from "./ScrollTop";
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
@@ -83,22 +82,6 @@ function AllPage() {
     return (
       <Fragment>
         <CssBaseline />
-        <Autocomplete
-          freeSolo
-          id="post-search"
-          disableClearable
-          options={Posts.map((p) => p.message)}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Search input"
-              InputProps={{
-                ...params.InputProps,
-                type: 'search',
-              }}
-            />
-          )}
-        />
         <br /><Divider /><br />
         {Posts.map((item) => (
         <LazyLoad once key={item.id} placeholder={<CircularProgress />}>
