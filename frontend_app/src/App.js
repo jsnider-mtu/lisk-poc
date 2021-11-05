@@ -203,15 +203,17 @@ function App() {
 
     if (mod) {
         trashbutton =
-            <Button
-                style={{position: 'fixed'}}
-                size="large"
-                color="inherit"
-                startIcon={<DeleteIcon />}
-                href="/trash"
-            >
-                Deleted Posts
-            </Button><br /><br />
+            <>
+                <Button
+                    style={{position: 'fixed'}}
+                    size="large"
+                    color="inherit"
+                    startIcon={<DeleteIcon />}
+                    href="/trash"
+                >
+                    Deleted Posts
+                </Button><br /><br />
+            </>;
     } else {
         trashbutton = <></>;
     }
