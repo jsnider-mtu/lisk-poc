@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { cryptography } from "@liskhq/lisk-client";
 import { useParams } from "react-router-dom";
 import { Divider, Fab, Typography, CircularProgress, Grid } from "@material-ui/core";
 import * as api from "../api";
@@ -18,7 +19,7 @@ function TrashPage() {
   useEffect(() => {
     let curUser = {};
     async function fetchData() {
-      curUser = await fetchAccountInfo(curUserAddress);
+      curUser = await api.fetchAccountInfo(curUserAddress);
       if (curUser.socmed.moderator === false) {
         window.location.href = "/all";
       }
