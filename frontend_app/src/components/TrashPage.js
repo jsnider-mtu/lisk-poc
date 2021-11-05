@@ -12,9 +12,16 @@ import LazyLoad from 'react-lazyload';
 function TrashPage() {
   const [deletedPosts, setDeletedPosts] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  const passp = document.cookie.split('passphrase')[1].slice(1).split('; ')[0];
+  const curUserAddress = cryptography.getAddressFromPassphrase(passp).toString('hex');
 
   useEffect(() => {
+    let curUser = {};
     async function fetchData() {
+      curUser = await fetchAccountInfo(curUserAddress);
+      if (curUser.socmed.moderator === false) {
+        window.location.href = "/all";
+      }
       let allPosts = await api.fetchAllPosts();
       var i = 0;
       while (i < allPosts.length) {
