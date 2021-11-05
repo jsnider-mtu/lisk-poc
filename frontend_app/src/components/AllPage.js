@@ -83,6 +83,23 @@ function AllPage() {
     return (
       <Fragment>
         <CssBaseline />
+        <Autocomplete
+          freeSolo
+          id="post-search"
+          disableClearable
+          options={Posts.map((p) => p.message)}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Search input"
+              InputProps={{
+                ...params.InputProps,
+                type: 'search',
+              }}
+            />
+          )}
+        />
+        <br /><Divider /><br />
         {Posts.map((item) => (
         <LazyLoad once key={item.id} placeholder={<CircularProgress />}>
           <div key={item.id}>
