@@ -28,10 +28,9 @@ class UndeletePostAsset extends BaseAsset {
     const senderAccount = await stateStore.account.get(senderAddress);
 
     const post = posts[postIndex];
-    const postOwner = await stateStore.account.get(post.ownerAddress);
 
     // Exit if not allowed to be undeleted by this sender
-    if (senderAddress !== postOwner.address && senderAccount.socmed.moderator !== true) {
+    if (senderAccount.socmed.moderator !== true) {
       throw new Error("Post " + post.id + " cannot be undeleted by " + senderAddress);
     }
 
