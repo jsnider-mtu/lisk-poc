@@ -23,6 +23,7 @@ import LocalAtmIcon from '@material-ui/icons/LocalAtm';
 //import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import AddCommentIcon from '@material-ui/icons/AddComment';
 import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
+import DeleteIcon from "@material-ui/icons/Delete";
 import SettingsIcon from '@material-ui/icons/Settings';
 import { cryptography } from "@liskhq/lisk-client";
 import * as api from './api';
@@ -74,6 +75,7 @@ function App() {
     const [openSpeedDial, setOpenSpeedDial] = useState(false);
     const [openDialog, setOpenDialog] = useState(null);
     const [openSettings, setOpenSettings] = useState(false);
+    const [mod, setMod] = useState(false);
     let palType = "dark";
     if (document.cookie.includes('paletteType')) {
       palType = document.cookie.split('paletteType')[1].slice(1).split('; ')[0];
@@ -100,6 +102,14 @@ function App() {
     };
 
     useEffect(() => {
+      let curUser = {};
+      let curUserAddress = "";
+      const passp = document.cookie.split('passphrase')[1].slice(1).split('; ')[0];
+      if (passp.split(' ').length === 12) {
+        curUserAddress = cryptography.getAddressFromPassphrase(passp).toString('hex');
+        curUser = await api.fetchAccountInfo(curUserAddress);
+        setMod(curUser.socmed.moderator);
+      }
       async function fetchData() {
         const info = await api.fetchNodeInfo();
         updateNodeInfoState({
@@ -189,6 +199,23 @@ function App() {
         logoutlink = <></>;
     }
 
+    let trashbutton;
+
+    if (mod) {
+        trashbutton =
+            <Button
+                style={{position: 'fixed'}}
+                size="large"
+                color="inherit"
+                startIcon={<DeleteIcon />}
+                href="/trash"
+            >
+                Deleted Posts
+            </Button><br /><br />
+    } else {
+        trashbutton = <></>;
+    }
+
     return (
         <MuiThemeProvider theme={theme}>
             <Fragment>
@@ -251,6 +278,7 @@ function App() {
                                             setOpenSettings(false);
                                         }}
                                     />
+                                    {trashbutton}
                                 </Container>
                             </Grid>
                             <Divider orientation="vertical" flexItem />
