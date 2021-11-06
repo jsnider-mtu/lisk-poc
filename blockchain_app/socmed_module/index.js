@@ -16,6 +16,10 @@ const UnfollowAccount = require('./transactions/unfollow_account');
 const UnlikePost = require('./transactions/unlike_post');
 const UpdateAccount = require('./transactions/update_account');
 const CreateAccount = require('./transactions/create_account');
+const ModPinPost = require('./transactions/mod_pin_post');
+const ModUnpinPost = require('./transactions/mod_unpin_post');
+const UserPinPost = require('./transactions/user_pin_post');
+const UserUnpinPost = require('./transactions/user_unpin_post');
 
 // Extend base module to implement your custom module
 class SOCMEDModule extends BaseModule {
@@ -94,7 +98,7 @@ class SOCMEDModule extends BaseModule {
       }
     }
   }
-  transactionAssets = [new BanAccount(), new CreateChildPost(), new CreatePost(), new DeletePost(), new DemoteAccount(), new FollowAccount(), new LikePost(), new PromoteAccount(), new SharePost(), new UnbanAccount(), new UndeletePost(), new UnfollowAccount(), new UnlikePost(), new UpdateAccount(), new CreateAccount()];
+  transactionAssets = [new BanAccount(), new CreateChildPost(), new CreatePost(), new DeletePost(), new DemoteAccount(), new FollowAccount(), new LikePost(), new PromoteAccount(), new SharePost(), new UnbanAccount(), new UndeletePost(), new UnfollowAccount(), new UnlikePost(), new UpdateAccount(), new CreateAccount(), new ModPinPost(), new ModUnpinPost(), new UserPinPost(), new UserUnpinPost()];
   actions = {
     // get all the registered posts from blockchain
     getAllPosts: async () => getAllPostsAsJSON(this._dataAccess),
