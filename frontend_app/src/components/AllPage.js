@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   newposts: {
     position: 'fixed',
     top: theme.spacing(9),
-    left: 0,
+    left: theme.spacing(3),
     right: 0,
     'margin-left': 'auto',
     'margin-right': 'auto',
