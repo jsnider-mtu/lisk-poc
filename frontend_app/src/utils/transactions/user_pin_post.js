@@ -33,7 +33,7 @@ export const userPinPost = async ({
   } = await fetchAccountInfo(address);
 
   const { id, ...rest } = transactions.signTransaction(
-    modPinPostSchema,
+    userPinPostSchema,
     {
       moduleID: 1024,
       assetID: 17,
