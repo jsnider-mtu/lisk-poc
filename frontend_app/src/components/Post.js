@@ -16,7 +16,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import ShareIcon from "@material-ui/icons/Share";
 import ReplyIcon from "@material-ui/icons/Reply";
-import PushPinIcon from "@material-ui/icons/PushPin";
+import PushPinIcon from "@mui/icons-material/PushPin";
 import { blue } from '@material-ui/core/colors';
 import { makeStyles } from "@material-ui/core/styles";
 import { Link as RouterLink } from "react-router-dom";
