@@ -33,7 +33,7 @@ export const userUnpinPost = async ({
   } = await fetchAccountInfo(address);
 
   const { id, ...rest } = transactions.signTransaction(
-    modUnpinPostSchema,
+    userUnpinPostSchema,
     {
       moduleID: 1024,
       assetID: 18,
