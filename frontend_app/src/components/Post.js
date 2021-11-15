@@ -55,6 +55,13 @@ const useStyles = makeStyles((theme) => ({
     'white-space': 'pre-wrap',
   },
   message: {
+	'white-space': 'pre',
+	'white-space': 'pre-line',
+	'white-space': '-pre-wrap',
+	'white-space': '-o-pre-wrap',
+	'white-space': '-moz-pre-wrap',
+	'white-space': '-hp-pre-wrap',
+	'word-wrap': 'break-word',
     'white-space': 'pre-wrap',
     'padding-left': 20,
     'padding-right': 20,
