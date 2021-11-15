@@ -721,8 +721,24 @@ export default function Post(props) {
       </Typography>;
   }
 
+  let pinnedcolor = {};
+
+  if (props.page === 'all') {
+    if (props.item.modpinned) {
+      pinnedcolor = {
+        backgroundColor: "#39556b"
+      }
+    }
+  } else if (props.page === 'account') {
+    if (props.item.userpinned) {
+      pinnedcolor = {
+        backgroundColor: "#39556b"
+      }
+    }
+  }
+
   return (
-    <Card variant="outlined" className={classes.root}>
+    <Card variant="outlined" className={classes.root} style={pinnedcolor}>
       <CardHeader
         avatar={postavatar}
         title={posttitle}
