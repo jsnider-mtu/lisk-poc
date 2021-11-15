@@ -147,7 +147,7 @@ function App() {
     let myAcct;
     let logoutlink;
 
-    if (document.cookie === '') {
+    if (!document.cookie.includes('passphrase')) {
         speeddial = <></>;
         myAcct = <></>;
         logoutlink = <></>;
