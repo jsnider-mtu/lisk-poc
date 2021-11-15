@@ -94,7 +94,7 @@ function AllPage() {
         setIntervalIds(arr => [...arr, intervalid]);
       }
     }
-    if (document.cookie.includes('passphrase') {
+    if (document.cookie.includes('passphrase')) {
       if (document.cookie.split('passphrase')[1].slice(1).split('; ')[0].split(' ').length !== 12) {
         window.location.href="/signin";
       }
