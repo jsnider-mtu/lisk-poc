@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 function AllPage() {
   const classes = useStyles();
   const [Posts, setPosts] = useState([]);
+  const [pinnedPosts, setPinnedPosts] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [newPosts, setNewPosts] = useState(false);
   const [intervalIds, setIntervalIds] = useState([]);
@@ -36,7 +37,7 @@ function AllPage() {
     let allNewPosts = await fetchAllPosts();
     var i = 0;
     while (i < allNewPosts.length) {
-      if (allNewPosts[i].deleted === true || allNewPosts[i].banned === true) {
+      if (allNewPosts[i].deleted === true || allNewPosts[i].banned === true || allNewPosts[i].modpinned) {
         allNewPosts.splice(i, 1);
       } else {
         ++i;
@@ -50,6 +51,7 @@ function AllPage() {
   useEffect(() => {
     async function fetchData() {
       let allPosts = await fetchAllPosts();
+      let pinnedposts = [];
       var i = 0;
       while (i < allPosts.length) {
         if (allPosts[i].deleted === true || allPosts[i].banned === true) {
@@ -58,6 +60,24 @@ function AllPage() {
           ++i;
         }
       }
+      var x = 0;
+      while (x < allPosts.length) {
+        if (allPosts[x].modpinned) {
+          pinnedposts.push(allPosts[x]);
+          allPosts.splice(x, 1);
+        } else {
+          ++x;
+        }
+      }
+      pinnedposts.sort(function(a, b) {
+        if (a.timestamp < b.timestamp) {
+          return 1;
+        }
+        if (a.timestamp > b.timestamp) {
+          return -1;
+        }
+        return 0;
+      });
       allPosts.sort(function(a, b) {
         if (a.timestamp < b.timestamp) {
           return 1;
@@ -67,6 +87,7 @@ function AllPage() {
         }
         return 0;
       });
+      setPinnedPosts(pinnedposts);
       setPosts(allPosts);
       if (intervalIds.length === 0) {
         let intervalid = setInterval(fetchNewPosts, 10000, allPosts.length);
@@ -87,6 +108,18 @@ function AllPage() {
     return (
       <Fragment>
         <CssBaseline />
+        {pinnedPosts.map((item) => (
+        <LazyLoad once key={item.id} placeholder={<CircularProgress />}>
+          <div key={item.id}>
+            <Grid key={item.id} container spacing={1} justify="center">
+                <Grid key={item.id} item md={10}>
+                  <Post item={item} key={item.id} minimum={false} />
+                </Grid>
+            </Grid>
+            <br />
+          </div>
+        </LazyLoad>
+        ))}
         {Posts.map((item) => (
         <LazyLoad once key={item.id} placeholder={<CircularProgress />}>
           <div key={item.id}>

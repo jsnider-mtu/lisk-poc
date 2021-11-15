@@ -16,6 +16,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import ShareIcon from "@material-ui/icons/Share";
 import ReplyIcon from "@material-ui/icons/Reply";
+import PushPinIcon from "@mui/icons-material/PushPin";
 import { blue } from '@material-ui/core/colors';
 import { makeStyles } from "@material-ui/core/styles";
 import { Link as RouterLink } from "react-router-dom";
@@ -30,6 +31,10 @@ import CreateChildPostDialog from "./dialogs/CreateChildPostDialog";
 import DeletePostDialog from "./dialogs/DeletePostDialog";
 import UndeletePostDialog from "./dialogs/UndeletePostDialog";
 import CreatePostErrorDialog from "./dialogs/CreatePostErrorDialog";
+import ModPinPostDialog from "./dialogs/ModPinPostDialog";
+import ModUnpinPostDialog from "./dialogs/ModUnpinPostDialog";
+import UserPinPostDialog from "./dialogs/UserPinPostDialog";
+import UserUnpinPostDialog from "./dialogs/UserUnpinPostDialog";
 
 import noavatar from '../noavatar.png';
 
@@ -98,6 +103,10 @@ export default function Post(props) {
   const [openUnlike, setOpenUnlike] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [openUndelete, setOpenUndelete] = useState(false);
+  const [openModPin, setOpenModPin] = useState(false);
+  const [openModUnpin, setOpenModUnpin] = useState(false);
+  const [openUserPin, setOpenUserPin] = useState(false);
+  const [openUserUnpin, setOpenUserUnpin] = useState(false);
   const passp = document.cookie.split('passphrase')[1].slice(1).split('; ')[0];
   const curUserAddress = cryptography.getAddressFromPassphrase(passp).toString('hex');
   const dateobj = new Date(props.item.timestamp);
@@ -153,6 +162,62 @@ export default function Post(props) {
     setLikes(likes => likes + (newLike ? 1 : 0));
     setLikes(likes => likes + (newUnlike ? -1 : 0));
   }, [newLike, newUnlike, curUserAddress, props.item.ownerAddress, props.item.parentPost, props.item.sharedPost, parPost, shaPost, shaParPost, postOwner]);
+
+  let pinbutton;
+
+  if (mod) {
+    if (!props.item.modpinned) {
+      pinbutton =
+        <IconButton
+          aria-label="modpin"
+          onClick={() => {
+            setOpenModPin(true);
+          }}
+        >
+          <PushPinIcon />
+        </IconButton>;
+    } else {
+      pinbutton =
+        <IconButton
+          aria-label="modunpin"
+          onClick={() => {
+            setOpenModUnpin(true);
+          }}
+        >
+          <PushPinIcon />
+          <Typography variant="caption">
+            {'Pinned on All Page'}
+          </Typography>
+        </IconButton>;
+    }
+  } else if (curUserAddress === props.item.ownerAddress) {
+    if (!props.item.userpinned) {
+      pinbutton =
+        <IconButton
+          aria-label="userpin"
+          onClick={() => {
+            setOpenUserPin(true);
+          }}
+        >
+          <PushPinIcon />
+        </IconButton>;
+    } else {
+      pinbutton =
+        <IconButton
+          aria-label="userunpin"
+          onClick={() => {
+            setOpenUserUnpin(true);
+          }}
+        >
+          <PushPinIcon />
+          <Typography variant="caption">
+            {'Pinned on your page'}
+          </Typography>
+        </IconButton>;
+    }
+  } else {
+    pinbutton = <></>;
+  }
 
   let deletebutton;
 
@@ -749,6 +814,35 @@ export default function Post(props) {
           open={openUndelete}
           handleClose={() => {
             setOpenUndelete(false);
+          }}
+          post={props.item}
+        />
+        {pinbutton}
+        <ModPinPostDialog
+          open={openModPin}
+          handleClose={() => {
+            setOpenModPin(false);
+          }}
+          post={props.item}
+        />
+        <ModUnpinPostDialog
+          open={openModUnpin}
+          handleClose={() => {
+            setOpenModUnpin(false);
+          }}
+          post={props.item}
+        />
+        <UserPinPostDialog
+          open={openUserPin}
+          handleClose={() => {
+            setOpenUserPin(false);
+          }}
+          post={props.item}
+        />
+        <UserUnpinPostDialog
+          open={openUserUnpin}
+          handleClose={() => {
+            setOpenUserUnpin(false);
           }}
           post={props.item}
         />

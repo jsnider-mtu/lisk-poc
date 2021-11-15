@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Account(props) {
   const [posts, setPosts] = useState([]);
+  const [pinnedPosts, setPinnedPosts] = useState([]);
   const [openBan, setOpenBan] = useState(false);
   const [openDemote, setOpenDemote] = useState(false);
   const [openFollow, setOpenFollow] = useState(false);
@@ -51,6 +52,7 @@ export default function Account(props) {
       curUser = await api.fetchAccountInfo(curUserAddress);
       setMod(curUser.socmed.moderator);
       let allPosts = await api.fetchAllPosts();
+      let pinnedposts = [];
       let acctPosts = allPosts.filter((p) => props.account.socmed.posts.includes(p.id) || p.taggedusers.includes(props.account.socmed.name));
       var i = 0;
       while (i < acctPosts.length) {
@@ -60,6 +62,24 @@ export default function Account(props) {
           ++i;
         }
       }
+      var x = 0;
+      while (x < acctPosts.length) {
+        if (acctPosts[x].userpinned) {
+          pinnedposts.push(acctPosts[x]);
+          acctPosts.splice(x, 1);
+        } else {
+          ++x;
+        }
+      }
+      pinnedposts.sort(function(a, b) {
+        if (a.timestamp < b.timestamp) {
+          return 1;
+        }
+        if (a.timestamp > b.timestamp) {
+          return -1;
+        }
+        return 0;
+      });
       acctPosts.sort(function(a, b) {
         if (a.timestamp < b.timestamp) {
           return 1;
@@ -69,6 +89,7 @@ export default function Account(props) {
         }
         return 0;
       });
+      setPinnedPosts(pinnedposts);
       setPosts(acctPosts);
     }
 
@@ -270,6 +291,18 @@ export default function Account(props) {
       {updatebutton}
       <Divider />
       <br /><Typography variant="h5">{"Posts"}</Typography><br />
+      {pinnedPosts.map((item) => (
+      <LazyLoad once key={item.id} placeholder={<CircularProgress />}>
+        <div key={item.id}>
+          <Grid container spacing={1} justify="center" key={item.id}>
+              <Grid item md={10} key={item.id}>
+                <Post item={item} key={item.id} minimum={false} />
+              </Grid>
+          </Grid>
+          <br />
+        </div>
+      </LazyLoad>
+      ))}
       {posts.map((item) => (
       <LazyLoad once key={item.id} placeholder={<CircularProgress />}>
         <div key={item.id}>

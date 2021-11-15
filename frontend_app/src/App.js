@@ -113,7 +113,10 @@ function App() {
     useEffect(() => {
       let curUser = {};
       let curUserAddress = "";
-      const passp = document.cookie.split('passphrase')[1].slice(1).split('; ')[0];
+      let passp = "ipsum";
+      if (document.cookie.includes('passphrase')) {
+        passp = document.cookie.split('passphrase')[1].slice(1).split('; ')[0];
+      }
       async function fetchData() {
         if (passp.split(' ').length === 12) {
           curUserAddress = cryptography.getAddressFromPassphrase(passp).toString('hex');
@@ -166,7 +169,7 @@ function App() {
                 color="inherit"
                 className={classes.appBarLink}
                 onClick={() => {
-                  document.cookie = "passphrase=; path=/";
+                  document.cookie = "passphrase=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC";
                   window.location.href = "/signin";
                 }}
             >

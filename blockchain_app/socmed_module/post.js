@@ -94,6 +94,14 @@ const registeredPostsSchema = {
             dataType: "boolean",
             fieldNumber: 16,
           },
+          modpinned: {
+            dataType: "boolean",
+            fieldNumber: 17,
+          },
+          userpinned: {
+            dataType: "boolean",
+            fieldNumber: 18,
+          },
         },
       },
     },
@@ -154,6 +162,8 @@ const createPost = ({ message, ownerAddress, nonce, username, avatar }) => {
     taggedusers,
     hyperlinks,
     banned: false,
+    modpinned: false,
+    userpinned: false,
   };
 };
 
@@ -208,6 +218,8 @@ const createChildPost = ({ message, ownerAddress, nonce, username, avatar, paren
     taggedusers,
     hyperlinks,
     banned: false,
+    modpinned: false,
+    userpinned: false,
   };
 };
 
@@ -262,6 +274,8 @@ const createSharePost = ({ message, ownerAddress, nonce, username, avatar, share
     taggedusers,
     hyperlinks,
     banned: false,
+    modpinned: false,
+    userpinned: false,
   };
 };
 
