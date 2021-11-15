@@ -55,7 +55,7 @@ export default function SignInPage() {
   const [openLoginError, setOpenLoginError] = useState(false);
 
   useEffect(() => {
-    if (document.cookie === '') {
+    if (!document.cookie.includes('passphrase')) {
     } else if (document.cookie.split('passphrase')[1].slice(1).split('; ')[0].split(' ').length === 12) {
       window.location.href = '/home';
     }
