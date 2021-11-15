@@ -185,6 +185,9 @@ export default function Post(props) {
           }}
         >
           <PushPinIcon />
+          <Typography variant="caption">
+            {'Pinned on All Page'}
+          </Typography>
         </IconButton>;
     }
   } else if (curUserAddress === props.item.ownerAddress) {
@@ -207,6 +210,9 @@ export default function Post(props) {
           }}
         >
           <PushPinIcon />
+          <Typography variant="caption">
+            {'Pinned on your page'}
+          </Typography>
         </IconButton>;
     }
   } else {

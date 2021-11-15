@@ -23,7 +23,10 @@ const useStyles = makeStyles((theme) => ({
 export default function TransferFundsDialog(props) {
   const nodeInfo = useContext(NodeInfoContext);
   const classes = useStyles();
-  const passp = document.cookie.split('passphrase')[1].slice(1).split('; ')[0];
+  let passp = "ipsum";
+  if (document.cookie.includes('passphrase')) {
+    passp = document.cookie.split('passphrase')[1].slice(1).split('; ')[0];
+  }
   const [data, setData] = useState({
     recipientAddress: "",
     passphrase: passp,
