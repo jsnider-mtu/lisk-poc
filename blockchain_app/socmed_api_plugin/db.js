@@ -76,6 +76,17 @@ const getAllTransactions = async (db, registeredSchema) => {
   return transactions;
 }
 
+const getAllAccounts = async (db, registeredSchema) => {
+  const allTransactions = await getAllTransactions(db, registeredSchema);
+  const transactions = [];
+  for (const trx of allTransactions) {
+    if (trx.moduleID === 1024 && trx.assetID === 14) {
+      transactions.push(trx);
+    }
+  }
+  return transactions;
+}
+
 const saveTransactions = async (db, payload) => {
   const savedTransactions = await getTransactions(db);
   const transactions = [...savedTransactions, ...payload];
@@ -170,6 +181,7 @@ const getTransactionAssetSchema = (
 module.exports = {
   getDBInstance,
   getAllTransactions,
+  getAllAccounts,
   getTransactions,
   saveTransactions,
 }

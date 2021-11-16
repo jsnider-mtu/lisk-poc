@@ -39,6 +39,13 @@ export const fetchPost = async (id) => {
     .catch((error) => console.log(error));
 };
 
+export const getAllAccounts = async () => {
+  return fetch(`https://`+window.location.hostname+`:8080/api/accounts`)
+    .then((res) => res.json())
+    .then((res) => res.data)
+    .catch((error) => console.log(error));
+};
+
 export const getAllTransactions = async () => {
   return fetch("https://"+window.location.hostname+":8080/api/transactions")
     .then((res) => res.json())

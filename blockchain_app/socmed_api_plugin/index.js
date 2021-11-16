@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const { BasePlugin, codec } = require("lisk-sdk");
 const pJSON = require("../package.json");
-const { getDBInstance, getAllTransactions, saveTransactions } = require("./db");
+const { getDBInstance, getAllAccounts, getAllTransactions, saveTransactions } = require("./db");
 
 // 1.plugin can be a daemon/HTTP/Websocket service for off-chain processing
 class SOCMEDAPIPlugin extends BasePlugin {
@@ -92,6 +92,22 @@ class SOCMEDAPIPlugin extends BasePlugin {
       const transactions = await getAllTransactions(this._db, this.schemas);
 
       const data = transactions.map(trx => {
+        const module = this._nodeInfo.registeredModules.find(m => m.id === trx.moduleID);
+        const asset = module.transactionAssets.find(a => a.id === trx.assetID);
+        return {
+          ...trx,
+          ...trx.asset,
+          moduleName: module.name,
+          assetName: asset.name,
+        }
+      })
+      res.json({ data });
+    });
+
+    this._app.get("/api/accounts", async (_req, res) => {
+      const accounts = await getAllAccounts(this._db, this.schemas);
+
+      const data = accounts.map(trx => {
         const module = this._nodeInfo.registeredModules.find(m => m.id === trx.moduleID);
         const asset = module.transactionAssets.find(a => a.id === trx.assetID);
         return {
