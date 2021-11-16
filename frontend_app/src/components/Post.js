@@ -21,7 +21,7 @@ import { blue } from '@material-ui/core/colors';
 import { makeStyles } from "@material-ui/core/styles";
 import { Link as RouterLink } from "react-router-dom";
 import { cryptography } from "@liskhq/lisk-client";
-import { LinkPreview } from '@dhaiwat10/react-link-preview';
+//import { LinkPreview } from '@dhaiwat10/react-link-preview';
 import * as api from "../api";
 
 import LikePostDialog from "./dialogs/LikePostDialog";
@@ -699,20 +699,20 @@ export default function Post(props) {
       </Link>;
   }
 
-  let linkpreview;
+  //let linkpreview;
 
-  if (props.item.hyperlinks.length === 0) {
-    linkpreview = <></>;
-  } else {
-    linkpreview =
-      <LinkPreview url={props.item.hyperlinks[0]} 
-        backgroundColor={blue[800]}
-        primaryTextColor="black"
-        secondaryTextColor="black"
-        imageHeight="40px"
-        height="200px"
-      />;
-  }
+  //if (props.item.hyperlinks.length === 0) {
+  //  linkpreview = <></>;
+  //} else {
+  //  linkpreview =
+  //    <LinkPreview url={props.item.hyperlinks[0]} 
+  //      backgroundColor={blue[800]}
+  //      primaryTextColor="black"
+  //      secondaryTextColor="black"
+  //      imageHeight="40px"
+  //      height="200px"
+  //    />;
+  //}
 
   let msg;
 
