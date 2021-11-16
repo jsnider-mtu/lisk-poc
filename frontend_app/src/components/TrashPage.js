@@ -13,7 +13,10 @@ import LazyLoad from 'react-lazyload';
 function TrashPage() {
   const [deletedPosts, setDeletedPosts] = useState([]);
   const [loaded, setLoaded] = useState(false);
-  const passp = document.cookie.split('passphrase')[1].slice(1).split('; ')[0];
+  let passp = "ipsum";
+  if (document.cookie.includes('passphrase')) {
+    passp = document.cookie.split('passphrase')[1].slice(1).split('; ')[0];
+  }
   const curUserAddress = cryptography.getAddressFromPassphrase(passp).toString('hex');
 
   useEffect(() => {
