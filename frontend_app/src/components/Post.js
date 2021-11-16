@@ -707,7 +707,7 @@ export default function Post(props) {
     linkpreview =
       <LinkPreview url={props.item.hyperlinks[0]} 
         backgroundColor={blue[800]}
-        primaryTextColor="grey"
+        primaryTextColor="black"
         secondaryTextColor="black"
         imageHeight="40px"
         height="160px"
