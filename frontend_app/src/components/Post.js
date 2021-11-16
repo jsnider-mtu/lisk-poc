@@ -371,9 +371,9 @@ export default function Post(props) {
                     <Tooltip disableFocusListener disableTouchListener
                       placement="left"
                       title={
-                        <React.Fragment key={props.key}>
-                          <Card key={props.key} variant="outlined" className={classes.bigAvatar}>
-                            <img key={props.key} alt="" src={parPostOwner.socmed.avatar || noavatar} width="280" height="280" />
+                        <React.Fragment key={props.item.id}>
+                          <Card key={props.item.id} variant="outlined" className={classes.bigAvatar}>
+                            <img key={props.item.id} alt="" src={parPostOwner.socmed.avatar || noavatar} width="280" height="280" />
                           </Card>
                         </React.Fragment>
                       }
@@ -436,9 +436,9 @@ export default function Post(props) {
                     <Tooltip disableFocusListener disableTouchListener
                       placement="left"
                       title={
-                        <React.Fragment key={props.key}>
-                          <Card key={props.key} variant="outlined" className={classes.bigAvatar}>
-                            <img key={props.key} alt="" src={parPostOwner.socmed.avatar || noavatar} width="280" height="280" />
+                        <React.Fragment key={props.item.id}>
+                          <Card key={props.item.id} variant="outlined" className={classes.bigAvatar}>
+                            <img key={props.item.id} alt="" src={parPostOwner.socmed.avatar || noavatar} width="280" height="280" />
                           </Card>
                         </React.Fragment>
                       }
@@ -525,9 +525,9 @@ export default function Post(props) {
                     <Tooltip disableFocusListener disableTouchListener
                       placement="left"
                       title={
-                        <React.Fragment key={props.key}>
-                          <Card key={props.key} variant="outlined" className={classes.bigAvatar}>
-                            <img key={props.key} alt="" src={shaPostOwner.socmed.avatar || noavatar} width="280" height="280" />
+                        <React.Fragment key={props.item.id}>
+                          <Card key={props.item.id} variant="outlined" className={classes.bigAvatar}>
+                            <img key={props.item.id} alt="" src={shaPostOwner.socmed.avatar || noavatar} width="280" height="280" />
                           </Card>
                         </React.Fragment>
                       }
@@ -590,9 +590,9 @@ export default function Post(props) {
                     <Tooltip disableFocusListener disableTouchListener
                       placement="left"
                       title={
-                        <React.Fragment key={props.key}>
-                          <Card key={props.key} variant="outlined" className={classes.bigAvatar}>
-                            <img key={props.key} alt="" src={shaPostOwner.socmed.avatar || noavatar} width="280" height="280" />
+                        <React.Fragment key={props.item.id}>
+                          <Card key={props.item.id} variant="outlined" className={classes.bigAvatar}>
+                            <img key={props.item.id} alt="" src={shaPostOwner.socmed.avatar || noavatar} width="280" height="280" />
                           </Card>
                         </React.Fragment>
                       }
@@ -679,9 +679,9 @@ export default function Post(props) {
         <Tooltip disableFocusListener disableTouchListener
           placement="left"
           title={
-            <React.Fragment key={props.key}>
-              <Card key={props.key} variant="outlined" className={classes.bigAvatar}>
-                <img key={props.key} alt="" src={postOwner.socmed.avatar || noavatar} width="280" height="280" />
+            <React.Fragment key={props.item.id}>
+              <Card key={props.item.id} variant="outlined" className={classes.bigAvatar}>
+                <img key={props.item.id} alt="" src={postOwner.socmed.avatar || noavatar} width="280" height="280" />
               </Card>
             </React.Fragment>
           }
