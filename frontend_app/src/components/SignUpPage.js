@@ -64,23 +64,12 @@ export default function SignUpPage() {
   useEffect(() => {
     async function fetchData() {
       const allAccounts = await api.getAllAccounts();
-      console.log(allAccounts);
       let txAccounts = await Promise.all(
         allAccounts.map((t) => {
           let binaryAddress = cryptography.getAddressFromPublicKey(Buffer.from(t['senderPublicKey'], 'hex')).toString('hex');
           return api.fetchAccountInfo(binaryAddress);
         })
       )
-      //const allTransactions = await api.getAllTransactions();
-      //const cuTransactions = allTransactions.filter((tx) => tx['moduleID'] === 1024 && tx['assetID'] === 14);
-      //let txAccts = await Promise.all(
-      //  cuTransactions.map((t) => {
-      //    let binaryAddress = cryptography.getAddressFromPublicKey(Buffer.from(t['senderPublicKey'], 'hex')).toString('hex');
-      //    return api.fetchAccountInfo(binaryAddress);
-      //  })
-      //)
-      //setTxAccounts(txAccts);
-      console.log(txAccounts);
       setTxAccounts(txAccounts);
     }
     if (!fetchDataRan) {
