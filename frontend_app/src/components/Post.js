@@ -710,7 +710,7 @@ export default function Post(props) {
         primaryTextColor="white"
         secondaryTextColor="black"
         imageHeight="40px"
-        height="120px"
+        height="160px"
       />;
   }
 
