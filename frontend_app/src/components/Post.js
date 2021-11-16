@@ -766,6 +766,7 @@ export default function Post(props) {
         {parentpost}
         {msg}
         {sharedpost}
+        {linkpreview}
       </CardContent>
       <CardActions>
         {likebutton}
@@ -878,7 +879,6 @@ export default function Post(props) {
           }}
         />
       </CardActions>
-      {linkpreview}
     </Card>
   );
 }
