@@ -516,6 +516,18 @@ export default function Post(props) {
         if (shaParPost.hasOwnProperty('ownerAddress')) {
           sharedpost =
             <Card variant="outlined" className={classes.root}>
+              <Card variant="outlined" className={classes.root}>
+                <CardContent>
+                  <Typography variant="body2" color="textSecondary" gutterBottom>
+                    <Link component={RouterLink} to={`/user/${shaParPost.username}`} style={{ color: '#FFF' }}>
+                      {'@' + shaParPost.username}
+                    </Link>
+                  </Typography>
+                  <Typography className={classes.parentcontent} variant="caption" color="textSecondary" gutterBottom>
+                    > {shaParPost.message}
+                  </Typography>
+                </CardContent>
+              </Card>
               <CardHeader
                 avatar={
                   <Link
@@ -561,18 +573,6 @@ export default function Post(props) {
                 }
               />
               <CardContent>
-                <Card variant="outlined" className={classes.root}>
-                  <CardContent>
-                    <Typography variant="body2" color="textSecondary" gutterBottom>
-                      <Link component={RouterLink} to={`/user/${shaParPost.username}`} style={{ color: '#FFF' }}>
-                        {'@' + shaParPost.username}
-                      </Link>
-                    </Typography>
-                    <Typography className={classes.parentcontent} variant="caption" color="textSecondary" gutterBottom>
-                      > {shaParPost.message}
-                    </Typography>
-                  </CardContent>
-                </Card>
                 <Typography className={classes.parentpadding} variant="body1" color="textPrimary" component="p">
                   {HASHTAG_FORMATTER(shaPost.message)}
                 </Typography>
