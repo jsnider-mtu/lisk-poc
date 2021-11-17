@@ -325,7 +325,7 @@ export default function Post(props) {
     } else {
       if (parPost.hasOwnProperty('ownerAddress')) {
         parentpost =
-          <div>
+          <div className={classes.parentpadding}>
             <Typography variant="body2" color="textSecondary" gutterBottom>
               {'Replying to '}
               <Link component={RouterLink} to={`/user/${parPost.username}`}>
