@@ -407,6 +407,9 @@ export default function Post(props) {
                 }
               />
               <CardContent>
+                <Typography className={classes.parentpadding} variant="body1" color="textPrimary" component="p">
+                  > {HASHTAG_FORMATTER(parPost.message)}
+                </Typography>
                 <Card variant="outlined" className={classes.root}>
                   <CardContent>
                     <Typography variant="body2" color="textSecondary" gutterBottom>
@@ -419,9 +422,6 @@ export default function Post(props) {
                     </Typography>
                   </CardContent>
                 </Card>
-                <Typography className={classes.parentpadding} variant="body1" color="textPrimary" component="p">
-                  > {HASHTAG_FORMATTER(parPost.message)}
-                </Typography>
               </CardContent>
             </Card>;
         } else {
