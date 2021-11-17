@@ -748,6 +748,9 @@ export default function Post(props) {
 
   return (
     <Card variant="outlined" className={classes.root} style={pinnedcolor}>
+      <CardContent className={classes.content}>
+        {parentpost}
+      </CardContent>
       <CardHeader
         avatar={postavatar}
         title={posttitle}
@@ -763,7 +766,6 @@ export default function Post(props) {
         }
       />
       <CardContent className={classes.content}>
-        {parentpost}
         {msg}
         {sharedpost}
       </CardContent>
