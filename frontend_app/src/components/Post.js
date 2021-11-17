@@ -748,9 +748,7 @@ export default function Post(props) {
 
   return (
     <Card variant="outlined" className={classes.root} style={pinnedcolor}>
-      <CardContent className={classes.content}>
-        {parentpost}
-      </CardContent>
+      {parentpost}
       <CardHeader
         avatar={postavatar}
         title={posttitle}
