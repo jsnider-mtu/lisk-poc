@@ -524,7 +524,7 @@ export default function Post(props) {
                     </Link>
                   </Typography>
                   <Typography className={classes.parentcontent} variant="caption" color="textSecondary" gutterBottom>
-                    > {shaParPost.message}
+                    > {HASHTAG_FORMATTER(shaParPost.message)}
                   </Typography>
                 </CardContent>
               </Card>
