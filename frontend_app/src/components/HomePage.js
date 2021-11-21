@@ -26,7 +26,10 @@ function HomePage() {
   const [loaded, setLoaded] = useState(false);
   const [newPosts, setNewPosts] = useState(false);
   const [intervalIds, setIntervalIds] = useState([]);
-  const passp = document.cookie.split('passphrase')[1].slice(1).split('; ')[0];
+  let passp = "ipsum";
+  if (document.cookie.includes('passphrase')) {
+    passp = document.cookie.split('passphrase')[1].slice(1).split('; ')[0];
+  }
   const curUserAddress = cryptography.getAddressFromPassphrase(passp).toString('hex');
 
   const fetchNewPosts = async (curposts) => {
@@ -76,7 +79,11 @@ function HomePage() {
         setIntervalIds(arr => [...arr, intervalid]);
       }
     }
-    if (document.cookie.split('passphrase')[1].slice(1).split('; ')[0].split(' ').length !== 12) {
+    if (document.cookie.includes('passphrase')) {
+      if (document.cookie.split('passphrase')[1].slice(1).split('; ')[0].split(' ').length !== 12) {
+        window.location.href="/signin";
+      }
+    } else {
       window.location.href="/signin";
     }
     fetchData();

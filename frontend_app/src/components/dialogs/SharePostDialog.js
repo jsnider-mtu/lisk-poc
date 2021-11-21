@@ -1,5 +1,6 @@
 import React, { Fragment, useContext, useState } from "react";
 import {
+  Typography,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -52,6 +53,20 @@ export default function SharePostDialog(props) {
     }
   };
 
+  let charcount;
+
+  if (data.message.length > 512) {
+    charcount =
+      <Typography variant="caption" color="error">
+        {512 - data.message.length}
+      </Typography>
+  } else {
+    charcount =
+      <Typography variant="caption" color="textSecondary">
+        {512 - data.message.length}
+      </Typography>
+  }
+
   return (
     <Fragment>
       <Dialog open={props.open} onBackdropClick={props.handleClose}>
@@ -69,6 +84,7 @@ export default function SharePostDialog(props) {
               variant="outlined"
             />
           </form>
+          {charcount}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleSend}>Share Post</Button>
