@@ -311,6 +311,15 @@ export default function Post(props) {
         } else {
           return <><Link key={i} className={classes.msgLinks} component={RouterLink} to={{pathname: v.replace(/^\s+|\s+$/g, '')}} target="_blank">{v}</Link></>;
         }
+      } else if (v.split(/(?:^|\n)```(?:\n|$)/g).length >= 3) {
+        let varray = v.split(/(?:^|\n)```(?:\n|$)/g);
+        for (let x = 0; x < varray.length; x++) {
+          if (x % 2 !== 0) {
+            varray[x] = <Typography sx={{ fontFamily: 'Monospace' }}>varray[x]</Typography>;
+          }
+        }
+        v2 = varray.join('\n');
+        return v2;
       } else {
         return v;
       }
