@@ -71,6 +71,9 @@ export default function CreatePostDialog(props) {
               variant="outlined"
             />
           </form>
+          <Typography variant="caption">
+            {512 - data.message.length}
+          </Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleSend}>Create Post</Button>
