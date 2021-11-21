@@ -317,7 +317,7 @@ export default function Post(props) {
       } else if (v.split(/(?:^|\n)```(?:\n|$)/g).length >= 3) {
         return v.split(/(?:^|\n)```(?:\n|$)/g).map((v2,i2)=>{
           if (i2 % 2 !== 0) {
-            return <><Typography className={classes.mono}>{v2}</Typography></>;
+            return <><br /><Typography className={classes.mono}>{v2}</Typography><br /></>;
           } else {
             return v2
           }
