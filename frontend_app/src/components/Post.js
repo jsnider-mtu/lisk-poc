@@ -412,7 +412,7 @@ export default function Post(props) {
                 </Typography>
                 <Card variant="outlined" className={classes.root}>
                   <CardContent>
-                    <Typography variant="body2" color="textSecondary" gutterBottom>
+                    <Typography variant="body2" color="textSecondary" className={classes.parentcontent} gutterBottom>
                       <Link component={RouterLink} to={`/user/${parShaPost.username}`} style={{ color: '#FFF' }}>
                         {'@' + parShaPost.username}
                       </Link>
