@@ -99,6 +99,9 @@ const useStyles = makeStyles((theme) => ({
   msgLinks: {
     color: blue[500],
   },
+  mono: {
+    fontFamily: "Monospace",
+  },
 }));
 
 export default function Post(props) {
@@ -312,14 +315,13 @@ export default function Post(props) {
           return <><Link key={i} className={classes.msgLinks} component={RouterLink} to={{pathname: v.replace(/^\s+|\s+$/g, '')}} target="_blank">{v}</Link></>;
         }
       } else if (v.split(/(?:^|\n)```(?:\n|$)/g).length >= 3) {
-        let varray = v.split(/(?:^|\n)```(?:\n|$)/g);
-        for (let x = 0; x < varray.length; x++) {
-          if (x % 2 !== 0) {
-            varray[x] = <Typography sx={{ fontFamily: 'Monospace' }}>varray[x]</Typography>;
+        return v.split(/(?:^|\n)```(?:\n|$)/g).map((v2,i2)=>{
+          if (i2 % 2 !== 0) {
+            return <><Typography className={classes.mono}>{v2}</Typography></>;
+          } else {
+            return v2
           }
-        }
-        v2 = varray.join('\n');
-        return v2;
+        });
       } else {
         return v;
       }
