@@ -7,9 +7,14 @@ import {
   TextField,
   Button,
   DialogActions,
+  Link,
+  Tooltip,
+  Card,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { NodeInfoContext } from "../../context";
+import { blue } from '@material-ui/core/colors';
+import { Link as RouterLink } from "react-router-dom";
 import { sharePost } from "../../utils/transactions/share_post";
 import * as api from "../../api";
 
@@ -18,6 +23,17 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiTextField-root": {
       margin: theme.spacing(1),
     },
+  },
+  bigAvatar: {
+    backgroundColor: blue[500],
+    width: theme.spacing(35),
+    height: theme.spacing(35),
+  },
+  msgLinks: {
+    color: blue[500],
+  },
+  mono: {
+    fontFamily: "Monospace",
   },
 }));
 
@@ -66,6 +82,43 @@ export default function SharePostDialog(props) {
         {512 - data.message.length}
       </Typography>
   }
+
+  const HASHTAG_FORMATTER = string => {
+    return string.split(/(?:([@#][a-z\d-]+)|(https?:\/\/[.a-zA-Z\d-_?&=#@/]+))/gi).filter(Boolean).map((v,i)=>{
+      if(v.replace(/^\s+|\s+$/g, '').startsWith('#')){
+        return <><Link key={i} className={classes.msgLinks} component={RouterLink} to={`/hashtag/${v.replace(/^\s+|\s+$/g, '').slice(1)}`}>{v}</Link></>;
+      } else if (v.replace(/^\s+|\s+$/g, '').startsWith('@')) {
+        return <><Link key={i} className={classes.msgLinks} component={RouterLink} to={`/user/${v.replace(/^\s+|\s+$/g, '').slice(1)}`}>{v}</Link></>;
+      } else if (v.replace(/^\s+|\s+$/g, '').startsWith('http')) {
+        if (/(\.png$)|(\.jpg$)|(\.jpeg$)|(\.gif$)/i.test(v.replace(/^\s+|\s+$/g, ''))) {
+          return <><Tooltip disableFocusListener disableTouchListener
+                   placement="right"
+                   title={
+                     <React.Fragment key={i}>
+                       <Card key={i} variant="outlined" className={classes.bigAvatar}>
+                         <img key={i} alt="" src={v.replace(/^\s+|\s+$/g, '')} width="280" height="280" />
+                       </Card>
+                     </React.Fragment>
+                   }
+                 >
+                   <Link key={i} className={classes.msgLinks} component={RouterLink} to={{pathname: v.replace(/^\s+|\s+$/g, '')}} target="_blank">{v}</Link>
+                 </Tooltip></>;
+        } else {
+          return <><Link key={i} className={classes.msgLinks} component={RouterLink} to={{pathname: v.replace(/^\s+|\s+$/g, '')}} target="_blank">{v}</Link></>;
+        }
+      } else if (v.split(/(?:^|\n)```(?:\n|$)/g).length >= 3) {
+        return v.split(/(?:^|\n)```(?:\n|$)/g).map((v2,i2)=>{
+          if (i2 % 2 !== 0) {
+            return <><Typography className={classes.mono}>{v2}</Typography></>;
+          } else {
+            return v2
+          }
+        });
+      } else {
+        return v;
+      }
+    })
+  };
 
   return (
     <Fragment>
