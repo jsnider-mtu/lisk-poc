@@ -10,6 +10,8 @@ import {
   Link,
   Tooltip,
   Card,
+  Tabs,
+  Tab,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { NodeInfoContext } from "../../context";
@@ -35,6 +37,19 @@ const useStyles = makeStyles((theme) => ({
   mono: {
     fontFamily: "Monospace",
   },
+  message: {
+    'white-space': 'pre',
+    'white-space': 'pre-line',
+    'white-space': '-pre-wrap',
+    'white-space': '-o-pre-wrap',
+    'white-space': '-moz-pre-wrap',
+    'white-space': '-hp-pre-wrap',
+    'word-wrap': 'break-word',
+    'white-space': 'pre-wrap',
+    'padding-left': 20,
+    'padding-right': 20,
+    'padding-bottom': 20,
+  },
 }));
 
 export default function CreatePostDialog(props) {
@@ -44,6 +59,7 @@ export default function CreatePostDialog(props) {
   if (document.cookie.includes('passphrase')) {
     passp = document.cookie.split('passphrase')[1].slice(1).split('; ')[0];
   }
+  const [tab, setTab] = useState(0);
   const [data, setData] = useState({
     message: "",
     fee: "0",
@@ -53,6 +69,15 @@ export default function CreatePostDialog(props) {
   const handleChange = (event) => {
     event.persist();
     setData({ ...data, [event.target.name]: event.target.value });
+  };
+
+  const handleTab = (event) => {
+    event.persist();
+    if (tab === 0) {
+      setTab(1);
+    } else {
+      setTab(0);
+    }
   };
 
   const handleSend = async (event) => {
@@ -111,7 +136,7 @@ export default function CreatePostDialog(props) {
       } else if (v.split(/(?:^|\n)```(?:\n|$)/g).length >= 3) {
         return v.split(/(?:^|\n)```(?:\n|$)/g).map((v2,i2)=>{
           if (i2 % 2 !== 0) {
-            return <><Typography className={classes.mono}>{v2}</Typography></>;
+            return <><br /><Typography className={classes.mono}>{v2}</Typography><br /></>;
           } else {
             return v2
           }
@@ -122,23 +147,41 @@ export default function CreatePostDialog(props) {
     })
   };
 
+  let form;
+
+  if (tab % 2 === 0) {
+    form =
+      <form className={classes.root} noValidate autoComplete="off">
+        <TextField
+          label="Message"
+          value={data.message}
+          name="message"
+          onChange={handleChange}
+          fullWidth
+          multiline
+          rows={6}
+          variant="outlined"
+        />
+      </form>;
+  } else {
+    form =
+      <Card variant="outlined">
+        <Typography variant="body1" className={classes.message}>
+          {HASHTAG_FORMATTER(data.message)}
+        </Typography>
+      </Card>
+  }
+
   return (
     <Fragment>
-      <Dialog open={props.open} onBackdropClick={props.handleClose}>
+      <Dialog open={props.open} onBackdropClick={props.handleClose} fullWidth maxWidth="sm">
         <DialogTitle id="alert-dialog-title">{"Create Post"}</DialogTitle>
         <DialogContent>
-          <form className={classes.root} noValidate autoComplete="off">
-            <TextField
-              label="Message"
-              value={data.message}
-              name="message"
-              onChange={handleChange}
-              fullWidth
-              multiline
-              rows={6}
-              variant="outlined"
-            />
-          </form>
+          <Tabs value={tab} onChange={handleTab}>
+            <Tab label="Create" />
+            <Tab label="Preview" />
+          </Tabs>
+          {form}
           {charcount}
         </DialogContent>
         <DialogActions>

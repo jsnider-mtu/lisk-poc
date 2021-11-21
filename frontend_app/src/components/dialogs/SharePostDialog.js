@@ -10,6 +10,8 @@ import {
   Link,
   Tooltip,
   Card,
+  Tabs,
+  Tab,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { NodeInfoContext } from "../../context";
@@ -41,6 +43,7 @@ export default function SharePostDialog(props) {
   const nodeInfo = useContext(NodeInfoContext);
   const classes = useStyles();
   const passp = document.cookie.split('passphrase')[1].slice(1).split('; ')[0];
+  const [tab, setTab] = useState(0);
   const [data, setData] = useState({
     postId: props.post.id,
     message: "",
@@ -51,6 +54,15 @@ export default function SharePostDialog(props) {
   const handleChange = (event) => {
     event.persist();
     setData({ ...data, [event.target.name]: event.target.value });
+  };
+
+  const handleTab = (event) => {
+    event.persist();
+    if (tab === 0) {
+      setTab(1);
+    } else {
+      setTab(0);
+    }
   };
 
   const handleSend = async (event) => {
@@ -109,7 +121,7 @@ export default function SharePostDialog(props) {
       } else if (v.split(/(?:^|\n)```(?:\n|$)/g).length >= 3) {
         return v.split(/(?:^|\n)```(?:\n|$)/g).map((v2,i2)=>{
           if (i2 % 2 !== 0) {
-            return <><Typography className={classes.mono}>{v2}</Typography></>;
+            return <><br /><Typography className={classes.mono}>{v2}</Typography><br /></>;
           } else {
             return v2
           }
@@ -120,23 +132,41 @@ export default function SharePostDialog(props) {
     })
   };
 
+  let form;
+
+  if (tab % 2 === 0) {
+    form =
+      <form className={classes.root} noValidate autoComplete="off">
+        <TextField
+          label="Message"
+          value={data.message}
+          name="message"
+          onChange={handleChange}
+          fullWidth
+          multiline
+          rows={6}
+          variant="outlined"
+        />
+      </form>;
+  } else {
+    form =
+      <Card variant="outlined">
+        <Typography variant="body1" className={classes.message}>
+          {HASHTAG_FORMATTER(data.message)}
+        </Typography>
+      </Card>
+  }
+
   return (
     <Fragment>
-      <Dialog open={props.open} onBackdropClick={props.handleClose}>
+      <Dialog open={props.open} onBackdropClick={props.handleClose} fullWidth maxWidth="sm">
         <DialogTitle id="alert-dialog-title">{"Share Post"}</DialogTitle>
         <DialogContent>
-          <form className={classes.root} noValidate autoComplete="off">
-            <TextField
-              label="Message"
-              value={data.message}
-              name="message"
-              onChange={handleChange}
-              fullWidth
-              multiline
-              rows={6}
-              variant="outlined"
-            />
-          </form>
+          <Tabs value={tab} onChange={handleTab}>
+            <Tab label="Create" />
+            <Tab label="Preview" />
+          </Tabs>
+          {form}
           {charcount}
         </DialogContent>
         <DialogActions>
