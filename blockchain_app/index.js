@@ -74,6 +74,14 @@ const appConfig = utils.objects.mergeDeep({}, configDevnet, {
     logger: {
         consoleLogLevel: 'info',
     },
+    network: {
+        seedPeers: [
+            {
+                ip: '178.128.142.130',
+                port: 5000,
+            },
+        ],
+    },
     plugins: {
         httpApi: {
             port: 4000,
