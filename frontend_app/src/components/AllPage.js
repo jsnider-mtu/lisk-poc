@@ -14,8 +14,8 @@ const useStyles = makeStyles((theme) => ({
     position: 'fixed',
     top: theme.spacing(9),
     left: theme.spacing(3),
-    right: 0,
-    'margin-left': 'auto',
+    //right: 0,
+    //'margin-left': 'auto',
     'margin-right': 'auto',
   },
   searchbar: {
