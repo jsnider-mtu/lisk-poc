@@ -23,11 +23,11 @@ function TrashPage() {
     let curUser = {};
     async function fetchData() {
       if (passp.split(' ').length !== 12) {
-        window.location.href = "/all";
+        window.location.href = "#/all";
       }
       curUser = await api.fetchAccountInfo(curUserAddress);
       if (curUser.socmed.moderator === false) {
-        window.location.href = "/all";
+        window.location.href = "#/all";
       }
       let allPosts = await api.fetchAllPosts();
       var i = 0;

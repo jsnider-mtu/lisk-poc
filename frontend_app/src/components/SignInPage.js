@@ -57,7 +57,7 @@ export default function SignInPage() {
   useEffect(() => {
     if (!document.cookie.includes('passphrase')) {
     } else if (document.cookie.split('passphrase')[1].slice(1).split('; ')[0].split(' ').length === 12) {
-      window.location.href = '/home';
+      window.location.href = '#/home';
     }
   }, []);
 
@@ -75,7 +75,7 @@ export default function SignInPage() {
         setOpenLoginError(true);
       } else if (data.username === res.socmed.name) {
         document.cookie = `passphrase=${data.passphrase}; path=/`;
-        window.location.href = '/home';
+        window.location.href = '#/home';
       } else {
         setOpenLoginError(true);
       }
@@ -127,7 +127,7 @@ export default function SignInPage() {
         </Button>
         <Grid container>
           <Grid item>
-            <Link href="/signup" variant="body2">
+            <Link href="#/signup" variant="body2">
               {"Don't have an account? Sign Up"}
             </Link>
           </Grid>
