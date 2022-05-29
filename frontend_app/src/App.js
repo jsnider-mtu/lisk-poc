@@ -153,7 +153,7 @@ function App() {
         logoutlink = <></>;
     } else if (document.cookie.split('passphrase')[1].slice(1).split('; ')[0].split(' ').length === 12) {
         const base32UIAddress = cryptography.getBase32AddressFromPassphrase(document.cookie.split('passphrase')[1].slice(1).split('; ')[0]).toString('hex');
-        const addyPath = `/accounts/${base32UIAddress}`
+        const addyPath = `#/accounts/${base32UIAddress}`
         myAcct =
             <Button
                 size="small"
@@ -170,7 +170,7 @@ function App() {
                 className={classes.appBarLink}
                 onClick={() => {
                   document.cookie = "passphrase=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-                  window.location.href = "/signin";
+                  window.location.href = "#/signin";
                 }}
             >
                 Logout
@@ -221,7 +221,7 @@ function App() {
                     size="large"
                     color="inherit"
                     startIcon={<DeleteIcon />}
-                    href="/trash"
+                    href="#/trash"
                 >
                     Deleted Posts
                 </Button><br /><br />
@@ -268,7 +268,7 @@ function App() {
                                         size="large"
                                         color="inherit"
                                         startIcon={<AllInclusiveIcon />}
-                                        href="/all"
+                                        href="#/all"
                                     >
                                         All Posts
                                     </Button><br /><br />
@@ -323,7 +323,7 @@ function App() {
                                     <SearchBar
                                         value={searchValue}
                                         onChange={(newValue) => setSearchValue(newValue)}
-                                        onRequestSearch={() => window.location.href=`/search/${encodeURIComponent(searchValue)}`}
+                                        onRequestSearch={() => window.location.href=`#/search/${encodeURIComponent(searchValue)}`}
                                     />
                                 </div>
                             </Grid>
