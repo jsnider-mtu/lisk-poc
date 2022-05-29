@@ -1,0 +1,9 @@
+/home/node/.lisk/socmed/logs/lisk.log {
+    compress
+    daily
+    rotate 7
+    delaycompress
+    maxsize 1G
+    missingok
+}
+
