@@ -1,5 +1,6 @@
 /home/node/.lisk/socmed/logs/lisk.log {
     su node node
+    copytruncate
     compress
     daily
     rotate 7
