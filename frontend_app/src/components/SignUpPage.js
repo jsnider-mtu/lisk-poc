@@ -127,7 +127,7 @@ export default function SignUpPage() {
         </Grid>
         <Grid container className={classes.form} justify="flex-end">
           <Grid item>
-            <Link href="/signin" variant="body2">
+            <Link href="#/signin" variant="body2">
               Already have an account? Sign in
             </Link>
           </Grid>
@@ -166,7 +166,7 @@ export default function SignUpPage() {
         username={data.username}
         passphrase={data.passphrase}
         handleClose={() => {
-          window.location.href = `/home`;
+          window.location.href = `#/home`;
         }}
       />
     </Container>

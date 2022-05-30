@@ -53,7 +53,7 @@ function HomePage() {
     async function fetchData() {
       curUser = await fetchAccountInfo(curUserAddress);
       if (curUser.socmed.follows.length === 0) {
-        window.location.href = "/all";
+        window.location.href = "#/all";
       }
       let allPosts = await fetchAllPosts();
       var i = 0;
@@ -81,10 +81,10 @@ function HomePage() {
     }
     if (document.cookie.includes('passphrase')) {
       if (document.cookie.split('passphrase')[1].slice(1).split('; ')[0].split(' ').length !== 12) {
-        window.location.href="/signin";
+        window.location.href="#/signin";
       }
     } else {
-      window.location.href="/signin";
+      window.location.href="#/signin";
     }
     fetchData();
     setNewPosts(false);

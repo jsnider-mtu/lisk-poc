@@ -49,7 +49,7 @@ class SOCMEDAPIPlugin extends BasePlugin {
     this._app.get("/api/posts", async (_req, res) => {
       const posts = await this._channel.invoke("socmed:getAllPosts");
       const data = await Promise.all(posts.map(async token => {
-        const dbKey = `socmed:${token.id}`;
+        // const dbKey = `socmed:${token.id}`;
         // let tokenHistory = await getNFTHistory(this._db, dbKey);
         // tokenHistory = tokenHistory.map(h => h.toString('binary'));
         // tokenHistory = tokenHistory.map(h => {
@@ -72,7 +72,7 @@ class SOCMEDAPIPlugin extends BasePlugin {
     this._app.get("/api/posts/:id", async (req, res) => {
       const posts = await this._channel.invoke("socmed:getAllPosts");
       const token = posts.find((t) => t.id === req.params.id);
-      const dbKey = `socmed:${token.id}`;
+      // const dbKey = `socmed:${token.id}`;
       // let tokenHistory = await getNFTHistory(this._db, dbKey);
       // tokenHistory = tokenHistory.map(h => h.toString('binary'));
       // tokenHistory = tokenHistory.map(h => {
