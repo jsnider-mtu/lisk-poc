@@ -51,6 +51,10 @@ export default function CreateChildPostDialog(props) {
     passphrase: passp,
   });
 
+  if (passp !== data.passphrase) {
+    setData({ ...data, passphrase: passp });
+  }
+
   const handleChange = (event) => {
     event.persist();
     setData({ ...data, [event.target.name]: event.target.value });
