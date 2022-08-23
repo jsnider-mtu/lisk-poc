@@ -20,3 +20,10 @@ cd frontend_app/
 npm install
 npm start
 ```
+
+To build and deploy the frontend:
+
+```
+cd frontend_app/
+npm run-script build && npm run-script deploy
+```
