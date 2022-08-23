@@ -23,6 +23,8 @@ npm start
 
 To build and deploy the frontend:
 
+The frontend is hosted in S3 in my case. You will need to change the deploy script in frontend\_app/package.json
+
 ```
 cd frontend_app/
 npm run-script build && npm run-script deploy
