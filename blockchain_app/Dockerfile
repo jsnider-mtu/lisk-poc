@@ -5,7 +5,7 @@ EXPOSE 8080
 EXPOSE 4000
 EXPOSE 5000
 
-RUN apt-get update && apt-get install -y logrotate procps curl
+RUN apt-get update && apt-get install -y logrotate procps curl python3 make
 
 RUN useradd -m -U -s /bin/bash -p l33th4x0r node
 
@@ -21,9 +21,12 @@ RUN chmod 644 /etc/logrotate.d/socmed
 
 #USER node
 
-COPY . /home/node/blockchain_app
+COPY --chown=node:node . /home/node/blockchain_app
 
 WORKDIR /home/node/blockchain_app
+
+RUN su -c ". /home/node/.nvm/nvm.sh && npm i" node
+#RUN su -c ". /home/node/.nvm/nvm.sh && /home/node/.nvm/versions/node/v12.22.1/bin/npm i" node
 
 #ENTRYPOINT ["node", "index.js"]
 CMD service cron start && su -c "rm /home/node/.lisk/socmed/tmp/pids/controller.pid; /home/node/.nvm/versions/node/v12.22.1/bin/node index.js" node
