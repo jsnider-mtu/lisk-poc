@@ -26,4 +26,4 @@ COPY . /home/node/blockchain_app
 WORKDIR /home/node/blockchain_app
 
 #ENTRYPOINT ["node", "index.js"]
-CMD service cron start && su -c "rm /home/node/.lisk/socmed/tmp/pids/controller.pid; node index.js" node
+CMD service cron start && su -c "rm /home/node/.lisk/socmed/tmp/pids/controller.pid; /home/node/.nvm/versions/node/v12.22.1/bin/node index.js" node
