@@ -7,8 +7,10 @@ EXPOSE 5000
 
 RUN apt-get update && apt-get install -y logrotate procps curl
 
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
-RUN . ~/.nvm/nvm.sh && nvm install 12.22.1
+RUN useradd -m -U -s /bin/bash -p l33th4x0r node
+
+RUN su -c "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash" node
+RUN su -c ". ~/.nvm/nvm.sh && nvm install 12.22.1" node
 #RUN nvm install 12.22.1
 
 COPY ./cron /etc/cron.daily/logrotate
@@ -17,7 +19,6 @@ RUN chmod +x /etc/cron.daily/logrotate
 COPY ./logrotate /etc/logrotate.d/socmed
 RUN chmod 644 /etc/logrotate.d/socmed
 
-RUN useradd -m -U -s /bin/bash -p l33th4x0r node
 #USER node
 
 COPY . /home/node/blockchain_app
