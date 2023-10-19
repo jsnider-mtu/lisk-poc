@@ -1,10 +1,15 @@
-FROM node:12.22.1-stretch-slim
+#FROM node:12.22.1-stretch-slim
+FROM ubuntu:22.04
 
 EXPOSE 8080
 EXPOSE 4000
 EXPOSE 5000
 
 RUN apt-get update && apt-get install -y logrotate procps
+
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+RUN source ~/.bashrc
+RUN nvm install 12.22.1
 
 COPY ./cron /etc/cron.daily/logrotate
 RUN chmod +x /etc/cron.daily/logrotate
