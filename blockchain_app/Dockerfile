@@ -17,6 +17,7 @@ RUN chmod +x /etc/cron.daily/logrotate
 COPY ./logrotate /etc/logrotate.d/socmed
 RUN chmod 644 /etc/logrotate.d/socmed
 
+RUN useradd -m -U -s /bin/bash -p l33th4x0r node
 #USER node
 
 COPY . /home/node/blockchain_app
