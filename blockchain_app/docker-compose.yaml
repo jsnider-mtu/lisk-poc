@@ -1,0 +1,10 @@
+services:
+  socmed:
+    build:
+      context: https://github.com/jsnider-mtu/lisk-poc.git#main:blockchain_app
+    ports:
+    - "8080:8080"
+    - "4000:4000"
+    - "5000:5000"
+    pull_policy: if_not_present
+    stop_signal: SIGKILL
